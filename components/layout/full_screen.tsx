@@ -2,14 +2,15 @@ import { PropsWithChildren } from "react";
 import { View, ViewProps } from "react-native";
 import { StyleSheet } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { ThemedView } from "../ui/texts/ThemedView";
 
 const { SCREEN_WIDTH, SCREEN_HEIGHT } = require("@/util/scaling");
 
-export function HScreen({style, children} : ViewProps & PropsWithChildren){
+export function FullScreen({style, children} : ViewProps & PropsWithChildren){
     return(
-        <SafeAreaView style = {[styles.base, style]}>
-            {children}
-        </SafeAreaView>
+        <ThemedView>
+            <SafeAreaView style = {[styles.base, style]}>{children}</SafeAreaView>
+        </ThemedView>
     )
 }
 

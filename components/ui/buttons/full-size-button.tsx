@@ -1,6 +1,6 @@
 import { StyleSheet, Pressable, ViewProps } from 'react-native';
 import { CustomAnimatedPressable } from './animated-pressable';
-import  { RegularText } from '@/components/texts/regular-text'
+import  { RegularText } from '@/components/ui/texts/regular-text'
 import { PropsWithChildren } from 'react';
 
 const {wScale, hScale} = require('@/util/scaling');

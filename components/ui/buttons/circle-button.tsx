@@ -1,5 +1,5 @@
 import { StyleSheet, TextStyle, ViewProps } from 'react-native';
-import { RegularText } from '@/components/texts/regular-text'
+import { RegularText } from '@/components/ui/texts/regular-text'
 import { CustomAnimatedPressable } from './animated-pressable';
 import { PropsWithChildren } from 'react';
 
