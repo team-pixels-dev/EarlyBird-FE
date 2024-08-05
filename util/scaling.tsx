@@ -6,10 +6,10 @@ const guidelineBaseWidth = 390;
 const guidelineBaseHeight = 844;
 
 // 뷰포트(넓이)기반 스케일링
-const wScale = size => width / guidelineBaseWidth * size;
+const wScale = (size: number) => width / guidelineBaseWidth * size;
 
 // 높이기반 스케일링
-const hScale = size => height / guidelineBaseHeight * size;
+const hScale = (size: number) => height / guidelineBaseHeight * size;
 
 // 화면 전체 높이
 const SCREEN_WIDTH = width;
@@ -18,7 +18,7 @@ const SCREEN_WIDTH = width;
 const SCREEN_HEIGHT = height;
 
 
-// factor값 제어
-const moderateScale = (size, factor = 0.5) => size + ( scale(size) - size ) * factor;
+// // factor값 제어
+// const moderateScale = (size, factor = 0.5) => size + ( scale(size) - size ) * factor;
 
-module.exports = {wScale, hScale, SCREEN_WIDTH, SCREEN_HEIGHT, moderateScale};
+export {wScale, hScale, SCREEN_WIDTH, SCREEN_HEIGHT};

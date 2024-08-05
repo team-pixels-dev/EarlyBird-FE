@@ -2,7 +2,7 @@ import { PropsWithChildren } from "react";
 import { View, ViewProps } from "react-native";
 import { StyleSheet } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ThemedView } from "../ui/texts/ThemedView";
+import { ThemedView } from "../ui/themed-view";
 
 const { SCREEN_WIDTH, SCREEN_HEIGHT } = require("@/util/scaling");
 

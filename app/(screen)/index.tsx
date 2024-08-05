@@ -1,30 +1,32 @@
-import { Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import { StyleSheet } from "react-native";
 import { RegularText } from '@/components/ui/texts/regular-text'
 import { FullScreen } from "@/components/layout/full_screen";
 import { FullSizeButton } from "@/components/ui/buttons/full-size-button";
 import { useColorScheme } from '@/hooks/useColorScheme';
-import { ThemedText } from "@/components/ui/texts/ThemedText";
+import { ThemedText } from "@/components/ui/texts/themed-text";
 import { StartLeftView } from "@/components/layout/start_left_view";
+import { ScheduleList } from "@/components/feature/showSchedule/schedule-list";
 
 const { hScale } = require('@/util/scaling');
 
 export default function Index() {
-  const colorScheme = useColorScheme();
   return (
     <FullScreen>
-      <View>
-        <StartLeftView>
-          <ThemedText type="defaultSemiBold" style={styles.text}>나의 약속</ThemedText>
-        </StartLeftView>
-        <ThemedText type="defaultSemiBold" style={styles.text}>나의 약속</ThemedText>
-      </View>
+      <StartLeftView style={styles.top1}>
+          <ThemedText type="defaultSemiBold" style={{fontSize: hScale(20)}}>나의 약속</ThemedText>
+      </StartLeftView>
+      <ScrollView>
+        <ScheduleList type="soon"></ScheduleList>
+        <ScheduleList type="other"></ScheduleList>
+      </ScrollView>
     </FullScreen>
   );
 }
 
 const styles = StyleSheet.create({
-  text:{
-    fontSize: hScale(20)
-  }
+  top1: {
+    marginTop: hScale(65),
+    marginBottom: hScale(53)
+  },
 })
