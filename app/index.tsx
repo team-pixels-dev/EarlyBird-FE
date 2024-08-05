@@ -7,6 +7,7 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 import { ThemedText } from "@/components/ui/texts/themed-text";
 import { StartLeftView } from "@/components/layout/start_left_view";
 import { ScheduleList } from "@/components/feature/showSchedule/schedule-list";
+import { FloatingPlusButton } from "@/components/ui/buttons/floating-plus-button";
 
 const { hScale } = require('@/util/scaling');
 
@@ -20,6 +21,7 @@ export default function Index() {
         <ScheduleList type="soon"></ScheduleList>
         <ScheduleList type="other"></ScheduleList>
       </ScrollView>
+      <FloatingPlusButton></FloatingPlusButton>
     </FullScreen>
   );
 }

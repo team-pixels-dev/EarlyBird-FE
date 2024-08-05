@@ -1,10 +1,9 @@
 import { Pressable, type ViewProps, GestureResponderEvent  } from 'react-native';
-import { PropsWithChildren } from 'react';
 import Animated, { useSharedValue, withSpring, useAnimatedStyle } from 'react-native-reanimated';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
-export type CustomAnimatedPressableProps = ViewProps & PropsWithChildren & {
+export type CustomAnimatedPressableProps = ViewProps & {
   onPress?: (event: GestureResponderEvent) => void;
   disabled?: boolean;
 };

@@ -4,6 +4,7 @@ import { ViewProps } from "react-native";
 import { StyleSheet } from "react-native";
 import { hScale, wScale } from "@/util/scaling";
 import { useThemeColor } from "@/hooks/useThemeColor";
+import { router } from "expo-router";
 
 export type EachScheduleProps = ViewProps & {
     type : 'soon' | 'other'
@@ -11,8 +12,11 @@ export type EachScheduleProps = ViewProps & {
 
 export function EachSchedule({type, children} : EachScheduleProps){
     const color = type === 'soon' ? useThemeColor('brightTint') : useThemeColor('brightGray')
+    const navigateNextPage = () => {
+        router.navigate('(schedule)/remaind-schedule');
+    }
     return (
-        <CustomAnimatedPressable style={[styles.base, {backgroundColor:color}]}>
+        <CustomAnimatedPressable style={[styles.base, {backgroundColor:color}]} onPress={navigateNextPage}>
             <ThemedText style={{fontSize:hScale(16)}} type="defaultSemiBold">{children}</ThemedText>
         </CustomAnimatedPressable>
     )
