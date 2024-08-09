@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
       backgroundColor: "#FFF500",
       justifyContent: 'center',
       alignItems: 'center',
-      borderRadius:wScale(38.5)
+      borderRadius:8
     },
     font: {
         fontSize: wScale(16),

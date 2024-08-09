@@ -19,8 +19,6 @@ export function FloatingPlusButton({style, onPress} : FloatingPlusButtonProps){
 
 const styles = StyleSheet.create({
     base: {
-        position: 'absolute',
-        bottom:hScale(71),
         width: hScale(73),
         height: hScale(73),
         borderRadius: hScale(73),

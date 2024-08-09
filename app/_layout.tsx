@@ -45,9 +45,8 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack screenOptions={{
         headerShown:false,
-        animation: 'ios',
+        // animation: 'ios',
         }}>
-        <Stack.Screen name="index"/>
         <Stack.Screen name="(schedule)"/>
         <Stack.Screen name="+not-found" />
       </Stack>
