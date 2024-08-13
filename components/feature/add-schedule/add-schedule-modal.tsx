@@ -1,44 +1,55 @@
+import React, { useState } from 'react';
 import Modal from "react-native-modal";
-import { Platform, ScrollView, StyleSheet, View } from "react-native";
-import { ThemedText } from "@/components/ui/texts/themed-text";
-import { ThemedView } from "@/components/ui/themed-view";
-import { hScale, SCREEN_HEIGHT, SCREEN_WIDTH, wScale } from "@/util/scaling";
-import { AddScheduleHeader } from "./add-schedule-header";
-import { AddScheduleSetTime } from "./set-time/add-schedule-set-time";
-import { AddScheduleRepeat } from "./repeat/add-schedule-repeat";
-import { AddScheduleSetReadyTime } from "./set-ready-time/add-schedule-set-ready-time";
-import { FullSizeButton } from "@/components/ui/buttons/full-size-button";
+import { Platform, StyleSheet, View } from "react-native";
+import { AddScheduleScreen1 }from "./screen1/add-schedule-screen1";
+import { AddScheduleScreen2 } from "./screen2/add-schedule-screen2";
+import { ThemedView } from '@/components/ui/themed-view';
+import { hScale, SCREEN_WIDTH, wScale } from '@/util/scaling';
 
 export type modalProps  = {
   modalOpen: boolean,
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function AddScheduleModal({modalOpen, setModalOpen} : modalProps) {
+export function AddScheduleModal({ modalOpen, setModalOpen }: modalProps) {
+  const [screen, setScreen] = useState(1);
+  const closeModal = () => {
+    setModalOpen(false)
+    setScreen(1)
+  }
+
+  const renderScreen = () => {
+    if (screen === 1) {
+      return <AddScheduleScreen1 setScreen={setScreen} />;
+    } else if (screen === 2) {
+      return <AddScheduleScreen2 setScreen={setScreen} />;
+    }
+  };
+
   return (
     <Modal 
       isVisible={modalOpen} 
-      onBackButtonPress={()=>setModalOpen(false)} 
       backdropTransitionOutTiming={0} 
-      onSwipeComplete={()=>setModalOpen(false)}
+      animationInTiming={500}
+      animationOutTiming={500}
+      backdropTransitionInTiming={0}
+      onBackButtonPress={closeModal} 
+      onSwipeComplete={closeModal}
+      onBackdropPress={closeModal}
       swipeDirection={['down']}
       style={styles.view}>
       <ThemedView style={styles.modalArea}>
-        <AddScheduleHeader/>
-        <AddScheduleSetTime style={{marginTop:hScale(37)}}/>
-        <AddScheduleRepeat style={{marginTop:hScale(55)}}/>
-        <AddScheduleSetReadyTime style={{marginTop:hScale(49)}}/>
-        <FullSizeButton style={{position:"absolute", bottom:hScale(50)}}>다음</FullSizeButton>
+        {renderScreen()}
       </ThemedView>
     </Modal>
   );
 }
 
 const styles = StyleSheet.create({
-  view:{
-    flex:1,
+  view: {
+    flex: 1,
     justifyContent: 'flex-end',
-    margin:0,
+    margin: 0,
   },
   modalArea: {
     borderTopRightRadius:wScale(28),
@@ -52,6 +63,5 @@ const styles = StyleSheet.create({
         height:hScale(760),
       }
     })
-    
   }
-})
+});

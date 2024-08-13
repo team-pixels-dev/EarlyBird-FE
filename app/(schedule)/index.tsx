@@ -5,9 +5,9 @@ import { ThemedText } from "@/components/ui/texts/themed-text";
 import { StartLeftView } from "@/components/layout/start_left_view";
 import { ScheduleList } from "@/components/feature/showSchedule/schedule-list";
 import { AddScheduleButton } from "@/components/feature/add-schedule/add-schedule-button";
-import { AddScheduleModal } from "@/components/feature/add-schedule/add-schedule-modal"
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigation } from "expo-router";
+import { AddScheduleModal } from "../../components/feature/add-schedule/add-schedule-modal";
 
 const { hScale } = require('@/util/scaling');
 
@@ -51,8 +51,12 @@ export default function Index() {
         <ScheduleList type="soon"></ScheduleList>
         <ScheduleList type="other"></ScheduleList>
       </ScrollView>
-      <AddScheduleButton onPress={() => setModalOpen(!modalOpen)}/>
-      <AddScheduleModal setModalOpen={setModalOpen} modalOpen={modalOpen}/>
+      <AddScheduleButton 
+        onPress={() => setModalOpen(!modalOpen)}
+      />
+      <AddScheduleModal 
+        setModalOpen={setModalOpen}
+        modalOpen={modalOpen}/>
     </FullScreen>
   );
 }
