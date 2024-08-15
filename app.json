@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "golden-hour",
-    "slug": "golden-hour",
+    "name": "early-bird",
+    "slug": "early-bird",
     "version": "1.0.0",
     "runtimeVersion": "1.0.0",
     "orientation": "portrait",
@@ -15,14 +15,14 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.jayou2323.goldenhour"
+      "bundleIdentifier": "com.jayou2323.early-bird"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.jayou2323.goldenhour"
+      "package": "com.jayou2323.early-bird"
     },
     "web": {
       "bundler": "metro",
