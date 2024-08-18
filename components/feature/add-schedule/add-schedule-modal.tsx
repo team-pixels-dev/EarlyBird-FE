@@ -37,6 +37,7 @@ export function AddScheduleModal({ modalOpen, setModalOpen }: modalProps) {
       onSwipeComplete={closeModal}
       onBackdropPress={closeModal}
       swipeDirection={['down']}
+      swipeThreshold={100}
       style={styles.view}>
       <ThemedView style={styles.modalArea}>
         {renderScreen()}

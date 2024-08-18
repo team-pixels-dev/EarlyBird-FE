@@ -1,23 +1,33 @@
+import { CustomAnimatedPressable } from "@/components/ui/buttons/animated-pressable";
 import { ThemedText } from "@/components/ui/texts/themed-text";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { hScale, wScale } from "@/util/scaling";
 import { StyleSheet, View, ViewProps } from "react-native";
 
 type EachDayProps = {
-    day : string
+    index : number,
+    day : string,
+    repeatDays : number[],
+    setRepeatDays: React.Dispatch<React.SetStateAction<number[]>>
 }
 
-export function EachDay({day} : EachDayProps) {
+export function EachDay({index, day, repeatDays, setRepeatDays} : EachDayProps) {
     const brightGray = useThemeColor("brightGray");
     const brightTint = useThemeColor("brightTint");
 
+    function handleDayPress(){
+        setRepeatDays(repeatDays => repeatDays.map((item, i) => (i === index ? 1 - item : item)))
+    }
+
     return(
-        <View style={[
+        <CustomAnimatedPressable style={[
             {backgroundColor: brightGray},
-            {borderColor: brightTint},
-            styles.default]}>
+            {borderColor: repeatDays[index] === 1 ? brightTint : brightGray},
+            styles.default]}
+            onPress={handleDayPress}
+            >
             <ThemedText type="default" style={{fontSize: wScale(16)}}>{day}</ThemedText>
-        </View>
+        </CustomAnimatedPressable>
     )
 }
 

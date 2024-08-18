@@ -5,6 +5,9 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect, useState } from 'react';
 import 'react-native-reanimated';
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { Persistor, Store } from "@/modules/redux/store";
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 
@@ -42,14 +45,18 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack screenOptions={{
-        headerShown:false,
-        // animation: 'ios',
-        }}>
-        <Stack.Screen name="(schedule)"/>
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
+    <Provider store={Store}>
+      <PersistGate persistor={Persistor}>
+        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+          <Stack screenOptions={{
+            headerShown:false,
+            // animation: 'ios',
+            }}>
+            <Stack.Screen name="(schedule)"/>
+            <Stack.Screen name="+not-found" />
+          </Stack>
+        </ThemeProvider>
+      </PersistGate>
+    </Provider>
   );
 }

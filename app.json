@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "early-bird",
-    "slug": "early-bird",
+    "slug": "golden-hour",
     "version": "1.0.0",
     "runtimeVersion": "1.0.0",
     "orientation": "portrait",
@@ -22,7 +22,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.jayou2323.early-bird"
+      "package": "com.jayou2323.goldenhour"
     },
     "web": {
       "bundler": "metro",

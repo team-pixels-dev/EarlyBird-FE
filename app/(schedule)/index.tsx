@@ -1,9 +1,8 @@
-import { Alert, BackHandler, ScrollView, Text, View } from "react-native";
-import { StyleSheet } from "react-native";
+import { Alert, BackHandler, ScrollView, StyleSheet } from "react-native";
 import { FullScreen } from "@/components/layout/full_screen";
 import { ThemedText } from "@/components/ui/texts/themed-text";
 import { StartLeftView } from "@/components/layout/start_left_view";
-import { ScheduleList } from "@/components/feature/showSchedule/schedule-list";
+import { ScheduleList } from "@/components/feature/show-schedule/schedule-list";
 import { AddScheduleButton } from "@/components/feature/add-schedule/add-schedule-button";
 import { useEffect, useState } from "react";
 import { useNavigation } from "expo-router";
