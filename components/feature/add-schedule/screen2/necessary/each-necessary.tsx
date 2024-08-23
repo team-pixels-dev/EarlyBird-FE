@@ -2,13 +2,13 @@ import { ThemedText } from "@/components/ui/texts/themed-text";
 import { ThemedView } from "@/components/ui/themed-view";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { hScale, wScale } from "@/util/scaling";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, ViewProps } from "react-native";
 
-export function EachNecessary() {
+export function EachNecessary({children} : ViewProps) {
     const color = useThemeColor("brightTint")
     return (
         <View style={[styles.eachNecessary, {backgroundColor:color}]}>
-            <ThemedText type="defaultSemiBold" style={{fontSize:hScale(14)}}>명함첩</ThemedText>
+            <ThemedText type="defaultSemiBold" style={{fontSize:hScale(14)}}>{children}</ThemedText>
         </View>
     )
 }

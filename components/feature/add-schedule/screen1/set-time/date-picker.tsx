@@ -3,14 +3,18 @@ import { hScale } from '@/util/scaling'
 import React, { useEffect, useState } from 'react'
 import { View } from 'react-native'
 import DatePicker from 'react-native-date-picker'
+import { useDispatch, useSelector } from "react-redux";
+import { setScheduleDate } from '@/modules/redux/slice/template-schedule-cache-slice'
+import { RootState } from '@/modules/redux/root-reducer'
 
 export function AddScheduleDatePicker() {
-  const [date, setDate] = useState(new Date())
+  const dispatch = useDispatch()
+  const schedule_date = useSelector((state: RootState) => state.templateScheduleCache.schedule_date);
 
   const color = useThemeColor('tint')
 
   function handleDataCange(date: Date) {
-    setDate(date);
+    dispatch(setScheduleDate(date.toISOString()));
   }
   
   return (
@@ -19,8 +23,9 @@ export function AddScheduleDatePicker() {
       alignItems:'center',
     }}>
       <DatePicker 
-        date={date}
+        date={new Date(schedule_date)}
         onDateChange={handleDataCange}
+        is24hourSource={'locale'}
         locale='ko-KR-ko'
         dividerColor={color}
         style={{height:hScale(138)}}

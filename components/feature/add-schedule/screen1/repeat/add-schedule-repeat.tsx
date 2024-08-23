@@ -1,14 +1,20 @@
 import { StartLeftView } from "@/components/layout/start_left_view";
 import { ThemedText } from "@/components/ui/texts/themed-text";
-import { hScale, SCREEN_WIDTH, wScale } from "@/util/scaling";
+import { hScale, wScale } from "@/util/scaling";
 import { StyleSheet, View, ViewProps } from "react-native";
-import { CustomAnimatedPressable } from "@/components/ui/buttons/animated-pressable";
 import { EachDay } from "./each-day";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setScheduleRepeat } from "@/modules/redux/slice/template-schedule-cache-slice";
+import { RootState } from "@/modules/redux/root-reducer";
 
 export function AddScheduleRepeat({style}: ViewProps){
     const daysOfWeek = ["월", "화", "수", "목", "금", "토", "일"];
-    const [repeatDays, setRepeatDays] = useState([0,0,0,0,0,0,0])
+    const [repeatDays, setRepeatDays] = useState([false,false,false,false,false,false,false])
+    const dispatch = useDispatch();
+    useEffect(()=>{
+        dispatch(setScheduleRepeat(repeatDays));
+    },[repeatDays])
     return(
         <View style={[styles.base, style]}>
             <StartLeftView>

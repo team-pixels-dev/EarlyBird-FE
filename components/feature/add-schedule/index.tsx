@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Modal from "react-native-modal";
 import { Platform, StyleSheet, View } from "react-native";
-import { AddScheduleScreen1 }from "./screen1/add-schedule-screen1";
+import { AddScheduleScreen1 }from "./screen1";
 import { AddScheduleScreen2 } from "./screen2/add-schedule-screen2";
 import { ThemedView } from '@/components/ui/themed-view';
 import { hScale, SCREEN_WIDTH, wScale } from '@/util/scaling';
