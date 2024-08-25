@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useScheduleTimes } from "./useScheduleTimes";  // 새로 만든 훅을 임포트
 
 export function useScheduleValidation() {

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import Modal from "react-native-modal";
-import { Platform, StyleSheet, View } from "react-native";
+import { Dimensions, KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native";
 import { AddScheduleScreen1 }from "./screen1";
-import { AddScheduleScreen2 } from "./screen2/add-schedule-screen2";
+import { AddScheduleScreen2 } from "./screen2";
 import { ThemedView } from '@/components/ui/themed-view';
-import { hScale, SCREEN_WIDTH, wScale } from '@/util/scaling';
+import { hScale, SCREEN_HEIGHT, SCREEN_WIDTH, wScale } from '@/util/scaling';
 
 export type modalProps  = {
   modalOpen: boolean,
@@ -27,23 +27,33 @@ export function AddScheduleModal({ modalOpen, setModalOpen }: modalProps) {
   };
 
   return (
-    <Modal 
-      isVisible={modalOpen} 
-      backdropTransitionOutTiming={0} 
-      animationInTiming={500}
-      animationOutTiming={500}
-      backdropTransitionInTiming={0}
-      onBackButtonPress={closeModal} 
-      onSwipeComplete={closeModal}
-      onBackdropPress={closeModal}
-      swipeDirection={['down']}
-      swipeThreshold={100}
-      style={styles.view}>
-      <ThemedView style={styles.modalArea}>
-        {renderScreen()}
-      </ThemedView>
-    </Modal>
+      <Modal 
+        isVisible={modalOpen} 
+        backdropTransitionOutTiming={0} 
+        animationInTiming={500}
+        animationOutTiming={500}
+        backdropTransitionInTiming={0}
+        onBackButtonPress={closeModal} 
+        onSwipeComplete={closeModal}
+        onBackdropPress={closeModal}
+        swipeDirection={['down']}
+        swipeThreshold={100}
+        avoidKeyboard={false}
+        style={styles.view}>
+          <ThemedView style={styles.modalArea}>
+            {renderScreen()}
+          </ThemedView>
+      </Modal>
   );
+}
+
+function window() {
+  return Dimensions.get('window');
+}
+
+export function vh(size: number) {
+  const { height } = window();
+  return height * size / 100;
 }
 
 const styles = StyleSheet.create({

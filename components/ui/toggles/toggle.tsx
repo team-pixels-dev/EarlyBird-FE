@@ -21,11 +21,11 @@ export function Toggle({type} : ToggleType)  {
     const backgroundColor = useThemeColor('background');
     const schedule_start_time = useSelector((state:RootState)=>state.templateScheduleCache.schedule_start_time);
     const schedule_move_time = useSelector((state:RootState)=>state.templateScheduleCache.schedule_move_time);
-    const setter = type === "start" ? setScheduleStartTimeDay : setScheduleMoveTimeDay;
+    const setter = type === "ready" ? setScheduleStartTimeDay : setScheduleMoveTimeDay;
 
     useEffect(()=>{
         // 모달 open 시 준비, 출발 시점이 당일인지 전날인지 판단
-        const time = type === "start" ? schedule_start_time : schedule_move_time;
+        const time = type === "ready" ? schedule_start_time : schedule_move_time;
         handleSelection(time.day === "today" ? 1 : 0);
     }, []);
 

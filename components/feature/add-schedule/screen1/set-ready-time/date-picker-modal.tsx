@@ -8,26 +8,35 @@ import DatePicker from "react-native-date-picker";
 import Modal from "react-native-modal";
 import { Toggle } from "@/components/ui/toggles/toggle";
 import { StateType } from "./add-schedule-set-ready-time";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setScheduleMoveTimeDate, setScheduleStartTimeDate } from "@/modules/redux/slice/template-schedule-cache-slice";
+import { RootState } from "@/modules/redux/root-reducer";
 
 export type modalProps  = {
     modalOpen: boolean,
     setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    time: Date;
     type: StateType;
   }
 
-export function DatePickerModal({ modalOpen, setModalOpen, time, type }: modalProps) {
+export function DatePickerModal({ modalOpen, setModalOpen, type }: modalProps) {
     const color = useThemeColor('tint');
+
     const dispatch = useDispatch();
+
+    const schedule_ready_time = useSelector((state: RootState) => state.templateScheduleCache.schedule_start_time.date);
+    const schedule_move_time = useSelector((state: RootState) => state.templateScheduleCache.schedule_move_time.date);
+
+    const date = (type === "ready" ? new Date(schedule_ready_time) : new Date(schedule_move_time));
+    const text = (type === "ready" ? '준비 시작 ' : '이동 출발 ');
+
     function handleDataCange(date: Date) {
-        if(type === "start") {
+        if(type === "ready") {
             dispatch(setScheduleStartTimeDate(date.toISOString()));
         } else {
             dispatch(setScheduleMoveTimeDate(date.toISOString()));
         }
     }
+
     return (
         <Modal
             style={styles.view}
@@ -40,12 +49,12 @@ export function DatePickerModal({ modalOpen, setModalOpen, time, type }: modalPr
             onBackdropPress={()=>setModalOpen(false)}
         >
             <ThemedView style={styles.base}>
-                <ThemedText type="defaultSemiBold">{type === "start" ? '준비 시작 ' : '이동 출발 '}시간</ThemedText>
+                <ThemedText type="defaultSemiBold">{text}시간</ThemedText>
                 <View style={styles.content}>
                     <Toggle type={type}/>
                     <DatePicker
                         mode="time"
-                        date={time}
+                        date={date}
                         is24hourSource={'locale'}
                         onDateChange={handleDataCange}
                         locale='ko-KR-ko'
