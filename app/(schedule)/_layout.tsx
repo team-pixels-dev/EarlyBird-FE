@@ -5,6 +5,7 @@ export default function SetScheduleLayout() {
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="index"/>
       <Stack.Screen name="remaind-schedule"/>
+      <Stack.Screen name="add-schedule"/>
     </Stack>
   );
 }

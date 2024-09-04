@@ -4,23 +4,17 @@ import { GestureResponderEvent } from "react-native";
 import * as Haptics from 'expo-haptics';
 import { useDispatch } from "react-redux";
 import { resetSchedule } from "@/modules/redux/slice/template-schedule-cache-slice";
+import { router } from "expo-router";
 
-export type AddScheduleButtonProps = {
-    setModalOpen : React.Dispatch<React.SetStateAction<boolean>>
 
-}
-
-export function AddScheduleButton({ setModalOpen }: AddScheduleButtonProps) {
+export function AddScheduleButton() {
     const dispatch = useDispatch();
 
     const handlePress = (event: GestureResponderEvent) => {
         // 햅틱 피드백 실행
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
 
-        // 전달받은 onPress 콜백 실행
-        if (setModalOpen) {
-            setModalOpen(true);
-        }
+        router.navigate('/add-schedule');
         
         // schedule 초기화
         dispatch(resetSchedule());

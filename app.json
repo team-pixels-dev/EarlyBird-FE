@@ -15,14 +15,14 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.jayou2323.early-bird"
+      "bundleIdentifier": "com.earlybirdteam2024.early-bird"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.jayou2323.goldenhour"
+      "package": "com.earlybirdteam2024.early-bird"
     },
     "web": {
       "bundler": "metro",

@@ -4,10 +4,17 @@ import { hScale } from "@/util/scaling";
 import * as Haptics from 'expo-haptics';
 import { AddScheduleScreenProps } from "./index";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/modules/redux/root-reducer";
 
-export function AddScheduleNextPageButton({setScreen} : AddScheduleScreenProps) {
+export type AddScheduleNextPageButtonProps = {
+  setScreen: React.Dispatch<React.SetStateAction<number>>;
+}
+
+export function AddScheduleNextPageButton({setScreen} : AddScheduleNextPageButtonProps) {
     const { checkScheduleValid } = useScheduleValidation();
     const [ buttonText, setButtonText ] = useState('다음');
+    const scheduleCache = useSelector((state:RootState)=>state.templateScheduleCache);
     useEffect(()=>{
         const result = checkScheduleValid();
           if (result === "valid") {
@@ -26,6 +33,7 @@ export function AddScheduleNextPageButton({setScreen} : AddScheduleScreenProps) 
     function handleNextPress() {
         const result = checkScheduleValid();
           if (result === "valid") {
+            console.log(scheduleCache);
             setScreen(2);
           } else {
             Haptics.notificationAsync(

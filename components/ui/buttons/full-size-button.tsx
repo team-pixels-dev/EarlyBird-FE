@@ -2,6 +2,7 @@ import { StyleSheet, Pressable, ViewProps } from 'react-native';
 import { CustomAnimatedPressable } from './animated-pressable';
 import  { RegularText } from '@/components/ui/texts/regular-text'
 import { PropsWithChildren } from 'react';
+import { useThemeColor } from '@/hooks/useThemeColor';
 
 const {wScale, hScale} = require('@/util/scaling');
 
@@ -18,8 +19,10 @@ export type fullSizeButtonProps = Partial<{
 }> & ViewProps & PropsWithChildren;
 
 export function FullSizeButton({style = {}, textColor = "black", children, onPress = () => {}, disabled = false} : fullSizeButtonProps){
+    const tint = useThemeColor("tint");
+    const gray = useThemeColor("gray");
     return (
-        <CustomAnimatedPressable style={[styles.base, style, {backgroundColor:disabled?"#EBEBEB":"#FFF500"}]} onPress={onPress} disabled={disabled}>
+        <CustomAnimatedPressable style={[styles.base, style, {backgroundColor:disabled?gray:tint}]} onPress={onPress} disabled={disabled}>
                 <RegularText style={[styles.font, {color:textColor}]}>{children}</RegularText>
         </CustomAnimatedPressable>
     )

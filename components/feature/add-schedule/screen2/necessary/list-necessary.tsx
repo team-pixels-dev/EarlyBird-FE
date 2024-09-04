@@ -1,29 +1,52 @@
-import { ThemedText } from "@/components/ui/texts/themed-text";
-import { ThemedView } from "@/components/ui/themed-view";
-import { useThemeColor } from "@/hooks/useThemeColor";
-import { hScale, wScale } from "@/util/scaling";
-import { StyleSheet, View, ViewProps } from "react-native";
+import { ScrollView, StyleSheet, ViewProps } from "react-native";
 import { EachNecessary } from "./each-necessary";
 import { AddNecessary } from "./add-necessary";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/modules/redux/root-reducer";
+import { TextInputModal } from "@/components/ui/modal/text-input-modal";
+import { useState } from "react";
+import { addScheduleNecessary } from "@/modules/redux/slice/template-schedule-cache-slice";
+import { hScale, wScale } from "@/util/scaling";
 
-export function ListNecessary({style} : ViewProps) {
-    const color = useThemeColor("brightTint")
-    const schedule_necessary = useSelector((state:RootState)=>state.templateScheduleCache.schedule_necessary);
+export function ListNecessary({ style }: ViewProps) {
+    const scheduleNecessary = useSelector((state: RootState) => state.templateScheduleCache.schedule_necessary);
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const dispatch = useDispatch();
+
+    function handleDispatchText(text: string) {
+        dispatch(addScheduleNecessary(text));
+    }
 
     return (
-        <View style={[styles.base, style]}>
-            {schedule_necessary.map((item, index) => <EachNecessary key={index} children={item}/>)}
-            <AddNecessary/>
-        </View>
-    )
+        <ScrollView 
+            style={[styles.container, style]} 
+            showsHorizontalScrollIndicator={false} // 수평 스크롤바 숨기기 (선택 사항)
+            contentContainerStyle={styles.contentContainerStyle}
+        >
+            {scheduleNecessary.map((item, index) => (
+                <EachNecessary style={{marginRight: wScale(12)}} key={index} index={index} children={item} />
+            ))}
+            <AddNecessary onPress={() => setModalOpen(true)} />
+            <TextInputModal
+                title="준비물 추가"
+                defaultText=""
+                modalOpen={modalOpen}
+                setModalOpen={setModalOpen}
+                dispatchText={handleDispatchText}
+            />
+        </ScrollView>
+    );
 }
 
 const styles = StyleSheet.create({
-    base:{
-        height: hScale(88),
-        flexDirection: 'row',
-        columnGap: wScale(12)
+    container: {
+        maxHeight: hScale(485)
+    },
+    contentContainerStyle: {
+        columnGap: wScale(12),
+        rowGap: hScale(16),
+        flexDirection: "row",   
+        flexWrap: "wrap"
     }
-})
+});

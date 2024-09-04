@@ -1,8 +1,8 @@
 import { StartLeftView } from "@/components/layout/start_left_view";
 import { ThemedText } from "@/components/ui/texts/themed-text";
 import { ListNecessary } from "./list-necessary";
-import { hScale } from "@/util/scaling";
-import { ViewProps } from "react-native";
+import { hScale, SCREEN_WIDTH } from "@/util/scaling";
+import { View, ViewProps } from "react-native";
 
 export function AddScheduleNecessary({style} : ViewProps) {
     return (

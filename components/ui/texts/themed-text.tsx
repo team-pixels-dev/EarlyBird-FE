@@ -4,10 +4,13 @@ import { useThemeColor } from '@/hooks/useThemeColor';
 
 const { hScale } = require('@/util/scaling');
 
-export type ThemedTextProps = TextProps & {
+export type type = {
+  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link' | 'description';
+}
+
+export type ThemedTextProps = TextProps & type & {
   lightColor?: string;
   darkColor?: string;
-  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link' | 'description';
 };
 
 export function ThemedText({
@@ -23,12 +26,12 @@ export function ThemedText({
     <Text
       style={[
         { color },
-        type === 'default' ? styles.default : undefined,
-        type === 'title' ? styles.title : undefined,
-        type === 'defaultSemiBold' ? styles.defaultSemiBold : undefined,
-        type === 'subtitle' ? styles.subtitle : undefined,
-        type === 'link' ? styles.link : undefined,
-        type === 'description' ? styles.description : undefined,
+        type === 'default' ? themedTextstyles.default : undefined,
+        type === 'title' ? themedTextstyles.title : undefined,
+        type === 'defaultSemiBold' ? themedTextstyles.defaultSemiBold : undefined,
+        type === 'subtitle' ? themedTextstyles.subtitle : undefined,
+        type === 'link' ? themedTextstyles.link : undefined,
+        type === 'description' ? themedTextstyles.description : undefined,
         style,
       ]}
       {...rest}
@@ -36,7 +39,7 @@ export function ThemedText({
   );
 }
 
-const styles = StyleSheet.create({
+export const themedTextstyles = StyleSheet.create({
   default: {
     fontSize: hScale(18),
     lineHeight: 24,

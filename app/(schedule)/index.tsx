@@ -6,12 +6,10 @@ import { ScheduleList } from "@/components/feature/show-schedule/schedule-list";
 import { AddScheduleButton } from "@/components/feature/add-schedule/add-schedule-button";
 import { useEffect, useState } from "react";
 import { useNavigation } from "expo-router";
-import { AddScheduleModal } from "../../components/feature/add-schedule";
 
 const { hScale } = require('@/util/scaling');
 
 export default function Index() {
-  const [modalOpen, setModalOpen] = useState(false);
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -50,12 +48,7 @@ export default function Index() {
         <ScheduleList type="soon"></ScheduleList>
         <ScheduleList type="other"></ScheduleList>
       </ScrollView>
-      <AddScheduleButton
-        setModalOpen={setModalOpen}
-      />
-      <AddScheduleModal
-        setModalOpen={setModalOpen}
-        modalOpen={modalOpen}/>
+      <AddScheduleButton/>
     </FullScreen>
   );
 }

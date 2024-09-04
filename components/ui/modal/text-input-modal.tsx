@@ -1,36 +1,42 @@
 import { FullSizeButton } from "@/components/ui/buttons/full-size-button";
-import { ThemedText } from "@/components/ui/texts/themed-text";
+import { ThemedText, themedTextstyles } from "@/components/ui/texts/themed-text";
 import { ThemedView } from "@/components/ui/themed-view";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { hScale, wScale } from "@/util/scaling";
 import { useEffect, useRef, useState } from "react";
-import { Keyboard, StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
 import Modal from "react-native-modal";
-import { useDispatch } from "react-redux";
 
 export type modalProps  = {
-    modalOpen: boolean,
+    title: string;
+    defaultText: string;
+    modalOpen: boolean;
     setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    dispatchText: (text: string) => void;
   }
 
-export function TextInputModal({ modalOpen, setModalOpen }: modalProps) {
-    const color = useThemeColor('tint');
-    const dispatch = useDispatch();
+export function TextInputModal({ title, defaultText, modalOpen, setModalOpen, dispatchText }: modalProps) {
+    const textColor = useThemeColor('text');
     const textInputRef = useRef<TextInput>(null);
+    const [text, setText] = useState(defaultText);
 
-    const [text, setText] = useState('');
-
+    // 모달 open 시 focus 설정
     useEffect(() => {
         const timer = setTimeout(() => {
-            textInputRef.current?.focus(); // 컴포넌트가 마운트된 후 포커스를 설정하여 키보드를 엽니다.
-        }, 100); // 짧은 지연 시간 추가
+            if (textInputRef.current) {
+                textInputRef.current.focus();
+                textInputRef.current.setSelection(0, text.length);
+            }
+        }, 100);
 
-        return () => clearTimeout(timer);  // 타이머를 정리합니다.
+        return () => clearTimeout(timer);
     }, [modalOpen]);
 
-    function handleDataCange(date: Date) {
-        // dispatch(setScheduleStartTimeDate(date.toISOString()));
+    function onModalClose() {
+        dispatchText(text);
+        setModalOpen(false);
     }
+
     return (
         <Modal
             style={styles.view}
@@ -43,17 +49,17 @@ export function TextInputModal({ modalOpen, setModalOpen }: modalProps) {
             onBackdropPress={()=>setModalOpen(false)}
         >
             <ThemedView style={styles.base}>
-                <ThemedText type="defaultSemiBold">기본텍스트</ThemedText>
+                <ThemedText type="defaultSemiBold">{title}</ThemedText>
                 <View style={styles.content}>
                 <TextInput
                     ref={textInputRef}
-                    style={styles.input}
+                    style={[{color:textColor}, themedTextstyles.defaultSemiBold]}
                     onChangeText={setText}
+                    // placeholder={"여기에 입력하세요"}
                     value={text}
-                    placeholder={text}
                 />
                 </View>
-            <FullSizeButton onPress={()=>{setModalOpen(false)}}>확인</FullSizeButton>
+            <FullSizeButton onPress={onModalClose}>확인</FullSizeButton>
             </ThemedView>
         </Modal>
     )
@@ -67,7 +73,7 @@ const styles = StyleSheet.create({
         margin: 0,
     },
     content: {
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         alignItems: 'center',
     },
     base : {
@@ -75,12 +81,8 @@ const styles = StyleSheet.create({
         width: '100%',
         height: hScale(200),
         alignItems: 'center',
-        justifyContent: 'space-evenly'
-    },
-    input: {
-        height: 40,
-        margin: 12,
-        borderWidth: 1,
-        padding: 10,
-      },
+        justifyContent: 'space-between',
+        paddingTop: hScale(20),
+        paddingBottom: hScale(20),
+    }
 })

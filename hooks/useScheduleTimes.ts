@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { getFullDates, mergeDateTime } from "@/util/date_formatting";
+import { mergeDateTime } from "@/util/date_formatting";
 import { useSelector } from "react-redux";
 import { RootState } from "@/modules/redux/root-reducer";
 

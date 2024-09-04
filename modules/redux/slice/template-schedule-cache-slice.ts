@@ -1,3 +1,4 @@
+import { validateNecessroy } from "@/util/validate_text";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface ScheduleTime {
@@ -71,9 +72,29 @@ const TemplateScheduleSlice = createSlice({
             state.schedule_necessary = action.payload;
         },
 
+        // 스케줄에 필요한 항목 추가
+        addScheduleNecessary(state, action: PayloadAction<string>) {
+            if(validateNecessroy(action.payload).valid)
+                state.schedule_necessary.push(action.payload);
+        },
+
+        // 스케줄에 필요한 항목 제거(index 참조)
+        removeScheduleNecessary(state, action: PayloadAction<number>) {
+            const length = state.schedule_necessary.length
+            const value = action.payload
+            if(length === 0 || value < 0 || value >= length)
+                return;
+            state.schedule_necessary.splice(value, 1)
+        },
+
         // 스케줄 진행 과정 설정
         setScheduleProcess(state, action: PayloadAction<string[]>) {
             state.schedule_process = action.payload;
+        },
+
+        // 스케줄 진행 과정 추가
+        addScheduleProcess(state, action: PayloadAction<string>) {
+            state.schedule_process.push(action.payload);
         },
 
         // 특정 스케줄 반복일 추가
@@ -96,8 +117,12 @@ const TemplateScheduleSlice = createSlice({
             state.schedule_title = '';
             state.schedule_date = (new Date(new Date(now_).getTime()+7200000)).toISOString();
             state.schedule_repeat = [false, false, false, false, false, false, false];
-            state.schedule_start_time = {date : now_, day : "today"};
-            state.schedule_move_time = {date : (new Date(new Date(now_).getTime()+3600000)).toISOString(), day : "today"};
+            state.schedule_start_time = {date : now_, day : 
+                new Date(now_).getDate() === new Date(state.schedule_date).getDate() ? 
+                 "today" : "eve"};
+            state.schedule_move_time = {date : (new Date(new Date(now_).getTime()+3600000)).toISOString(), day : 
+                (new Date(new Date(now_).getTime()+3600000)).getDate() === new Date(state.schedule_date).getDate() ? 
+                 "today" : "eve"};
             state.schedule_necessary = [];
             state.schedule_process = [];
         }
@@ -113,7 +138,10 @@ export const {
     setScheduleMoveTimeDate,
     setScheduleMoveTimeDay,
     setScheduleNecessary,
+    addScheduleNecessary,
+    removeScheduleNecessary,
     setScheduleProcess,
+    addScheduleProcess,
     addScheduleRepeat,
     removeScheduleRepeat,
     resetSchedule,

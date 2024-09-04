@@ -21,8 +21,8 @@ export function EachDay({index, day, repeatDays, setRepeatDays} : EachDayProps) 
 
     return(
         <Pressable style={[
-            {backgroundColor: brightGray},
-            {borderColor: repeatDays[index] ? brightTint : brightGray},
+            // {backgroundColor: brightGray},
+            {backgroundColor: repeatDays[index] ? brightTint : brightGray},
             styles.default]}
             onPress={handleDayPress}
             >
@@ -38,7 +38,5 @@ const styles = StyleSheet.create({
         borderRadius: wScale(40),
         justifyContent: 'center',
         alignItems: 'center',
-        borderStyle: 'solid',
-        borderWidth: 3
     },
 })

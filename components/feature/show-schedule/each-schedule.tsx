@@ -13,7 +13,7 @@ export type EachScheduleProps = ViewProps & {
 export function EachSchedule({type, children} : EachScheduleProps){
     const color = type === 'soon' ? useThemeColor('brightTint') : useThemeColor('brightGray')
     const navigateNextPage = () => {
-        router.navigate('(schedule)/remaind-schedule');
+        router.navigate('./remaind-schedule');
     }
     return (
         <CustomAnimatedPressable style={[styles.base, {backgroundColor:color}]} onPress={navigateNextPage}>

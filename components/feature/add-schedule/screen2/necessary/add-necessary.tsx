@@ -7,13 +7,17 @@ import { hScale, wScale } from "@/util/scaling";
 import { ImageBackground, StyleSheet, View } from "react-native";
 import { useSelector } from "react-redux";
 
-export function AddNecessary() {
+type AddNecessaryProps = {
+    onPress : () => void
+}
+
+export function AddNecessary({onPress} : AddNecessaryProps) {
     const color = useThemeColor("brightTint")
     const schedule_necessary = useSelector((state:RootState)=>state.templateScheduleCache.schedule_necessary)
     
     return (
-        <CustomAnimatedPressable style={styles.eachNecessary}>
-            <ImageBackground style={styles.icon} source={require('@/assets/images/icon/plus.png')}/>
+        <CustomAnimatedPressable style={styles.eachNecessary} onPress={onPress}>
+            <ImageBackground style={styles.icon} source={require('@/assets/images/icon/plus2.png')}/>
         </CustomAnimatedPressable>
     )
 }
@@ -28,6 +32,7 @@ const styles = StyleSheet.create({
     },
     icon: {
         width: hScale(16),
-        height: hScale(16)
+        height: hScale(16),
+        resizeMode: 'contain'
     }
 })
