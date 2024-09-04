@@ -6,11 +6,13 @@ import { RootState } from "@/modules/redux/root-reducer";
 export function useScheduleTimes() {
   const scheduleCache = useSelector((state: RootState) => state.templateScheduleCache);
 
-  const { moving_time, preparing_time, remain_time_for_schedule } = useMemo(() => {
+  const { moving_time, preparing_time, remain_time_for_schedule, remain_time_for_ready } = useMemo(() => {
     const scheduleTime = new Date(scheduleCache.schedule_date);
     const remain_time_for_schedule = Math.floor((scheduleTime.getTime() - new Date().getTime()) / 60000);
 
     const startTime = new Date(scheduleCache.schedule_start_time.date);
+    const remain_time_for_ready = Math.floor((startTime.getTime() - new Date().getTime()) / 60000);
+
     const startDate = new Date(scheduleTime.getTime()
       - (scheduleCache.schedule_start_time.day === "today" ? 0 : 3600000 * 24));
     const startDateTime = mergeDateTime(startDate, startTime);
@@ -23,8 +25,8 @@ export function useScheduleTimes() {
     const moving_time = Math.floor((scheduleTime.getTime() - moveDateTime.getTime()) / 60000);
     const preparing_time = Math.floor((moveDateTime.getTime() - startDateTime.getTime()) / 60000);
 
-    return { moving_time, preparing_time, remain_time_for_schedule };
+    return { moving_time, preparing_time, remain_time_for_schedule, remain_time_for_ready };
   }, [scheduleCache]);
 
-  return { moving_time, preparing_time, remain_time_for_schedule };
+  return { moving_time, preparing_time, remain_time_for_schedule, remain_time_for_ready };
 }

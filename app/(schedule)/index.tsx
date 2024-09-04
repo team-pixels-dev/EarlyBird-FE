@@ -6,14 +6,18 @@ import { ScheduleList } from "@/components/feature/show-schedule/schedule-list";
 import { AddScheduleButton } from "@/components/feature/add-schedule/add-schedule-button";
 import { useEffect, useState } from "react";
 import { useNavigation } from "expo-router";
+import { useSelector } from "react-redux";
+import { RootState } from "@/modules/redux/root-reducer";
 
 const { hScale } = require('@/util/scaling');
 
 export default function Index() {
   const navigation = useNavigation();
 
+  const schedule = useSelector((state: RootState)=>state.templateSchedule)
+
   useEffect(() => {
-    
+    console.log(schedule);
     const handlePressBack = () => {
       if (navigation.isFocused()) {
         Alert.alert(

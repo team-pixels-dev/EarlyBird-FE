@@ -29,8 +29,9 @@ export function ListNecessary({ style }: ViewProps) {
             ))}
             <AddNecessary onPress={() => setModalOpen(true)} />
             <TextInputModal
-                title="준비물 추가"
+                title="나가기 전에 해야할 것이 있나요?"
                 defaultText=""
+                placeHolder="ex. 뽀삐 밥주기 ( 12글자 이내 )"
                 modalOpen={modalOpen}
                 setModalOpen={setModalOpen}
                 dispatchText={handleDispatchText}

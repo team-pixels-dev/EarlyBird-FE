@@ -22,7 +22,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.earlybirdteam2024.early-bird"
+      "package": "com.earlybirdteam2024.earlybird"
     },
     "web": {
       "bundler": "metro",

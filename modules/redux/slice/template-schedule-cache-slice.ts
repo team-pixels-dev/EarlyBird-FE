@@ -6,7 +6,8 @@ interface ScheduleTime {
     day: "eve" | "today";
 }
 
-interface TemplateScheduleState {
+export interface TemplateScheduleState {
+    schedule_type: "date" | "repeat";
     schedule_title: string;
     schedule_date: string;
     schedule_repeat: boolean[];
@@ -19,6 +20,7 @@ interface TemplateScheduleState {
 const now = new Date().toISOString()
 
 const initialState: TemplateScheduleState = {
+    schedule_type: "date",
     schedule_title: '',
     schedule_date: (new Date(new Date(now).getTime()+7200000)).toISOString(),
     schedule_repeat: [false, false, false, false, false, false, false],
@@ -32,13 +34,29 @@ const TemplateScheduleSlice = createSlice({
     name: 'templateSchedule',
     initialState,
     reducers: {
+        setScheduleType(state, action: PayloadAction<"date" | "repeat">){
+            state.schedule_type = action.payload;
+        },
         // 스케줄 제목 설정
         setScheduleTitle(state, action: PayloadAction<string>) {
             state.schedule_title = action.payload;
         },
 
-        // 스케줄 시각 설정
+        // 스케줄 날짜 설정
         setScheduleDate(state, action: PayloadAction<string>) {
+            const dateTime = new Date(state.schedule_date);
+            const year = parseInt(action.payload.split('-')[0]);
+            const month = parseInt(action.payload.split('-')[1]);
+            const day = parseInt(action.payload.split('-')[2]);
+            dateTime.setFullYear(year, month - 1, day);
+            state.schedule_date = dateTime.toISOString();
+        },
+
+         // 스케줄 시간 설정
+         setScheduleTime(state, action: PayloadAction<string>) {
+            const dateTime = new Date(state.schedule_date);
+            const time = new Date(action.payload);
+            dateTime.setHours(time.getHours(), time.getMinutes());
             state.schedule_date = action.payload;
         },
 
@@ -114,6 +132,7 @@ const TemplateScheduleSlice = createSlice({
         // 스케줄 초기화
         resetSchedule(state) {
             const now_ = new Date().toISOString();
+            state.schedule_type = "date",
             state.schedule_title = '';
             state.schedule_date = (new Date(new Date(now_).getTime()+7200000)).toISOString();
             state.schedule_repeat = [false, false, false, false, false, false, false];
@@ -130,8 +149,10 @@ const TemplateScheduleSlice = createSlice({
 });
 
 export const { 
+    setScheduleType,
     setScheduleTitle,
     setScheduleDate,
+    setScheduleTime,
     setScheduleRepeat,
     setScheduleStartTimeDate,
     setScheduleStartTimeDay,

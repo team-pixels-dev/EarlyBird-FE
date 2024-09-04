@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { Keyboard, View } from 'react-native'
 import DatePicker from 'react-native-date-picker'
 import { useDispatch, useSelector } from "react-redux";
-import { setScheduleDate } from '@/modules/redux/slice/template-schedule-cache-slice'
+import { setScheduleTime } from '@/modules/redux/slice/template-schedule-cache-slice'
 import { RootState } from '@/modules/redux/root-reducer'
 
 export function AddScheduleDatePicker() {
@@ -15,7 +15,7 @@ export function AddScheduleDatePicker() {
 
   function handleDataCange(date: Date) {
     Keyboard.dismiss();
-    dispatch(setScheduleDate(date.toISOString()));
+    dispatch(setScheduleTime(date.toISOString()));
   }
   
   return (

@@ -11,7 +11,7 @@ export type AddScheduleHeaderProps = ViewProps & {
     keyboardUp : boolean
 }
 
-export function AddScheduleHeader({style, keyboardUp} : AddScheduleHeaderProps) {
+export function AddScheduleHeader({ style, keyboardUp }: AddScheduleHeaderProps) {
     const gray = useThemeColor("gray");
     const schedule_title = useSelector((state: RootState) => state.templateScheduleCache.schedule_title);
     const dispatch = useDispatch();
@@ -20,9 +20,10 @@ export function AddScheduleHeader({style, keyboardUp} : AddScheduleHeaderProps) 
     const textInputRef = useRef<TextInput>(null);
     const [text, setText] = useState(schedule_title);
 
-    // 모달 open 시 focus 설정
+    const [inputWidth, setInputWidth] = useState(wScale(50));
+
     useEffect(() => {
-        if(keyboardUp){
+        if (keyboardUp) {
             const timer = setTimeout(() => {
                 if (textInputRef.current) {
                     textInputRef.current.focus();
@@ -32,24 +33,29 @@ export function AddScheduleHeader({style, keyboardUp} : AddScheduleHeaderProps) 
     
             return () => clearTimeout(timer);
         }
-    }, []);
+    }, [keyboardUp]);
 
     function saveTitle() {
         dispatch(setScheduleTitle(text));
-        console.log('saved')
+        console.log('saved');
     }
 
     return (
-        <View style={[style, styles.base]}>
+        <View style={[style, styles.base, { width: inputWidth }]}>
             <TextInput 
                 ref={textInputRef} 
-                style={[{color:textColor}, themedTextstyles.defaultSemiBold]} 
+                style={[{ color: textColor }, themedTextstyles.defaultSemiBold, styles.input]} 
                 onChangeText={setText}
                 onEndEditing={saveTitle}
-                >
+                maxLength={12}
+                onContentSizeChange={(e) => {
+                    // TextInput의 콘텐츠 크기를 기반으로 부모 View 크기 조정
+                    setInputWidth(e.nativeEvent.contentSize.width + wScale(10)); // 약간의 여백 추가
+                }}
+            >
                 {text}
             </TextInput> 
-            <View style={[styles.line, {backgroundColor:gray}]} />
+            <View style={[styles.line, { backgroundColor: gray }]} />
         </View>
     );
 }
@@ -63,6 +69,10 @@ const styles = StyleSheet.create({
     line: {
         marginTop: hScale(6),
         height: 2,
-        minWidth: wScale(115),
+        width: '100%',
+    },
+    input: {
+        minWidth: wScale(50),
+        textAlign: "center",
     }
 });

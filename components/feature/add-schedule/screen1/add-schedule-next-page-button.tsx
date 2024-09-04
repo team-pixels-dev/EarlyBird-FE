@@ -6,6 +6,7 @@ import { AddScheduleScreenProps } from "./index";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/modules/redux/root-reducer";
+import { getFullDates } from "@/util/date_formatting";
 
 export type AddScheduleNextPageButtonProps = {
   setScreen: React.Dispatch<React.SetStateAction<number>>;
@@ -33,7 +34,7 @@ export function AddScheduleNextPageButton({setScreen} : AddScheduleNextPageButto
     function handleNextPress() {
         const result = checkScheduleValid();
           if (result === "valid") {
-            console.log(scheduleCache);
+            console.log(getFullDates(new Date(scheduleCache.schedule_start_time.date)));
             setScreen(2);
           } else {
             Haptics.notificationAsync(

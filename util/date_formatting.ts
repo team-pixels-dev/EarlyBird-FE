@@ -8,12 +8,20 @@ export function getHoursMinutes(date : Date) {
 
 export function getFullDates(date : Date) {
     const years = date.getFullYear();
-    const month = date.getMonth();
+    const month = date.getMonth() + 1;
     const day = date.getDate();
     const hours = date.getHours()
     const minutes = date.getMinutes();
 
     return years + "년 " + month + "월 " + day + "일 " + hours + "시 " + minutes + "분"
+}
+
+export function getDates(date : Date) {
+    const years = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+
+    return years + "년 " + month + "월 " + day + "일"
 }
 
 export function mergeDateTime(date : Date, time : Date) {

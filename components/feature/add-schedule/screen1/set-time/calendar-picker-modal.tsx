@@ -1,8 +1,10 @@
+import { setScheduleDate, setScheduleType } from '@/modules/redux/slice/template-schedule-cache-slice';
 import { hScale, wScale } from '@/util/scaling';
 import React, {useState} from 'react';
 import { StyleSheet, View, Button } from 'react-native';
-import {Calendar} from 'react-native-calendars';
+import {Calendar, CalendarList} from 'react-native-calendars';
 import Modal from "react-native-modal";
+import { useDispatch } from 'react-redux';
 
 export type modalProps  = {
     modalOpen: boolean,
@@ -11,14 +13,15 @@ export type modalProps  = {
 
 export function CalenderPickerModal({modalOpen, setModalOpen} : modalProps) {
   const [selected, setSelected] = useState('');
+  const now = new Date();
+  const dispatch = useDispatch();
   
   const closeModal = () => {
+    if(selected !== '') {
+        dispatch(setScheduleType("date"));
+        dispatch(setScheduleDate(selected));
+    }
     setModalOpen(false)
-  }
-
-  const handleConfirm = () => {
-    // 선택된 날짜를 처리하는 로직을 여기에 추가할 수 있습니다.
-    closeModal();
   }
 
   return (
@@ -30,9 +33,8 @@ export function CalenderPickerModal({modalOpen, setModalOpen} : modalProps) {
         animationInTiming={100}
         animationOutTiming={100}
         backdropTransitionInTiming={0}
-        scrollHorizontal={true}
-        onSwipeComplete={closeModal}
         onBackdropPress={closeModal}
+        onBackButtonPress={closeModal}
         style={styles.view}
     >
         <View style={styles.content}>
@@ -41,10 +43,12 @@ export function CalenderPickerModal({modalOpen, setModalOpen} : modalProps) {
                     setSelected(day.dateString);
                 }}
                 markedDates={{
-                    [selected]: {selected: true, disableTouchEvent: true, selectedDotColor: 'orange'}
+                    [selected]: {selected: true, disableTouchEvent: true}
                 }}
+                enableSwipeMonths={true}
+                minDate={now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate()}
             />
-            <Button title="확인" onPress={handleConfirm} />
+            <Button title="확인" onPress={closeModal} />
         </View>
     </Modal>
   );
