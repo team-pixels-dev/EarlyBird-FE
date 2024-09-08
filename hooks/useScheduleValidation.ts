@@ -5,6 +5,7 @@ import { RootState } from "@/modules/redux/root-reducer";
 
 export function useScheduleValidation() {
   const { moving_time, preparing_time, remain_time_for_schedule, remain_time_for_ready } = useScheduleTimes();
+  const schedule_title = useSelector((state: RootState)=>state.templateScheduleCache.schedule_title);
   const schedule_type = useSelector((state: RootState)=>state.templateScheduleCache.schedule_type);
 
   function checkScheduleValid() {
@@ -17,7 +18,6 @@ export function useScheduleValidation() {
         return "invalid_start_time_too_fast";
       }
     }
-
     if (moving_time <= 0) {
       console.log('출발 시간이 약속 시간보다 늦습니다.');
       return "invalid_move_time";
@@ -25,6 +25,10 @@ export function useScheduleValidation() {
     if (preparing_time <= 0) {
       console.log('준비 시작 시간이 출발 시간보다 늦습니다.');
       return "invalid_start_time";
+    }
+    if(schedule_title === ""){
+      console.log("invalid_title");
+      return "invalid_title";
     }
     
     return "valid";

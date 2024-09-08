@@ -44,7 +44,7 @@ export function AddScheduleHeader({ style, keyboardUp }: AddScheduleHeaderProps)
         <View style={[style, styles.base, { width: inputWidth }]}>
             <TextInput
                 ref={textInputRef} 
-                style={[{ color: textColor }, themedTextstyles.defaultSemiBold, styles.input]} 
+                style={[{ color: textColor }, themedTextstyles.defaultSemiBold]} 
                 onChangeText={setText}
                 onEndEditing={saveTitle}
                 maxLength={12}
@@ -52,7 +52,7 @@ export function AddScheduleHeader({ style, keyboardUp }: AddScheduleHeaderProps)
                     // TextInput의 콘텐츠 크기를 기반으로 부모 View 크기 조정
                     setInputWidth(e.nativeEvent.contentSize.width + wScale(10)); // 약간의 여백 추가
                 }}
-                placeholder= {Platform.OS === "ios" ? "" : "약속 이름"}
+                placeholder="약속 이름"
                 placeholderTextColor={gray}
             >
                 {text}
@@ -79,9 +79,5 @@ const styles = StyleSheet.create({
                 width: wScale(150),
             }
         })
-    },
-    input: {
-        minWidth: wScale(50),
-        textAlign: "center",
     }
 });

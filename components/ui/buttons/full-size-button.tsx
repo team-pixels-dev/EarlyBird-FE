@@ -2,15 +2,10 @@ import { StyleSheet, Pressable, ViewProps } from 'react-native';
 import { CustomAnimatedPressable } from './animated-pressable';
 import  { RegularText } from '@/components/ui/texts/regular-text'
 import { PropsWithChildren } from 'react';
+import * as Haptics from 'expo-haptics';
 import { useThemeColor } from '@/hooks/useThemeColor';
 
 const {wScale, hScale} = require('@/util/scaling');
-
-/**
- * 큰 사이즈의 버튼, 애니메이션과 폰트가 적용됨
- * @param textColor, onPress, disabled
- * @returns 
- */
 
 export type fullSizeButtonProps = Partial<{
     textColor: string;
@@ -22,7 +17,11 @@ export function FullSizeButton({style = {}, textColor = "black", children, onPre
     const tint = useThemeColor("tint");
     const gray = useThemeColor("brightGray");
     return (
-        <CustomAnimatedPressable style={[styles.base, style, {backgroundColor:disabled?gray:tint}]} onPress={onPress} disabled={disabled}>
+        <CustomAnimatedPressable 
+            style={[styles.base, style, {backgroundColor:disabled?gray:tint}]} 
+            onPress={disabled ? 
+                ()=> Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error) 
+                : onPress}>
                 <RegularText style={[styles.font, {color:textColor}]}>{children}</RegularText>
         </CustomAnimatedPressable>
     )

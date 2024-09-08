@@ -13,6 +13,5 @@
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
-    "expo-env.d.ts"
-, "hooks/useScheduleTimes.tx"  ]
+    "expo-env.d.ts" ]
 }

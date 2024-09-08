@@ -7,21 +7,30 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/modules/redux/root-reducer";
 import { getFullDates } from "@/util/date_formatting";
+import { useThemeColor } from "@/hooks/useThemeColor";
 
 export type AddScheduleNextPageButtonProps = {
   setScreen: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export function AddScheduleNextPageButton({setScreen} : AddScheduleNextPageButtonProps) {
+    const defaultTextColor = useThemeColor("text");
+    const errorTextColor = useThemeColor("error");
     const { checkScheduleValid } = useScheduleValidation();
     const [ buttonText, setButtonText ] = useState('다음');
+    const [ textColor, setTextColor ] = useState(defaultTextColor);
     const scheduleCache = useSelector((state:RootState)=>state.templateScheduleCache);
     useEffect(()=>{
         const result = checkScheduleValid();
-          if (result === "invalid_schedule_time"){
+          if (result === "invalid_title") {
+            setButtonText('약속 이름을 설정해주세요');
+            setTextColor(errorTextColor);
+          } else if (result === "invalid_schedule_time"){
             setButtonText('약속 시간이 현재시간보다 늦습니다.');
+            setTextColor(errorTextColor);
           } else {
             setButtonText('다음');
+            setTextColor(defaultTextColor);
           }
     }, [checkScheduleValid]);
 
@@ -40,6 +49,7 @@ export function AddScheduleNextPageButton({setScreen} : AddScheduleNextPageButto
     return (
         <FullSizeButton 
         style={{position:"absolute", bottom:hScale(50)}}
+        textColor={textColor}
         onPress={handleNextPress}
         disabled={checkScheduleValid() === "valid" ? false : true}
         >{buttonText}</FullSizeButton>

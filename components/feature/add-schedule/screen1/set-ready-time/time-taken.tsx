@@ -4,12 +4,13 @@ import { useScheduleValidation } from "@/hooks/useScheduleValidation";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { minutesToHoursMinutes } from "@/util/date_formatting";
 import { useEffect, useState } from "react";
+import { ViewProps } from "react-native";
 
-export type timeTakenProps = {
+export type timeTakenProps = ViewProps & {
     type : "ready" | "move";
 }
 
-export function TimeTaken({type} : timeTakenProps){
+export function TimeTaken({type, style} : timeTakenProps){
     const { moving_time, preparing_time } = useScheduleTimes();
     const { checkScheduleValid } = useScheduleValidation();
     const [errorText, setErrorText] = useState("");
@@ -32,12 +33,9 @@ export function TimeTaken({type} : timeTakenProps){
                 setErrorText("");
         }
     }, [checkScheduleValid])
-    // const errorText = (type === "ready" ? "현재시간 보다 빨라요!" : "약속시간보다 느려요!");
     const color = useThemeColor("gray")
     return (
-        <ThemedText style={{
-            color: errorText === "" ? color : 'red'
-        }}
+        <ThemedText style={[style, {color: errorText === "" ? color : 'red'}]}
         type="description">
             {errorText === "" ? minutesToHoursMinutes(time)+text : errorText}
         </ThemedText>

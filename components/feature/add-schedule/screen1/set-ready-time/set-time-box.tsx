@@ -34,11 +34,11 @@ export function SetTimeBox({type, setType, setModalOpen} : SetTimeBoxProps) {
         <CustomAnimatedPressable 
             style={[{backgroundColor:color}, styles.setTimeView]} 
             onPress={()=> handleModalOpen()}>
-            <View>
+            <View style={styles.textAndTime}>
                 <ThemedText type="defaultSemiBold" style={{fontSize:hScale(16)}}>{text}</ThemedText>
-                <TimeTaken type={type}/>
+                <ThemedText type="title" style={styles.dateText}>{dateText}</ThemedText>
             </View>
-            <ThemedText type="title" style={styles.dateText}>{dateText}</ThemedText>
+            <TimeTaken type={type} style={{width: '100%'}}/>
         </CustomAnimatedPressable>
     )
 }
@@ -48,11 +48,17 @@ const styles = StyleSheet.create({
     setTimeView: {
         height: hScale(75),
         width: wScale(342),
+        rowGap: hScale(5),
         paddingHorizontal: wScale(20),
         borderRadius: 8,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         alignItems:'center'
+    },
+    textAndTime: {
+        width:'100%',
+        flexDirection:"row",
+        alignItems: "center",
+        justifyContent: "space-between"
     },
     dateText: {
         fontSize: hScale(16),

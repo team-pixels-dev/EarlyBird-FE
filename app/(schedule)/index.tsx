@@ -8,6 +8,8 @@ import { useEffect } from "react";
 import { useNavigation } from "expo-router";
 import { useSelector } from "react-redux";
 import { RootState } from "@/modules/redux/root-reducer";
+import { ConfirmModal } from "@/components/ui/modal/confirm-modal";
+import { setMainDeleteConfrimModalOpen } from "@/modules/redux/slice/modal-slice";
 
 const { hScale } = require('@/util/scaling');
 
@@ -15,6 +17,8 @@ export default function Index() {
   const navigation = useNavigation();
 
   const schedule = useSelector((state: RootState)=>state.templateSchedule);
+
+  const modalOpen = useSelector((state: RootState)=>state.modal.main_delete_confirm.modalOpen);
 
   useEffect(() => {
 
@@ -54,6 +58,7 @@ export default function Index() {
         <ScheduleList type="other"></ScheduleList>
       </ScrollView>
       <AddScheduleButton/>
+      <ConfirmModal title="삭제하시겠습니까?" modalOpen={modalOpen} setModalOpen={setMainDeleteConfrimModalOpen}/>
     </FullScreen>
   );
 }

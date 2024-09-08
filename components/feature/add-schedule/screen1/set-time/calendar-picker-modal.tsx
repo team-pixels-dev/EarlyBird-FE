@@ -1,3 +1,6 @@
+import { CustomAnimatedPressable } from '@/components/ui/buttons/animated-pressable';
+import { ThemedText } from '@/components/ui/texts/themed-text';
+import { ThemedView } from '@/components/ui/themed-view';
 import { setScheduleDate, setScheduleType } from '@/modules/redux/slice/template-schedule-cache-slice';
 import { hScale, wScale } from '@/util/scaling';
 import React, {useState} from 'react';
@@ -5,6 +8,14 @@ import { StyleSheet, View, Button } from 'react-native';
 import {Calendar, CalendarList} from 'react-native-calendars';
 import Modal from "react-native-modal";
 import { useDispatch } from 'react-redux';
+import {LocaleConfig} from 'react-native-calendars';
+import { useCalenderTheme } from '@/hooks/useCalenderTheme';
+import { calendarLocale } from '@/constants/calendar-locale';
+import { useThemeColor } from '@/hooks/useThemeColor';
+
+LocaleConfig.locales['ko'] = calendarLocale;
+
+LocaleConfig.defaultLocale = 'ko';
 
 export type modalProps  = {
     modalOpen: boolean,
@@ -37,8 +48,9 @@ export function CalenderPickerModal({modalOpen, setModalOpen} : modalProps) {
         onBackButtonPress={closeModal}
         style={styles.view}
     >
-        <View style={styles.content}>
+        <ThemedView style={styles.content}>
             <Calendar
+                theme={useCalenderTheme()}
                 onDayPress={(day: { dateString: React.SetStateAction<string>; }) => {
                     setSelected(day.dateString);
                 }}
@@ -48,8 +60,10 @@ export function CalenderPickerModal({modalOpen, setModalOpen} : modalProps) {
                 enableSwipeMonths={true}
                 minDate={now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate()}
             />
-            <Button title="확인" onPress={closeModal} />
-        </View>
+            <CustomAnimatedPressable style={[{backgroundColor:useThemeColor("tint")}, styles.okButton]} onPress={closeModal}>
+                <ThemedText type="default" style={{color:"#000000"}}>확인</ThemedText>
+            </CustomAnimatedPressable>
+        </ThemedView>
     </Modal>
   );
 };
@@ -64,17 +78,17 @@ const styles = StyleSheet.create({
     content: {
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'white',  // 추가한 버튼이 명확하게 보이도록 배경색 설정
-        borderRadius: wScale(28),
-        padding: hScale(20),
-    },
-    base : {
-        borderRadius: wScale(28),
-        width: '100%',
-        height: hScale(200),
-        alignItems: 'center',
-        justifyContent: 'space-between',
+        borderRadius: hScale(8),
+        width: wScale(270),
         paddingTop: hScale(20),
-        paddingBottom: hScale(20),
+        rowGap: hScale(20),
+    },
+    okButton : {
+        width:'100%',
+        height: wScale(54),
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderBottomLeftRadius: hScale(8),
+        borderBottomRightRadius: hScale(8),
     }
 });

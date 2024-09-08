@@ -10,7 +10,6 @@ import { Colors } from '@/constants/Colors';
 export function useThemeColor(
   colorName: keyof typeof Colors.light & keyof typeof Colors.dark
 ) {
-  // 다크모드 비활성화
   const theme = useColorScheme() ?? 'light';
   // const theme = 'light';
 
