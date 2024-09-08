@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TemplateScheduleState } from "./template-schedule-cache-slice";
-import 'react-native-get-random-values';
 import uuid from 'react-native-uuid';
 
 interface TemplateScheduleStateMap {
@@ -29,6 +28,11 @@ const TemplateScheduleSlice = createSlice({
         // 특정 스케줄을 삭제
         removeTemplateSchedule(state, action: PayloadAction<string>) {
             delete state[action.payload];
+        },
+
+        // 모든 스케줄 삭제
+        resetTemplateSchedule(state) {
+            return initialState;
         }
     }
 });
@@ -37,6 +41,7 @@ export const {
     addTemplateSchedule,
     updateTemplateSchedule,
     removeTemplateSchedule,
+    resetTemplateSchedule,
 } = TemplateScheduleSlice.actions;
 
 export default TemplateScheduleSlice.reducer;

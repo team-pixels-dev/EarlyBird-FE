@@ -11,14 +11,11 @@ export type StateType = "ready" | "move";
 export function AddScheduleSetReadyTime({style} : ViewProps ) {
     const [modalOpen, setModalOpen] = useState(false);
     const [type, setType] = useState<StateType>('ready');
-    const { moving_time, preparing_time } = useScheduleTimes();
 
     return (
         <View style={[styles.base, style]}>
-            <SetTimeBox type="ready" setType={setType} setModalOpen={setModalOpen} />
-            <TimeTaken text="준비 소요 시간 : " time={preparing_time}/>
             <SetTimeBox type="move" setType={setType} setModalOpen={setModalOpen} />
-            <TimeTaken text="이동 소요 시간 : " time={moving_time}/>
+            <SetTimeBox type="ready" setType={setType} setModalOpen={setModalOpen} />
             <DatePickerModal 
                 modalOpen={modalOpen} 
                 setModalOpen={setModalOpen} 
@@ -30,7 +27,7 @@ export function AddScheduleSetReadyTime({style} : ViewProps ) {
 
 const styles = StyleSheet.create({
     base: {
-        height: hScale(116),
+        height: hScale(162),
         justifyContent: 'space-between',
         alignItems: 'flex-end'
     },

@@ -5,13 +5,14 @@ import { RootState } from "@/modules/redux/root-reducer";
 
 export function useScheduleTimes() {
   const scheduleCache = useSelector((state: RootState) => state.templateScheduleCache);
+  const now = new Date();
 
   const { moving_time, preparing_time, remain_time_for_schedule, remain_time_for_ready } = useMemo(() => {
     const scheduleTime = new Date(scheduleCache.schedule_date);
-    const remain_time_for_schedule = Math.floor((scheduleTime.getTime() - new Date().getTime()) / 60000);
+    const remain_time_for_schedule = Math.floor((scheduleTime.getTime() - now.getTime()) / 60000);
 
     const startTime = new Date(scheduleCache.schedule_start_time.date);
-    const remain_time_for_ready = Math.floor((startTime.getTime() - new Date().getTime()) / 60000);
+    const remain_time_for_ready = Math.floor((startTime.getTime() - now.getTime()) / 60000);
 
     const startDate = new Date(scheduleTime.getTime()
       - (scheduleCache.schedule_start_time.day === "today" ? 0 : 3600000 * 24));

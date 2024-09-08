@@ -13,7 +13,7 @@ export function useScheduleValidation() {
         console.log('약속 시간이 현재시간보다 늦습니다.');
         return "invalid_schedule_time";
       }
-      if (remain_time_for_ready <= -5){
+      if (remain_time_for_ready <= -1){
         return "invalid_start_time_too_fast";
       }
     }

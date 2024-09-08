@@ -6,7 +6,9 @@ import { StateType } from "./add-schedule-set-ready-time";
 import { RootState } from "@/modules/redux/root-reducer";
 import { hScale, wScale } from "@/util/scaling";
 import { getHoursMinutes } from "@/util/date_formatting";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { TimeTaken } from "./time-taken";
+import { useScheduleTimes } from "@/hooks/useScheduleTimes";
 
 export type SetTimeBoxProps = {
     type : "ready" | "move";
@@ -32,7 +34,10 @@ export function SetTimeBox({type, setType, setModalOpen} : SetTimeBoxProps) {
         <CustomAnimatedPressable 
             style={[{backgroundColor:color}, styles.setTimeView]} 
             onPress={()=> handleModalOpen()}>
-            <ThemedText type="defaultSemiBold" style={{fontSize:hScale(16)}}>{text} 시간</ThemedText>
+            <View>
+                <ThemedText type="defaultSemiBold" style={{fontSize:hScale(16)}}>{text}</ThemedText>
+                <TimeTaken type={type}/>
+            </View>
             <ThemedText type="title" style={styles.dateText}>{dateText}</ThemedText>
         </CustomAnimatedPressable>
     )
@@ -41,7 +46,7 @@ export function SetTimeBox({type, setType, setModalOpen} : SetTimeBoxProps) {
 
 const styles = StyleSheet.create({
     setTimeView: {
-        height: hScale(50),
+        height: hScale(75),
         width: wScale(342),
         paddingHorizontal: wScale(20),
         borderRadius: 8,
@@ -51,7 +56,5 @@ const styles = StyleSheet.create({
     },
     dateText: {
         fontSize: hScale(16),
-        width: '50%',
-        textAlign: 'right'
     }
 })

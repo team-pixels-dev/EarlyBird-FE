@@ -5,7 +5,7 @@ import { useThemeColor } from '@/hooks/useThemeColor';
 const { hScale } = require('@/util/scaling');
 
 export type type = {
-  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link' | 'description';
+  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link' | 'description' | 'ONEMobilePOP';
 }
 
 export type ThemedTextProps = TextProps & type & {
@@ -32,6 +32,7 @@ export function ThemedText({
         type === 'subtitle' ? themedTextstyles.subtitle : undefined,
         type === 'link' ? themedTextstyles.link : undefined,
         type === 'description' ? themedTextstyles.description : undefined,
+        type === "ONEMobilePOP" ? themedTextstyles.ONEMobilePOP : undefined,
         style,
       ]}
       {...rest}
@@ -66,5 +67,10 @@ export const themedTextstyles = StyleSheet.create({
   description: {
     fontSize: hScale(14),
     color: '#898989',
+  },
+  ONEMobilePOP: {
+    fontSize: hScale(16),
+    lineHeight: 24,
+    fontFamily:'ONE_Mobile_POP'
   },
 });

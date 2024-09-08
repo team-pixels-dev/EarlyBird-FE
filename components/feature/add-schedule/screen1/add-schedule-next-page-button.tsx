@@ -18,16 +18,10 @@ export function AddScheduleNextPageButton({setScreen} : AddScheduleNextPageButto
     const scheduleCache = useSelector((state:RootState)=>state.templateScheduleCache);
     useEffect(()=>{
         const result = checkScheduleValid();
-          if (result === "valid") {
-            setButtonText('다음')
-          } else if (result === "invalid_move_time") {
-            setButtonText('출발 시간이 약속 시간보다 늦습니다.');
-          } else if (result === "invalid_schedule_time"){
+          if (result === "invalid_schedule_time"){
             setButtonText('약속 시간이 현재시간보다 늦습니다.');
-          } else if (result === "invalid_start_time_too_fast") {
-            setButtonText('준비 시작 시간이 현재 시간보다 빠릅니다.');
           } else {
-            setButtonText('준비 시작 시간이 출발 시간보다 늦습니다.');
+            setButtonText('다음');
           }
     }, [checkScheduleValid]);
 
@@ -47,6 +41,7 @@ export function AddScheduleNextPageButton({setScreen} : AddScheduleNextPageButto
         <FullSizeButton 
         style={{position:"absolute", bottom:hScale(50)}}
         onPress={handleNextPress}
+        disabled={checkScheduleValid() === "valid" ? false : true}
         >{buttonText}</FullSizeButton>
     )
 }

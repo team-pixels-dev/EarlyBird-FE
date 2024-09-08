@@ -26,10 +26,10 @@ export function AddScheduleSetTime({style} : ViewProps){
                         flexDirection: "row",
                         alignItems: "center"
                     }}>
-                    <ThemedText type="description" style={{marginRight:wScale(10)}}>
+                    <ThemedText type="default" style={{fontSize:hScale(14), marginRight:wScale(10)}}>
                         {schedule_type === "date" ? getDates(new Date(schedule_date)) : ''}
                     </ThemedText>
-                    <Image style={styles.icon} source={require('@/assets/images/icon/calendar.png')}/>
+                    <Image style={styles.icon} source={schedule_type === "date" ? require('@/assets/images/icon/calender_dark.png') : require('@/assets/images/icon/calender.png')}/>
                 </CustomAnimatedPressable>
 
             </StartLeftView>

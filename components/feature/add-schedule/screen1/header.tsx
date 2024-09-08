@@ -4,7 +4,7 @@ import { RootState } from "@/modules/redux/root-reducer";
 import { setScheduleTitle } from "@/modules/redux/slice/template-schedule-cache-slice";
 import { hScale, wScale } from "@/util/scaling";
 import { useEffect, useRef, useState } from "react";
-import { Keyboard, StyleSheet, TextInput, View, ViewProps } from "react-native";
+import { Keyboard, Platform, StyleSheet, TextInput, View, ViewProps } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 export type AddScheduleHeaderProps = ViewProps & {
@@ -42,7 +42,7 @@ export function AddScheduleHeader({ style, keyboardUp }: AddScheduleHeaderProps)
 
     return (
         <View style={[style, styles.base, { width: inputWidth }]}>
-            <TextInput 
+            <TextInput
                 ref={textInputRef} 
                 style={[{ color: textColor }, themedTextstyles.defaultSemiBold, styles.input]} 
                 onChangeText={setText}
@@ -52,6 +52,8 @@ export function AddScheduleHeader({ style, keyboardUp }: AddScheduleHeaderProps)
                     // TextInput의 콘텐츠 크기를 기반으로 부모 View 크기 조정
                     setInputWidth(e.nativeEvent.contentSize.width + wScale(10)); // 약간의 여백 추가
                 }}
+                placeholder= {Platform.OS === "ios" ? "" : "약속 이름"}
+                placeholderTextColor={gray}
             >
                 {text}
             </TextInput> 
@@ -69,7 +71,14 @@ const styles = StyleSheet.create({
     line: {
         marginTop: hScale(6),
         height: 2,
-        width: '100%',
+        ...Platform.select({
+            ios: {
+                width: '100%',
+            },
+            android: {
+                width: wScale(150),
+            }
+        })
     },
     input: {
         minWidth: wScale(50),

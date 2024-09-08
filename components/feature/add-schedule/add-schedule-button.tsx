@@ -6,7 +6,6 @@ import { useDispatch } from "react-redux";
 import { resetSchedule } from "@/modules/redux/slice/template-schedule-cache-slice";
 import { router } from "expo-router";
 
-
 export function AddScheduleButton() {
     const dispatch = useDispatch();
 

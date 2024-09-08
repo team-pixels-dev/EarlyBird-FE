@@ -20,7 +20,7 @@ export type fullSizeButtonProps = Partial<{
 
 export function FullSizeButton({style = {}, textColor = "black", children, onPress = () => {}, disabled = false} : fullSizeButtonProps){
     const tint = useThemeColor("tint");
-    const gray = useThemeColor("gray");
+    const gray = useThemeColor("brightGray");
     return (
         <CustomAnimatedPressable style={[styles.base, style, {backgroundColor:disabled?gray:tint}]} onPress={onPress} disabled={disabled}>
                 <RegularText style={[styles.font, {color:textColor}]}>{children}</RegularText>
