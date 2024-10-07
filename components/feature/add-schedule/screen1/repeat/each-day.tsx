@@ -16,7 +16,7 @@ export function EachDay({index, day, repeatDays, setRepeatDays} : EachDayProps) 
     const brightTint = useThemeColor("brightTint");
 
     function handleDayPress(){
-        setRepeatDays(repeatDays => repeatDays.map((item, i) => (i === index ? !item : item)))
+        // setRepeatDays(repeatDays => repeatDays.map((item, i) => (i === index ? !item : item)))
     }
 
     return(

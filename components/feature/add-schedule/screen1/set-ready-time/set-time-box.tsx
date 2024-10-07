@@ -19,11 +19,16 @@ export type SetTimeBoxProps = {
 export function SetTimeBox({type, setType, setModalOpen} : SetTimeBoxProps) {
     const color = useThemeColor("brightGray");
 
-    const schedule_ready_time = useSelector((state: RootState) => state.templateScheduleCache.schedule_start_time);
-    const schedule_move_time = useSelector((state: RootState) => state.templateScheduleCache.schedule_move_time);
+    const schedule_ready_time = useSelector((state: RootState) => state.scheduleCache.schedule_start_time);
+    const schedule_move_time = useSelector((state: RootState) => state.scheduleCache.schedule_move_time);
 
     const text = (type === "ready" ? "준비 시작" : "이동 출발");
-    const dateText = getHoursMinutes(new Date(type === "ready" ? schedule_ready_time.date : schedule_move_time.date));
+    const dateText = getHoursMinutes(new Date(type === "ready" ?
+        schedule_ready_time.date : 
+        schedule_move_time.date));
+    const eveText = type === "ready" ?
+        ( schedule_ready_time.day === "eve" ? "(전날)" : "" ) :
+        ( schedule_move_time.day === "eve" ? "(전날)" : "" );
     
     function handleModalOpen(){
         setModalOpen(true);
@@ -36,7 +41,7 @@ export function SetTimeBox({type, setType, setModalOpen} : SetTimeBoxProps) {
             onPress={()=> handleModalOpen()}>
             <View style={styles.textAndTime}>
                 <ThemedText type="defaultSemiBold" style={{fontSize:hScale(16)}}>{text}</ThemedText>
-                <ThemedText type="title" style={styles.dateText}>{dateText}</ThemedText>
+                <ThemedText type="title" style={styles.dateText}>{eveText + " " + dateText}</ThemedText>
             </View>
             <TimeTaken type={type} style={{width: '100%'}}/>
         </CustomAnimatedPressable>

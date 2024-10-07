@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "early-bird",
-    "slug": "golden-hour",
+    "slug": "early-bird",
     "version": "1.0.0",
     "runtimeVersion": "1.0.0",
     "orientation": "portrait",
@@ -40,7 +40,7 @@
         "origin": false
       },
       "eas": {
-        "projectId": "501f789e-ca70-4389-9106-f434f33d187a"
+        "projectId": "eecaa118-753c-406f-ba47-d71ead8eb4d6"
       }
     },
     "owner": "jayou2323"

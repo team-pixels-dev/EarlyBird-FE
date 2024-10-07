@@ -5,16 +5,15 @@ import { StartLeftView } from "@/components/layout/start_left_view";
 import { ThemedText } from "@/components/ui/texts/themed-text";
 import { EachSchedule } from "./each-schedule";
 import { hScale, SCREEN_WIDTH, wScale } from "@/util/scaling";
-import { useSelector } from "react-redux";
-import { RootState } from "@/modules/redux/root-reducer";
+import useOrderSchedule from "@/hooks/useOrderSchedule";
 
 export type ScheduleListProps = {
     type : 'soon' | 'other'
 }
 
 export function ScheduleList({type} : ScheduleListProps) {
-    const templateSchedule = useSelector((state: RootState)=>state.templateSchedule);
-    const keys = Object.keys(templateSchedule);
+    const schedule_keys = useOrderSchedule();
+    const keys = type === "soon" ?  schedule_keys.length !== 0 ? [schedule_keys[0]] : [] : schedule_keys.slice(1);
 
     return (
         <View style={styles.base}>

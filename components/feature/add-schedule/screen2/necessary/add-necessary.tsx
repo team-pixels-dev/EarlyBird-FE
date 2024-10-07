@@ -13,7 +13,7 @@ type AddNecessaryProps = {
 
 export function AddNecessary({onPress} : AddNecessaryProps) {
     const color = useThemeColor("brightTint")
-    const schedule_necessary = useSelector((state:RootState)=>state.templateScheduleCache.schedule_necessary)
+    const schedule_necessary = useSelector((state:RootState)=>state.scheduleCache.schedule_necessary)
     
     return (
         <CustomAnimatedPressable style={styles.eachNecessary} onPress={onPress}>

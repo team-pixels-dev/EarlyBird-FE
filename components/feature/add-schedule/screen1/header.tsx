@@ -13,7 +13,7 @@ export type AddScheduleHeaderProps = ViewProps & {
 
 export function AddScheduleHeader({ style, keyboardUp }: AddScheduleHeaderProps) {
     const gray = useThemeColor("gray");
-    const schedule_title = useSelector((state: RootState) => state.templateScheduleCache.schedule_title);
+    const schedule_title = useSelector((state: RootState) => state.scheduleCache.schedule_title);
     const dispatch = useDispatch();
 
     const textColor = useThemeColor('text');

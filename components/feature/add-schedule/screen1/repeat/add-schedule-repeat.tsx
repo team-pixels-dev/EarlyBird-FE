@@ -11,9 +11,9 @@ import { RootState } from "@/modules/redux/root-reducer";
 export function AddScheduleRepeat({style}: ViewProps){
     const daysOfWeek = ["월", "화", "수", "목", "금", "토", "일"];
     const defaultDays = [false,false,false,false,false,false,false];
-    const schedule_repeat = useSelector((state: RootState)=>state.templateScheduleCache.schedule_repeat);
+    const schedule_repeat = useSelector((state: RootState)=>state.scheduleCache.schedule_repeat);
     const [repeatDays, setRepeatDays] = useState(schedule_repeat)
-    const schedule_type = useSelector((state:RootState)=>state.templateScheduleCache.schedule_type);
+    const schedule_type = useSelector((state:RootState)=>state.scheduleCache.schedule_type);
     const dispatch = useDispatch();
 
     // repeatDays에 true값이 없으면 schedule_type은 date, 있으면 repeat

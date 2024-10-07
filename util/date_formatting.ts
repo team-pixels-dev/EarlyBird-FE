@@ -14,8 +14,9 @@ export function getFullDates(date : Date) {
     const day = date.getDate();
     const hours = date.getHours()
     const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
 
-    return years + "년 " + month + "월 " + day + "일 " + hours + "시 " + minutes + "분"
+    return years + "년 " + month + "월 " + day + "일 " + hours + "시 " + minutes + "분 " + seconds + "초";
 }
 
 export function getMainScreenDates(date : Date) {
@@ -62,3 +63,10 @@ export function minutesToHoursMinutes(minutes : number) {
     }
     return timeString;
 }
+
+export function secondsToHoursMinutesSeconds(seconds: number) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor(seconds / 60) % 60;
+    const secs = seconds % 60;
+    return `${hours > 0 ? `${hours}시간 ` : ``}${minutes > 0 ? `${minutes}분 ` : ``}${secs > 0 ? `${secs}초` : ``}`;
+};

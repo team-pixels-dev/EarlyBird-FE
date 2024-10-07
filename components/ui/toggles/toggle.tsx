@@ -19,8 +19,8 @@ export function Toggle({type} : ToggleType)  {
 
     const tintColor = useThemeColor('tint')
     const backgroundColor = useThemeColor('background');
-    const schedule_start_time = useSelector((state:RootState)=>state.templateScheduleCache.schedule_start_time);
-    const schedule_move_time = useSelector((state:RootState)=>state.templateScheduleCache.schedule_move_time);
+    const schedule_start_time = useSelector((state:RootState)=>state.scheduleCache.schedule_start_time);
+    const schedule_move_time = useSelector((state:RootState)=>state.scheduleCache.schedule_move_time);
     const setter = type === "ready" ? setScheduleStartTimeDay : setScheduleMoveTimeDay;
 
     useEffect(()=>{

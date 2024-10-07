@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useScheduleTimes } from "./useScheduleTimes";  // 새로 만든 훅을 임포트
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/modules/redux/root-reducer";
 
 export function useScheduleValidation() {
   const { moving_time, preparing_time, remain_time_for_schedule, remain_time_for_ready } = useScheduleTimes();
-  const schedule_title = useSelector((state: RootState)=>state.templateScheduleCache.schedule_title);
-  const schedule_type = useSelector((state: RootState)=>state.templateScheduleCache.schedule_type);
-
+  const schedule_title = useSelector((state: RootState)=>state.scheduleCache.schedule_title);
+  const schedule_type = useSelector((state: RootState)=>state.scheduleCache.schedule_type);
+    
   function checkScheduleValid() {
     if(schedule_type === "date") {
       if (remain_time_for_schedule <= 0) {
@@ -30,7 +30,7 @@ export function useScheduleValidation() {
       console.log("invalid_title");
       return "invalid_title";
     }
-    
+
     return "valid";
   }
 

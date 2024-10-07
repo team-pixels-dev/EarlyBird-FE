@@ -13,7 +13,7 @@ export function AddScheduleButton() {
         // 햅틱 피드백 실행
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
 
-        router.navigate('/add-schedule');
+        router.navigate('/(schedule)/add-schedule-1');
         
         // schedule 초기화
         dispatch(resetSchedule());

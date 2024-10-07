@@ -12,8 +12,8 @@ import { getDates } from "@/util/date_formatting";
 
 export function AddScheduleSetTime({style} : ViewProps){
     const [modalOpen, setModalOpen] = useState(false);
-    const schedule_type = useSelector((state: RootState)=>state.templateScheduleCache.schedule_type);
-    const schedule_date = useSelector((state: RootState)=>state.templateScheduleCache.schedule_date);
+    const schedule_type = useSelector((state: RootState)=>state.scheduleCache.schedule_type);
+    const schedule_date = useSelector((state: RootState)=>state.scheduleCache.schedule_date);
 
     return (
         <View style={[styles.base, style]}>

@@ -23,6 +23,7 @@ export default function RootLayout() {
       'ONE_Mobile_POP': require('../assets/fonts/ONE_Mobile_POP.ttf'),
       'Pretendard-Light': require('../assets/fonts/Pretendard-Light.ttf'),
       'Pretendard-Regular': require('../assets/fonts/Pretendard-Regular.ttf'),
+      'Pretendard-Medium': require('../assets/fonts/Pretendard-Medium.ttf'),
       'Pretendard-Bold': require('../assets/fonts/Pretendard-Bold.ttf'),
       'Pretendard-SemiBold': require('../assets/fonts/Pretendard-SemiBold.ttf'),
       'Pretendard-ExtraBold': require('../assets/fonts/Pretendard-ExtraBold.ttf'),
@@ -50,9 +51,9 @@ export default function RootLayout() {
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
           <Stack screenOptions={{
             headerShown:false,
-            // animation: 'ios',
             }}>
             <Stack.Screen name="(schedule)"/>
+            <Stack.Screen name="index"/>
             <Stack.Screen name="+not-found" />
           </Stack>
         </ThemeProvider>

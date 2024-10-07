@@ -5,7 +5,7 @@ import { useThemeColor } from '@/hooks/useThemeColor';
 const { hScale } = require('@/util/scaling');
 
 export type type = {
-  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link' | 'description' | 'ONEMobilePOP';
+  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link' | 'description' | 'medium' |'ONEMobilePOP';
 }
 
 export type ThemedTextProps = TextProps & type & {
@@ -32,6 +32,7 @@ export function ThemedText({
         type === 'subtitle' ? themedTextstyles.subtitle : undefined,
         type === 'link' ? themedTextstyles.link : undefined,
         type === 'description' ? themedTextstyles.description : undefined,
+        type === 'medium' ? themedTextstyles.medium : undefined,
         type === "ONEMobilePOP" ? themedTextstyles.ONEMobilePOP : undefined,
         style,
       ]}
@@ -43,17 +44,17 @@ export function ThemedText({
 export const themedTextstyles = StyleSheet.create({
   default: {
     fontSize: hScale(18),
-    lineHeight: 24,
+    lineHeight: hScale(24),
   },
   defaultSemiBold: {
     fontSize: hScale(18),
-    lineHeight: 24,
+    lineHeight: hScale(24),
     fontFamily:'Pretendard-SemiBold'
   },
   title: {
     fontSize: hScale(32),
     fontWeight: 'bold',
-    lineHeight: 32,
+    lineHeight: hScale(32),
   },
   subtitle: {
     fontSize: hScale(20),
@@ -61,16 +62,21 @@ export const themedTextstyles = StyleSheet.create({
   },
   link: {
     lineHeight: hScale(30),
-    fontSize: 16,
+    fontSize: hScale(16),
     color: '#0a7ea4',
   },
   description: {
     fontSize: hScale(14),
     color: '#898989',
   },
+  medium : {
+    fontSize: hScale(18),
+    lineHeight: hScale(24),
+    fontFamily:'Pretendard-Medium'
+  },
   ONEMobilePOP: {
     fontSize: hScale(16),
-    lineHeight: 24,
+    lineHeight: hScale(24),
     fontFamily:'ONE_Mobile_POP'
   },
 });

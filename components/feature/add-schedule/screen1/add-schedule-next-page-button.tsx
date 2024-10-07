@@ -2,24 +2,20 @@ import { FullSizeButton } from "@/components/ui/buttons/full-size-button";
 import { useScheduleValidation } from "@/hooks/useScheduleValidation";
 import { hScale } from "@/util/scaling";
 import * as Haptics from 'expo-haptics';
-import { AddScheduleScreenProps } from "./index";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/modules/redux/root-reducer";
 import { getFullDates } from "@/util/date_formatting";
 import { useThemeColor } from "@/hooks/useThemeColor";
+import { router } from "expo-router";
 
-export type AddScheduleNextPageButtonProps = {
-  setScreen: React.Dispatch<React.SetStateAction<number>>;
-}
-
-export function AddScheduleNextPageButton({setScreen} : AddScheduleNextPageButtonProps) {
+export function AddScheduleNextPageButton() {
     const defaultTextColor = useThemeColor("text");
     const errorTextColor = useThemeColor("error");
     const { checkScheduleValid } = useScheduleValidation();
     const [ buttonText, setButtonText ] = useState('다음');
     const [ textColor, setTextColor ] = useState(defaultTextColor);
-    const scheduleCache = useSelector((state:RootState)=>state.templateScheduleCache);
+    const scheduleCache = useSelector((state:RootState)=>state.scheduleCache);
     useEffect(()=>{
         const result = checkScheduleValid();
           if (result === "invalid_title") {
@@ -38,7 +34,7 @@ export function AddScheduleNextPageButton({setScreen} : AddScheduleNextPageButto
         const result = checkScheduleValid();
           if (result === "valid") {
             console.log(getFullDates(new Date(scheduleCache.schedule_start_time.date)));
-            setScreen(2);
+            router.navigate("/(schedule)/add-schedule-2");
           } else {
             Haptics.notificationAsync(
                 Haptics.NotificationFeedbackType.Error

@@ -21,14 +21,14 @@ export function TimeTaken({type, style} : timeTakenProps){
         const result = checkScheduleValid();
         if (type === "ready") {
             if (result === "invalid_start_time")
-                setErrorText("출발 시간보다 느려요!");
+                setErrorText("이동 출발 시간보다 이르게 수정해볼까요?");
             else if (result === "invalid_start_time_too_fast")
-                setErrorText("현재 시간보다 빨라요!");
+                setErrorText("현재 시간보다 늦게 수정해볼까요?");
             else 
                 setErrorText("");
         } else {
             if(result === "invalid_move_time")
-                setErrorText("약속시간보다 느려요!");
+                setErrorText("약속 시간보다 이르게 수정해볼까요?");
             else
                 setErrorText("");
         }

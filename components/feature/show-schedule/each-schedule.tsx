@@ -1,16 +1,14 @@
 import { CustomAnimatedPressable } from "@/components/ui/buttons/animated-pressable";
 import { ThemedText } from "@/components/ui/texts/themed-text";
-import { ViewProps } from "react-native";
 import { StyleSheet } from "react-native";
 import { hScale, wScale } from "@/util/scaling";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { router } from "expo-router";
-import useSchedulInfoTexteById from "@/hooks/useScheduleInfoTextById";
+import useSchedulInfoText from "@/hooks/useScheduleInfoTextById";
 import { useDispatch, useSelector } from "react-redux";
-import { removeTemplateSchedule } from "@/modules/redux/slice/template-schedule-slice";
 import { setMainDeleteConfrimModalOpen, setMainDeleteConfrimScheduleId } from "@/modules/redux/slice/modal-slice";
+import { loadScheduleToCache } from "@/modules/redux/slice/template-schedule-cache-slice";
 import { RootState } from "@/modules/redux/root-reducer";
-import { ResultState } from "expo-router/build/fork/getStateFromPath";
 
 export type EachScheduleProps =  {
     type: 'soon' | 'other';
@@ -19,10 +17,16 @@ export type EachScheduleProps =  {
 
 export function EachSchedule({type, schedule_id} : EachScheduleProps){
     const dispatch = useDispatch();
-    const scheduleInfoText = useSchedulInfoTexteById(schedule_id);
+    const schedule = useSelector((state: RootState)=>state.schedule[schedule_id]);
+    const scheduleInfoText = useSchedulInfoText(schedule);
+    
     const color = type === 'soon' ? useThemeColor('brightTint') : useThemeColor('brightGray');
+    const textColor = type === 'soon' ? useThemeColor("buttonText") : useThemeColor("text");
+    
     const navigateNextPage = () => {
-        router.navigate('./remaind-schedule');
+        // schedule-cache에 현재 schedule load.
+        dispatch(loadScheduleToCache(schedule));
+        router.navigate('./(schedule)/execute-schedule');
     }
     function onDelete(schedule_id : string){
         dispatch(setMainDeleteConfrimModalOpen(true));
@@ -30,7 +34,7 @@ export function EachSchedule({type, schedule_id} : EachScheduleProps){
     }
     return (
         <CustomAnimatedPressable style={[styles.base, {backgroundColor:color}]} onPress={navigateNextPage}>
-            <ThemedText style={{fontSize:hScale(16)}} type="defaultSemiBold">{scheduleInfoText}</ThemedText>
+            <ThemedText style={{fontSize:hScale(16), color:textColor}} type="defaultSemiBold">{scheduleInfoText}</ThemedText>
             <CustomAnimatedPressable style={styles.delete} onPress={()=>onDelete(schedule_id)}>
                 <ThemedText type="description">삭제</ThemedText>
             </CustomAnimatedPressable>

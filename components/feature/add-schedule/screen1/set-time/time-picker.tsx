@@ -9,12 +9,13 @@ import { RootState } from '@/modules/redux/root-reducer'
 
 export function AddScheduleDatePicker() {
   const dispatch = useDispatch()
-  const schedule_date = useSelector((state: RootState) => state.templateScheduleCache.schedule_date);
+  const schedule_date = useSelector((state: RootState) => state.scheduleCache.schedule_date);
 
   const color = useThemeColor('tint')
 
   function handleDataCange(date: Date) {
     Keyboard.dismiss();
+    date.setSeconds(0,0);
     dispatch(setScheduleTime(date.toISOString()));
   }
   

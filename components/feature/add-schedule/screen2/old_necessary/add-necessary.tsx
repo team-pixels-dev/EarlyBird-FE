@@ -1,20 +1,12 @@
 import { CustomAnimatedPressable } from "@/components/ui/buttons/animated-pressable";
-import { ThemedText } from "@/components/ui/texts/themed-text";
-import { ThemedView } from "@/components/ui/themed-view";
-import { useThemeColor } from "@/hooks/useThemeColor";
-import { RootState } from "@/modules/redux/root-reducer";
 import { hScale, wScale } from "@/util/scaling";
-import { ImageBackground, StyleSheet, View } from "react-native";
-import { useSelector } from "react-redux";
+import { ImageBackground, StyleSheet } from "react-native";
 
 type AddNecessaryProps = {
     onPress : () => void
 }
 
 export function AddNecessary({onPress} : AddNecessaryProps) {
-    const color = useThemeColor("brightTint")
-    const schedule_necessary = useSelector((state:RootState)=>state.templateScheduleCache.schedule_necessary)
-    
     return (
         <CustomAnimatedPressable style={styles.eachNecessary} onPress={onPress}>
             <ImageBackground style={styles.icon} source={require('@/assets/images/icon/plus.png')}/>

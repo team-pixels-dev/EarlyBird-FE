@@ -8,12 +8,28 @@ const tintColorDark = '#FFF500';
 
 export const Colors = {
   light: {
-    text: '#000000',
     background: '#FFF',
     selected: '#FFFFFF',
+
+    // textColors
+    text: '#000000',
+    text1: '#3D3D3D',
+    text2 : '#4B4B4B',
+    text3 : '#4C4C4C',
+    text4: '#3F3F3F',
+    brightText1: '#7A7A7A',
+    brightText2: '#BABABA',
+    brightText3 : '#A5A5A5',
+    brightText4 : '#B2B2B2',
+    buttonText: '#000000',
+
+    // yellows
     tint: tintColorLight,
     brightTint: '#FFFB99',
+    memoTint: '#fffcb4',
+
     brightGray: '#F7F7F7',
+
     gray: '#898989',
     icon: '#687076',
     tabIconDefault: '#687076',
@@ -22,13 +38,27 @@ export const Colors = {
     textDisabledColor: '#b8b8b8',
   },
   dark: {
-    text: '#ECEDEE',
-    background: '#424242',
+    background: '#262626',
     selected: '#000000',
+
+    // textColors
+    text: '#ECEDEE',
+    text1: '#3D3D3D',
+    text2 : '#4B4B4B',
+    text3 : '#4C4C4C',
+    text4: '#3F3F3F',
+    brightText1: '#7A7A7A',
+    brightText2: '#BABABA',
+    brightText3 : '#A5A5A5',
+    brightText4 : '#B2B2B2',
+    buttonText: '#000000',
+
+    // yellows
     tint: tintColorDark,
-    // brightTint: '#807a00',
-    brightTint: '#666633',
-    brightGray: '#787878',
+    brightTint: '#FFF851',
+    memoTint: '#fffcb4',
+
+    brightGray: '#3F3F3F',
     gray: '#898989',
     icon: '#9BA1A6',
     tabIconDefault: '#9BA1A6',

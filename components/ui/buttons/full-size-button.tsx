@@ -18,7 +18,7 @@ export function FullSizeButton({style = {}, textColor = "black", children, onPre
     const gray = useThemeColor("brightGray");
     return (
         <CustomAnimatedPressable 
-            style={[styles.base, style, {backgroundColor:disabled?gray:tint}]} 
+            style={[{backgroundColor:disabled?gray:tint}, styles.base, style]} 
             onPress={disabled ? 
                 ()=> Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error) 
                 : onPress}>

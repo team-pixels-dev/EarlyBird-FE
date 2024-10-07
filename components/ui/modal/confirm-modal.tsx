@@ -9,7 +9,7 @@ import { CustomAnimatedPressable } from "../buttons/animated-pressable";
 import { ModalComfirmButton } from "../buttons/modal-conform-button";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
-import { removeTemplateSchedule } from "@/modules/redux/slice/template-schedule-slice";
+import { removeschedule } from "@/modules/redux/slice/template-schedule-slice";
 import { RootState } from "@/modules/redux/root-reducer";
 
 export type modalProps = {
@@ -32,7 +32,7 @@ export function ConfirmModal({
 
   function onModalClose() {
     dispatch(setModalOpen(false));
-    dispatch(removeTemplateSchedule(schedule_id));
+    dispatch(removeschedule(schedule_id));
   }
 
   return (

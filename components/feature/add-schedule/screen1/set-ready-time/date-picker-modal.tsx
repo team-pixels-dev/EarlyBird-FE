@@ -11,6 +11,7 @@ import { StateType } from "./add-schedule-set-ready-time";
 import { useDispatch, useSelector } from "react-redux";
 import { setScheduleMoveTimeDate, setScheduleStartTimeDate } from "@/modules/redux/slice/template-schedule-cache-slice";
 import { RootState } from "@/modules/redux/root-reducer";
+import { getFullDates } from "@/util/date_formatting";
 
 export type modalProps  = {
     modalOpen: boolean,
@@ -23,13 +24,14 @@ export function DatePickerModal({ modalOpen, setModalOpen, type }: modalProps) {
 
     const dispatch = useDispatch();
 
-    const schedule_ready_time = useSelector((state: RootState) => state.templateScheduleCache.schedule_start_time.date);
-    const schedule_move_time = useSelector((state: RootState) => state.templateScheduleCache.schedule_move_time.date);
+    const schedule_ready_time = useSelector((state: RootState) => state.scheduleCache.schedule_start_time.date);
+    const schedule_move_time = useSelector((state: RootState) => state.scheduleCache.schedule_move_time.date);
 
     const date = (type === "ready" ? new Date(schedule_ready_time) : new Date(schedule_move_time));
     const text = (type === "ready" ? '준비 시작 ' : '이동 출발 ');
 
     function handleDataCange(date: Date) {
+        date.setSeconds(0,0);
         if(type === "ready") {
             dispatch(setScheduleStartTimeDate(date.toISOString()));
         } else {

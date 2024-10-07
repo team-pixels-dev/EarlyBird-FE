@@ -9,7 +9,7 @@ import { addScheduleNecessary } from "@/modules/redux/slice/template-schedule-ca
 import { hScale, wScale } from "@/util/scaling";
 
 export function ListNecessary({ style }: ViewProps) {
-    const scheduleNecessary = useSelector((state: RootState) => state.templateScheduleCache.schedule_necessary);
+    const scheduleNecessary = useSelector((state: RootState) => state.scheduleCache.schedule_necessary);
     const [modalOpen, setModalOpen] = useState(false);
 
     const dispatch = useDispatch();

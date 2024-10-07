@@ -16,13 +16,11 @@ const { hScale } = require('@/util/scaling');
 export default function Index() {
   const navigation = useNavigation();
 
-  const schedule = useSelector((state: RootState)=>state.templateSchedule);
-
   const modalOpen = useSelector((state: RootState)=>state.modal.main_delete_confirm.modalOpen);
 
   useEffect(() => {
 
-    console.log(schedule);
+    
     const handlePressBack = () => {
       if (navigation.isFocused()) {
         Alert.alert(
@@ -58,7 +56,7 @@ export default function Index() {
         <ScheduleList type="other"></ScheduleList>
       </ScrollView>
       <AddScheduleButton/>
-      <ConfirmModal title="삭제하시겠습니까?" modalOpen={modalOpen} setModalOpen={setMainDeleteConfrimModalOpen}/>
+      <ConfirmModal title="삭제하시겠습니까?" modalOpen={modalOpen} setModalOpen={setMainDeleteConfrimModalOpen} text={""}/>
     </FullScreen>
   );
 }
