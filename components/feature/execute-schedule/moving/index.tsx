@@ -46,9 +46,7 @@ export default function Moving() {
             <View style={styles.titleArea}>
                 <ThemedText type="ONEMobilePOP" style={styles.titleText}>어서 빨리 가야겠어요</ThemedText>
             </View>
-            <CustomAnimatedPressable onPress={()=>setModalOpen(true)}>
-                <Image source={require("@/assets/images/mascot/mascot_run_noeffect.png")} style={styles.mascote}/>
-            </CustomAnimatedPressable>
+            <Image source={require("@/assets/images/mascot/mascot_run_noeffect.png")} style={styles.mascote}/>
             <TwoOptionModal 
                 modalOpen={modalOpen} 
                 setModalOpen={setModalOpen} 

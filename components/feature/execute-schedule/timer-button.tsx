@@ -14,7 +14,8 @@ import { getFullDates, secondsToHoursMinutesSeconds } from '@/util/date_formatti
 import { resetExecuteScheduleData, setFinalExecuteMode } from '@/modules/redux/slice/execute-schedule-data-slice';
 import { useExecuteMode } from '@/hooks/useExecuteMode';
 import { router } from 'expo-router';
-import { resetschedule } from '@/modules/redux/slice/template-schedule-slice';
+import { removeschedule } from '@/modules/redux/slice/template-schedule-slice';
+import { resetScheduleCache } from '@/modules/redux/slice/template-schedule-cache-slice';
 
 export type fullSizeButtonProps = Partial<{
   textColor: string;
@@ -32,7 +33,8 @@ export function TimerButton({style = {}, textColor = "black", disabled = false} 
   // Shared value to track animation progress (from 0 to 1)
   const progress = useSharedValue(0);
 
-  const final_execute_mode = useSelector((state:RootState)=> state.executeScheduleData.final_excute_mode);
+  const executeScheduleData = useSelector((state:RootState)=>state.executeScheduleData);
+  const final_execute_mode = executeScheduleData.final_excute_mode;
   const scheduleDateTime = new Date(useSelector((state: RootState)=>state.scheduleCache.schedule_date));
   const { preparing_time, moving_time, moveDateTime, startDateTime } = useScheduleTimes();
 
@@ -44,8 +46,9 @@ export function TimerButton({style = {}, textColor = "black", disabled = false} 
       dispatch(setFinalExecuteMode("ready"));
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     } else if (final_execute_mode === "done" || final_execute_mode === "done_rate"){
+      dispatch(removeschedule(executeScheduleData.schedule_id));
+      dispatch(resetScheduleCache());
       dispatch(resetExecuteScheduleData());
-      dispatch(resetschedule());
       router.navigate("/");
     } else {
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);

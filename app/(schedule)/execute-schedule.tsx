@@ -2,7 +2,6 @@ import { FullScreen } from "@/components/layout/full_screen";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/modules/redux/root-reducer";
 import { StyleSheet, View } from "react-native";
-import { chooseSubjectParticle } from "@/util/choose-subject-particle";
 import { TimerButton } from "@/components/feature/execute-schedule/timer-button";
 import { PostPhoneButton } from "@/components/feature/execute-schedule/postphone/postphone-button";
 import { hScale, wScale } from "@/util/scaling";
@@ -11,15 +10,16 @@ import { PostPhoneModal } from "@/components/feature/execute-schedule//postphone
 import Ready from "@/components/feature/execute-schedule/ready";
 import Moving from "@/components/feature/execute-schedule/moving";
 import Done from "@/components/feature/execute-schedule/done";
-import { resetExecuteScheduleData } from "@/modules/redux/slice/execute-schedule-data-slice";
+import { setCanBack } from "@/modules/redux/slice/execute-schedule-data-slice";
 
 export default function ExecuteSchedule() {
-    const schedule = useSelector((state: RootState)=>state.scheduleCache);
     const final_execute_mode = useSelector((state:RootState)=>state.executeScheduleData.final_excute_mode);
     const [modalOpen, setModalOpen] = useState(false);
     const [screen, setScreen] = useState(<Ready/>);
+    const dispatch = useDispatch();
 
     useEffect(()=>{
+        dispatch(setCanBack(false));
         switch(final_execute_mode) {
             case "before_start" :
             case "wait_start" :
@@ -31,16 +31,16 @@ export default function ExecuteSchedule() {
             case "done_rate" :
             case "done" : setScreen(<Done/>);
         }
-    }, [final_execute_mode])
+    }, [final_execute_mode]);
     
     return (
         <FullScreen>
             {screen}
                  <View style={styles.buttonsArea}>
-                 {final_execute_mode === "done" ? null :
+                 {final_execute_mode === "done" || final_execute_mode === "done_rate" ? null :
                     <PostPhoneButton type="schedule" onPress={()=>setModalOpen(true)} style={{marginBottom:hScale(15)}}/>}          
                  <TimerButton/>
-             </View>      
+             </View>
             <PostPhoneModal modalOpen={modalOpen} setModalOpen={setModalOpen}/>
         </FullScreen>
     )

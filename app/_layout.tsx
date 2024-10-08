@@ -1,15 +1,14 @@
 import { ThemeProvider } from '@react-navigation/native';
 import { DarkTheme, DefaultTheme } from '@/theme';
 import * as Font from 'expo-font';
-import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect, useState } from 'react';
 import 'react-native-reanimated';
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { Persistor, Store } from "@/modules/redux/store";
-
 import { useColorScheme } from '@/hooks/useColorScheme';
+import RootStack from './__layout';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -49,13 +48,7 @@ export default function RootLayout() {
     <Provider store={Store}>
       <PersistGate persistor={Persistor}>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          <Stack screenOptions={{
-            headerShown:false,
-            }}>
-            <Stack.Screen name="(schedule)"/>
-            <Stack.Screen name="index"/>
-            <Stack.Screen name="+not-found" />
-          </Stack>
+          <RootStack/>
         </ThemeProvider>
       </PersistGate>
     </Provider>

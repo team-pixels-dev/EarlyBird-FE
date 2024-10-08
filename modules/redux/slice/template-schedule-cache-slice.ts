@@ -17,6 +17,7 @@ export interface scheduleState {
     schedule_necessary: string[];
     schedule_necessary_checked: boolean[];
     schedule_postphone_minutes: number[];
+    created_at: string;
 }
 
 let now = new Date().toISOString();
@@ -30,7 +31,8 @@ const initialState: scheduleState = {
     schedule_move_time: {date : (new Date(new Date(now).getTime()+7200000)).toISOString(), day : "today"},
     schedule_necessary: [],
     schedule_necessary_checked: [],
-    schedule_postphone_minutes: [0, 0, 0]
+    schedule_postphone_minutes: [0, 0, 0],
+    created_at: now
 };
 
 const scheduleSlice = createSlice({
@@ -207,7 +209,7 @@ const scheduleSlice = createSlice({
         },
 
         // 스케줄 초기화
-        resetSchedule(state) {
+        resetScheduleCache(state) {
             let now_ = new Date();
             now_.setSeconds(0,0);
             state.schedule_type = "date";
@@ -223,6 +225,11 @@ const scheduleSlice = createSlice({
             state.schedule_necessary = [];
             state.schedule_necessary_checked = [];
             state.schedule_postphone_minutes = [0, 0, 0];
+            state.created_at = now_.toISOString();
+        },
+
+        setCreateAt(state) {
+            state.created_at = new Date().toISOString();
         }
     }
 });
@@ -247,7 +254,8 @@ export const {
     addScheduleRepeat,
     removeScheduleRepeat,
     changeScheduleTime,
-    resetSchedule,
+    resetScheduleCache,
+    setCreateAt
 } = scheduleSlice.actions;
 
 export default scheduleSlice.reducer;

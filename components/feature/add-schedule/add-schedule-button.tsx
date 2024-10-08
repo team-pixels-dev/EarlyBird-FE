@@ -3,7 +3,7 @@ import { hScale } from "@/util/scaling";
 import { GestureResponderEvent } from "react-native";
 import * as Haptics from 'expo-haptics';
 import { useDispatch } from "react-redux";
-import { resetSchedule } from "@/modules/redux/slice/template-schedule-cache-slice";
+import { resetScheduleCache } from "@/modules/redux/slice/template-schedule-cache-slice";
 import { router } from "expo-router";
 
 export function AddScheduleButton() {
@@ -16,7 +16,7 @@ export function AddScheduleButton() {
         router.navigate('/(schedule)/add-schedule-1');
         
         // schedule 초기화
-        dispatch(resetSchedule());
+        dispatch(resetScheduleCache());
     };
 
     return (

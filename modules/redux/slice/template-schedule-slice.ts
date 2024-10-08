@@ -30,9 +30,35 @@ const scheduleSlice = createSlice({
             delete state[action.payload];
         },
 
+        sortSchedule(state){
+            const sortedEntries = Object.entries(state).sort(([, a], [, b]) => {
+                return new Date(a.schedule_date).getTime() - new Date(b.schedule_date).getTime();
+            });
+
+            // 새로운 객체로 반환
+            const sortedState: scheduleStateMap = sortedEntries.reduce((acc, [id, schedule]) => {
+                acc[id] = schedule;
+                return acc;
+            }, {} as scheduleStateMap);
+
+            return sortedState; // 정렬된 새로운 상태 반환
+        },
+
+        // 지난 스케줄을 정리
+        cleanPastSchedule(state) {
+            const now = new Date();
+            Object.keys(state).forEach(id=>{
+                if(new Date(state[id].schedule_date).getTime() <= now.getTime()) {
+                    delete state[id];
+                }
+            });
+        },
+
         // 모든 스케줄 삭제
-        resetschedule(state) {
-            return initialState;
+        resetAllSchedule(state, action: PayloadAction<string>) {
+            if(action.payload === "delete") {
+                return initialState;
+            }
         }
     }
 });
@@ -41,7 +67,9 @@ export const {
     addschedule,
     updateschedule,
     removeschedule,
-    resetschedule,
+    sortSchedule,
+    cleanPastSchedule,
+    resetAllSchedule,
 } = scheduleSlice.actions;
 
 export default scheduleSlice.reducer;

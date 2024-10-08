@@ -15,7 +15,7 @@ export function ScheduleTimeTextLabel({schedule, style}: ScheduleTimeTextLabelPr
     const scheduleTimeText = scheduleText.split('-').at(0)?.trimEnd();
     
     const brightTint = useThemeColor("brightTint");
-    const textColor = useThemeColor("text3");
+    const darkText = useThemeColor("darkText");
     return (
         <ThemedView style={[
             style, 
@@ -27,7 +27,7 @@ export function ScheduleTimeTextLabel({schedule, style}: ScheduleTimeTextLabelPr
             <ThemedText style={[
                     styles.text,
                     {
-                        color: textColor,
+                        color: darkText,
                     }
                 ]}
                 type="defaultSemiBold"
@@ -38,14 +38,12 @@ export function ScheduleTimeTextLabel({schedule, style}: ScheduleTimeTextLabelPr
 
 const styles = StyleSheet.create({
     base : {
-        width: wScale(147),
-        height: hScale(44),
-        borderWidth: 4,
-        borderRadius: 9999,
+        // width: wScale(147),
+        // height: hScale(44),
         alignItems: "center",
         justifyContent: "center",
     },
     text : {
-        fontSize: hScale(16),
+        fontSize: hScale(24),
     }
 })

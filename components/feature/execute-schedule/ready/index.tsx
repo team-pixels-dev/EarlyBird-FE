@@ -44,10 +44,10 @@ const styles = StyleSheet.create({
         lineHeight: hScale(40)
     },
     scheduleTime: {
-        marginTop: hScale(78)
+        marginTop: hScale(96)
     },
     necessaryArea: {
-        marginTop: hScale(33)
+        marginTop: hScale(39)
     },
     buttonsArea: {
         alignItems: "center",

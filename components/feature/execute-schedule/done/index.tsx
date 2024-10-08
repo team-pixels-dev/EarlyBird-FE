@@ -1,11 +1,8 @@
 import { ThemedText } from "@/components/ui/texts/themed-text";
 import { Image, StyleSheet, View } from "react-native";
 import { hScale, wScale } from "@/util/scaling";
-import { modalOption, TwoOptionModal } from "@/components/ui/modal/two-option-modal";
-import { useEffect, useState } from "react";
-import { CustomAnimatedPressable } from "@/components/ui/buttons/animated-pressable";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setFinalExecuteMode } from "@/modules/redux/slice/execute-schedule-data-slice";
 import { RootState } from "@/modules/redux/root-reducer";
 
   
@@ -14,31 +11,40 @@ export default function Done() {
     
     const dispatch = useDispatch();
 
+    const final_excute_mode = useSelector((state:RootState)=>state.executeScheduleData.final_excute_mode);
+
+    const text = final_excute_mode === "done" ? 
+        "오늘도 성공하셨네요!\n대단하신걸요?" : 
+        "헐!!! 늦었다구요??\n그럴리가...OTL\n다음엔 안늦게 도와줄게요!";
+    const image = final_excute_mode === "done" ?
+        require("@/assets/images/mascot/mascot_run.png") :
+        require("@/assets/images/mascot/mascot_cry.png")
+
     return (
         <>
             <View style={styles.titleArea}>
-                <ThemedText type="ONEMobilePOP" style={styles.titleText}>{"오늘도 성공하셨네요!\n대단하신걸요?"}</ThemedText>
+                <ThemedText type="ONEMobilePOP" style={styles.titleText}>{text}</ThemedText>
             </View>
-            <CustomAnimatedPressable onPress={()=>setModalOpen(true)}>
-                <Image source={require("@/assets/images/mascot/mascot_run.png")} style={styles.mascote}/>
-            </CustomAnimatedPressable>
+            <Image source={image} style={styles.mascote}/>
         </>
     )
 }
 
 const styles = StyleSheet.create({
     titleArea: {
-        height: hScale(170),
+        marginTop: hScale(82),
         width: '100%',
         justifyContent: "flex-end",
         alignItems: "center",
     },
     titleText:{
-        fontSize: hScale(26),
-        lineHeight: hScale(40)
+        fontSize: hScale(24),
+        lineHeight: hScale(28),
+        textAlign: "center"
     },
     mascote: {
-        marginTop: hScale(85),
+        position: "absolute",
+        top: hScale(290),
         width: hScale(206),
         height: hScale(216),
         objectFit: "contain",

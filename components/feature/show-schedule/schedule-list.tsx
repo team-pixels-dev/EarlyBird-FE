@@ -6,13 +6,18 @@ import { ThemedText } from "@/components/ui/texts/themed-text";
 import { EachSchedule } from "./each-schedule";
 import { hScale, SCREEN_WIDTH, wScale } from "@/util/scaling";
 import useOrderSchedule from "@/hooks/useOrderSchedule";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/modules/redux/root-reducer";
+import { useEffect } from "react";
+import { sortSchedule } from "@/modules/redux/slice/template-schedule-slice";
 
 export type ScheduleListProps = {
     type : 'soon' | 'other'
 }
 
 export function ScheduleList({type} : ScheduleListProps) {
-    const schedule_keys = useOrderSchedule();
+    const schedule = useSelector((state:RootState)=>state.schedule);
+    const schedule_keys = Object.keys(schedule);
     const keys = type === "soon" ?  schedule_keys.length !== 0 ? [schedule_keys[0]] : [] : schedule_keys.slice(1);
 
     return (

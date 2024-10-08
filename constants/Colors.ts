@@ -13,6 +13,7 @@ export const Colors = {
 
     // textColors
     text: '#000000',
+    darkText: '#191919',
     text1: '#3D3D3D',
     text2 : '#4B4B4B',
     text3 : '#4C4C4C',
@@ -43,6 +44,7 @@ export const Colors = {
 
     // textColors
     text: '#ECEDEE',
+    darkText: '#FFFFFF',
     text1: '#3D3D3D',
     text2 : '#4B4B4B',
     text3 : '#4C4C4C',

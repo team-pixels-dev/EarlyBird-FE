@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setMainDeleteConfrimModalOpen, setMainDeleteConfrimScheduleId } from "@/modules/redux/slice/modal-slice";
 import { loadScheduleToCache } from "@/modules/redux/slice/template-schedule-cache-slice";
 import { RootState } from "@/modules/redux/root-reducer";
+import { setScheduleId } from "@/modules/redux/slice/execute-schedule-data-slice";
 
 export type EachScheduleProps =  {
     type: 'soon' | 'other';
@@ -26,6 +27,7 @@ export function EachSchedule({type, schedule_id} : EachScheduleProps){
     const navigateNextPage = () => {
         // schedule-cache에 현재 schedule load.
         dispatch(loadScheduleToCache(schedule));
+        dispatch(setScheduleId(schedule_id));
         router.navigate('./(schedule)/execute-schedule');
     }
     function onDelete(schedule_id : string){
