@@ -1,0 +1,9 @@
+{
+    "react-native": {
+      "crashlytics_disable_auto_disabling_uncaught_exceptions": false,
+      "crashlytics_debug_enabled": true,
+      "crashlytics_auto_collection_enabled": true,
+      "analytics_auto_collection_enabled": true,
+      "analytics_auto_screen_reporting_enabled": true
+    }
+  }

@@ -2,5 +2,7 @@
     "git.ignoreLimitWarning": true,
     "files.associations": {
         "stack": "cpp"
-    }
+    },
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.compile.nullAnalysis.mode": "automatic"
 }
