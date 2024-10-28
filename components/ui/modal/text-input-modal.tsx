@@ -11,7 +11,8 @@ export type modalProps = {
   defaultText: string;
   placeHolder: string;
   modalOpen: boolean;
-  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setModalOpen: any;
+  maxLength: number;
   dispatchText: (text: string) => void;
 };
 
@@ -20,6 +21,7 @@ export function TextInputModal({
   defaultText,
   placeHolder,
   modalOpen,
+  maxLength,
   setModalOpen,
   dispatchText,
 }: modalProps) {
@@ -44,7 +46,7 @@ export function TextInputModal({
 
   // Handle text input change
   const handleTextChange = (input: string) => {
-    if (input.length > 12) {
+    if (input.length > maxLength) {
       setIsOverLimit(true);
       triggerShake(); // Trigger shake animation
       setText(input.slice(0, 12)); // Limit text to 12 characters

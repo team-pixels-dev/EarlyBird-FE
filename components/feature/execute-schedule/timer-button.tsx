@@ -16,6 +16,7 @@ import { useExecuteMode } from '@/hooks/useExecuteMode';
 import { router } from 'expo-router';
 import { removeschedule } from '@/modules/redux/slice/template-schedule-slice';
 import { resetScheduleCache } from '@/modules/redux/slice/template-schedule-cache-slice';
+import { resetModals, setExecuteScheduleDoneModalOpen, setExecuteScheduleDoneModalScheduleId } from '@/modules/redux/slice/modal-slice';
 
 export type fullSizeButtonProps = Partial<{
   textColor: string;
@@ -46,10 +47,16 @@ export function TimerButton({style = {}, textColor = "black", disabled = false} 
       dispatch(setFinalExecuteMode("ready"));
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     } else if (final_execute_mode === "done" || final_execute_mode === "done_rate"){
-      dispatch(removeschedule(executeScheduleData.schedule_id));
-      dispatch(resetScheduleCache());
-      dispatch(resetExecuteScheduleData());
-      router.navigate("/");
+      // 피드백 및 종료를 위한 모달 open
+      dispatch(resetModals());
+      dispatch(setExecuteScheduleDoneModalOpen(true));
+      dispatch(setExecuteScheduleDoneModalScheduleId(executeScheduleData.schedule_id));
+
+      // 약속 관련 데이터 정리
+      // dispatch(removeschedule(executeScheduleData.schedule_id));
+      // dispatch(resetScheduleCache());
+      // dispatch(resetExecuteScheduleData());
+      // router.navigate("/");
     } else {
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
     }
@@ -132,7 +139,9 @@ export function TimerButton({style = {}, textColor = "black", disabled = false} 
         break;
       case "wait_done" : break;
       case "done_rate" :
-      case "done" : setBackgroundColor(tint);
+      case "done" : 
+        progress.value = 0;
+        setBackgroundColor(tint);
       default : break;
     }
   }, [final_execute_mode, currentMinute, buttonText]);

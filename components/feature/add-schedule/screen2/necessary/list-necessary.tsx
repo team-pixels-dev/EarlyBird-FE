@@ -35,6 +35,7 @@ export function ListNecessary({ style }: ViewProps) {
                 modalOpen={modalOpen}
                 setModalOpen={setModalOpen}
                 dispatchText={handleDispatchText}
+                maxLength={12}
             />
         </ScrollView>
     );

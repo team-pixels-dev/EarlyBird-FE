@@ -12,11 +12,12 @@ export type EachNecessaryProps = ViewProps & {
 }
 
 export function EachNecessary({children, index} : EachNecessaryProps) {
-    const color = useThemeColor("brightTint")
+    const color = useThemeColor("brightTint");
+    const buttonText = useThemeColor("buttonText");
     const dispatch = useDispatch();
     return (
         <View style={[styles.eachNecessary, {backgroundColor:color}]}>
-            <ThemedText type="defaultSemiBold" style={{fontSize:hScale(14), marginRight:wScale(10)}}>{children}</ThemedText>
+            <ThemedText type="defaultSemiBold" style={{fontSize:hScale(14), marginRight:wScale(10), color:buttonText}}>{children}</ThemedText>
             <Pressable onPress={()=>dispatch(removeScheduleNecessary(index))}>
                 <Image style={styles.icon} source={require('@/assets/images/icon/x.png')}></Image>
             </Pressable>

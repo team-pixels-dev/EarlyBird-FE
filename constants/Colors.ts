@@ -29,8 +29,10 @@ export const Colors = {
     brightTint: '#FFFB99',
     memoTint: '#fffcb4',
 
-    brightGray: '#F7F7F7',
+    // calender
+    today: '#00adf5',
 
+    brightGray: '#F7F7F7',
     gray: '#898989',
     icon: '#687076',
     tabIconDefault: '#687076',
@@ -59,6 +61,9 @@ export const Colors = {
     tint: tintColorDark,
     brightTint: '#FFF851',
     memoTint: '#fffcb4',
+
+    // calender
+    today: '#FFF500',
 
     brightGray: '#3F3F3F',
     gray: '#898989',

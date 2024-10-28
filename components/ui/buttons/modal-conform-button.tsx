@@ -10,12 +10,13 @@ export type ModalComfirmButtonProps = {
 
 export function ModalComfirmButton({onPress} : ModalComfirmButtonProps){
     const tint = useThemeColor("tint")
+    const buttonText = useThemeColor("buttonText");
     return (
         <CustomAnimatedPressable 
             onPress={onPress}
             style={[{backgroundColor:tint}, styles.base]}
             >
-          <ThemedText type="title" style={{fontSize:hScale(16)}}>확인</ThemedText>
+          <ThemedText type="title" style={{fontSize:hScale(16), color:buttonText}}>확인</ThemedText>
         </CustomAnimatedPressable>
     )
 }

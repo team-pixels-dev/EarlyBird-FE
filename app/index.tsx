@@ -13,6 +13,8 @@ import { useEffect } from "react";
 import { cleanPastSchedule } from "@/modules/redux/slice/template-schedule-slice";
 import { setCanBack } from "@/modules/redux/slice/execute-schedule-data-slice";
 import { useAllowPushNotification } from "@/hooks/push-notification/useAllowPushNotification";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useMakeDeviceId } from "@/hooks/device-id/useMakeDeviceId";
 
 const { hScale } = require('@/util/scaling');
 
@@ -20,6 +22,7 @@ export default function Index() {
   const dispatch = useDispatch();
   useExitConfirmation(); // 뒤로가기 버튼이 눌렸을 시 앱을 닫을지 확인하는 alert창 띄움
   useAllowPushNotification();
+  useMakeDeviceId();
 
   useEffect(()=>{
     dispatch(setCanBack(true));

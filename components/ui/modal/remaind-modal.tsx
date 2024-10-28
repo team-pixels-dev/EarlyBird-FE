@@ -40,18 +40,12 @@ export function RemaindModal({
       onBackdropPress={() => setModalOpen(false)}
     >
       <ThemedView style={styles.base}>
-        <View style={{paddingTop: hScale(66), paddingLeft: wScale(20)}}>
-          <ThemedText type="ONEMobilePOP">
-            {title.substring(0, 11)}
+        <View style={styles.textArea}>
+          <ThemedText type="ONEMobilePOP" style={{textAlign:'center'}}>
+            {title}
           </ThemedText>
-          <ThemedText type="ONEMobilePOP">
-            {title.substring(12)}
-          </ThemedText>
-          <ThemedText type="description" style={{marginTop:hScale(15)}}>
-            {text.substring(0, 9)}
-          </ThemedText>
-          <ThemedText type="description">
-            {text.substring(9)}
+          <ThemedText type="description" style={{textAlign:'center', marginTop:hScale(15)}}>
+            {text}
           </ThemedText>
         </View>
         <ModalComfirmButton onPress={()=>(setModalOpen(false))}/>
@@ -70,8 +64,12 @@ const styles = StyleSheet.create({
   base: {
     borderRadius: hScale(8),
     width: wScale(270),
-    height: hScale(365),
-    alignItems: "flex-start",
+    height: hScale(212),
+    alignItems: "center",
     justifyContent: "space-between",
+  },
+  textArea: {
+    flex: 1,
+    justifyContent: 'center'
   }
 });

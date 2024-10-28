@@ -26,6 +26,7 @@ export const Store = configureStore({
           ignoredActions: ['persist/PERSIST'],
           ignoredPaths: ['register'],
         },
+        immutableCheck: false, // Disable ImmutableStateInvariantMiddleware
       }
     )
       

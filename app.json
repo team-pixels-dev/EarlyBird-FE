@@ -18,15 +18,17 @@
       "bundleIdentifier": "com.earlybirdteam2024.early-bird",
       "googleServicesFile": "./GoogleService-Info.plist",
       "entitlements": {
-        "aps-environment": "preview" 
-      }
+        "aps-environment": "production" 
+      },
+      "buildNumber": "1"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.earlybirdteam2024.earlybird"
+      "package": "com.earlybirdteam2024.earlybird",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "bundler": "metro",

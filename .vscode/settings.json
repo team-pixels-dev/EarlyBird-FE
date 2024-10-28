@@ -1,7 +1,8 @@
 {
     "git.ignoreLimitWarning": true,
     "files.associations": {
-        "stack": "cpp"
+        "stack": "cpp",
+        "ios": "cpp"
     },
     "java.configuration.updateBuildConfiguration": "interactive",
     "java.compile.nullAnalysis.mode": "automatic"

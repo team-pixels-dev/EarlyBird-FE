@@ -3,6 +3,9 @@
         조사 이/가 중 적절한 것을 붙여주기 위한 함수
 */
 export function chooseSubjectParticle(word: string): string {
+    if(word.length == 0) {
+        return "";
+    }
     const lastChar = word[word.length - 1];
     
     // 마지막 글자의 유니코드 값
