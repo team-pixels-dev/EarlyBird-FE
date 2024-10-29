@@ -10,7 +10,7 @@ import { useThemeColor } from "@/hooks/useThemeColor";
 import { router } from "expo-router";
 
 export function AddScheduleNextPageButton() {
-    const defaultTextColor = useThemeColor("text");
+    const defaultTextColor = useThemeColor("buttonText");
     const errorTextColor = useThemeColor("error");
     const { checkScheduleValid } = useScheduleValidation();
     const [ buttonText, setButtonText ] = useState('다음');

@@ -25,10 +25,10 @@ let now = new Date().toISOString();
 const initialState: scheduleState = {
     schedule_type: "date",
     schedule_title: "",
-    schedule_date: (new Date(new Date(now).getTime()+10800000)).toISOString(),
+    schedule_date: now,
     schedule_repeat: [false, false, false, false, false, false, false],
-    schedule_start_time: {date : (new Date(new Date(now).getTime()+3600000)).toISOString(), day : "today"},
-    schedule_move_time: {date : (new Date(new Date(now).getTime()+7200000)).toISOString(), day : "today"},
+    schedule_start_time: {date : now, day : "today"},
+    schedule_move_time: {date : now, day : "today"},
     schedule_necessary: [],
     schedule_necessary_checked: [],
     schedule_postphone_minutes: [0, 0, 0],
@@ -214,13 +214,13 @@ const scheduleSlice = createSlice({
             now_.setSeconds(0,0);
             state.schedule_type = "date";
             state.schedule_title = '';
-            state.schedule_date = (new Date(now_.getTime()+10800000)).toISOString();
+            state.schedule_date = now_.toISOString();
             state.schedule_repeat = [false, false, false, false, false, false, false];
-            state.schedule_start_time = {date : (new Date(now_.getTime()+3600000)).toISOString(), day : 
+            state.schedule_start_time = {date : now_.toISOString(), day : 
                 now_.getDate() === new Date(state.schedule_date).getDate() ? 
                  "today" : "eve"};
-            state.schedule_move_time = {date : (new Date(now_.getTime()+7200000)).toISOString(), day : 
-                (new Date(now_.getTime()+3600000)).getDate() === new Date(state.schedule_date).getDate() ? 
+            state.schedule_move_time = {date : now_.toISOString(), day : 
+                now_.getDate() === new Date(state.schedule_date).getDate() ? 
                  "today" : "eve"};
             state.schedule_necessary = [];
             state.schedule_necessary_checked = [];

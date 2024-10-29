@@ -5,7 +5,7 @@ interface ModalState {
         modalOpen : boolean;
         schedule_id : string;
     },
-    execute_schedule_done_modal : {
+    feedback_modal : {
         modalOpen : boolean;
         schedule_id : string;
     },
@@ -16,7 +16,7 @@ const initialState: ModalState = {
         modalOpen : false,
         schedule_id : "",
     },
-    execute_schedule_done_modal : {
+    feedback_modal : {
         modalOpen : false,
         schedule_id : "",
     },
@@ -32,11 +32,11 @@ const ModalStateSlice = createSlice({
         setMainDeleteConfrimScheduleId(state, action: PayloadAction<string>){
             state.main_delete_confirm.schedule_id = action.payload;
         },
-        setExecuteScheduleDoneModalOpen(state, action: PayloadAction<boolean>){
-            state.execute_schedule_done_modal.modalOpen = action.payload;
+        setFeedbackModalOpen(state, action: PayloadAction<boolean>){
+            state.feedback_modal.modalOpen = action.payload;
         },
-        setExecuteScheduleDoneModalScheduleId(state, action: PayloadAction<string>){
-            state.execute_schedule_done_modal.schedule_id = action.payload;
+        setFeedbackModalScheduleId(state, action: PayloadAction<string>){
+            state.feedback_modal.schedule_id = action.payload;
         },
         resetModals(){
             console.log("call init");
@@ -48,8 +48,8 @@ const ModalStateSlice = createSlice({
 export const {
     setMainDeleteConfrimModalOpen,
     setMainDeleteConfrimScheduleId,
-    setExecuteScheduleDoneModalOpen,
-    setExecuteScheduleDoneModalScheduleId,
+    setFeedbackModalOpen,
+    setFeedbackModalScheduleId,
     resetModals
 } = ModalStateSlice.actions;
 

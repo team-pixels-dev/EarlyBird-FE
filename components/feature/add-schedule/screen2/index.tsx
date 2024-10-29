@@ -14,8 +14,9 @@ export function AddScheduleScreen2() {
     function onGenerateSchedule(schedule_cache : scheduleState) {
         dispatch(setCreateAt());
         dispatch(addschedule(schedule_cache));
+        console.log(schedule_cache);
         dispatch(sortSchedule());
-        router.navigate("/");
+        // router.navigate("/");
     }
     return (
         <>

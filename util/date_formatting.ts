@@ -1,5 +1,9 @@
 const days = ["일", "월", "화", "수", "목", "금", "토"];
 
+function digits(number: number, digits: number): string {
+    return number.toString().padStart(digits, '0');
+}
+
 export function getHoursMinutes(date : Date) {
     const hours = date.getHours()
     const minutes = date.getMinutes();
@@ -70,3 +74,18 @@ export function secondsToHoursMinutesSeconds(seconds: number) {
     const secs = seconds % 60;
     return `${hours > 0 ? `${hours}시간 ` : ``}${minutes > 0 ? `${minutes}분 ` : ``}${secs > 0 ? `${secs}초` : ``}`;
 };
+
+export function serverFomat(date : Date) {
+    const years = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+
+    const result = digits(years, 4) + "-" + digits(month, 2) + "-" + digits(day,2) + " "
+        + digits(hours,2) + ":" + digits(minutes, 2) + ":" + digits(seconds, 2);
+
+    return result;
+}
+

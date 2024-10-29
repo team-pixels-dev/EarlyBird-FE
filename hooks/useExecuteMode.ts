@@ -16,10 +16,6 @@ export function useExecuteMode() {
   const dispatch = useDispatch();
 
   const currentMinute = useMinuteChangeEffect(()=>{
-    // if(final_excute_mode === "wait_start") {
-    //   return;
-    // }
-
     const now = new Date();
     const remain_time_for_ready = Math.floor((startDateTime.getTime() - now.getTime()) / 60000) + 1;
     const remain_time_for_move = Math.floor((moveDateTime.getTime() - now.getTime()) / 60000) + 1;

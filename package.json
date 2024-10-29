@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.2",
+    "@quidone/react-native-wheel-picker": "^1.0.1",
     "@react-native-async-storage/async-storage": "1.23.1",
     "@react-native-clipboard/clipboard": "^1.14.2",
     "@react-native-firebase/app": "^21.0.0",
@@ -24,6 +25,7 @@
     "@react-navigation/stack": "^6.4.1",
     "@reduxjs/toolkit": "^2.2.7",
     "@types/redux-persist": "^4.0.0",
+    "axios": "^1.7.7",
     "expo": "~51.0.36",
     "expo-build-properties": "~0.12.5",
     "expo-constants": "~16.0.2",

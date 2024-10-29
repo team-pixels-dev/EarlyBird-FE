@@ -5,41 +5,26 @@ import { ThemedText, themedTextstyles } from "@/components/ui/texts/themed-text"
 import { ThemedView } from "@/components/ui/themed-view";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { hScale, wScale } from "@/util/scaling";
-import { ModalComfirmButton } from "../buttons/modal-conform-button";
+import { ModalComfirmButton } from "@/components/ui/buttons/modal-conform-button";
 import { RatingModal } from "@/components/feature/execute-schedule/feedback/rating-modal";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/modules/redux/root-reducer";
+import { setFeedBack } from "@/modules/redux/slice/execute-schedule-data-slice";
+import client from "@/modules/axios/client";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { serverFomat } from "@/util/date_formatting";
 
-export type modalProps = {
-  title: string;
-  defaultText: string;
-  placeHolder: string;
-  modalOpen: boolean;
-  setModalOpen: (modalOpen: boolean) => void;
-  maxLength: number;
-  dispatchText: (text: string) => void;
-};
-
-export function LongTextInputModal({
-    title,
-    defaultText,
-    placeHolder,
-    modalOpen,
-    maxLength,
-    setModalOpen,
-    dispatchText,
-  } : modalProps) {
+export function FeedbackModal() {
   const textColor = useThemeColor("text");
   const brightGray = useThemeColor("brightGray");
   const textInputRef = useRef<TextInput>(null);
-  const [text, setText] = useState(defaultText);
+  const [text, setText] = useState("");
   const [page, setPage] = useState(1);
-  // Handle text input change
-  const handleTextChange = (input: string) => {
-    setText(input);
-  };
+  const modalOpen = useSelector((state:RootState)=>state.modal.feedback_modal.modalOpen);
+  const dispatch = useDispatch();
 
   // Focus TextInput on modal open
   useEffect(() => {
-    console.log("open");
     if (modalOpen) {
       const timer = setTimeout(() => {
         if (textInputRef.current) {
@@ -54,10 +39,23 @@ export function LongTextInputModal({
     }
   }, [modalOpen]);
 
-  function onModalComfirm() {
-    dispatchText(text);
+  // Handle text input change
+  const handleTextChange = (input: string) => {
+    setText(input);
+  };
+
+  async function onModalComfirm() {
+    dispatch(setFeedBack(text));
+    const formData = {
+      "comment" : text,
+      "clientId" : await AsyncStorage.getItem('deviceId'),
+      "createdAt" : serverFomat(new Date())
+    }
+    console.log(formData);
+    client.post('/api/v1/feedbacks/comments', formData)
+      .then((res)=>{console.log(res)})
+      .catch((err)=>{console.log(err)});
     setPage(2);
-    // setModalOpen(false);
   }
 
   return (
@@ -79,7 +77,7 @@ export function LongTextInputModal({
         { page === 1 ?
         <ThemedView style={styles.base}>
           <ThemedText type="defaultSemiBold" style={{ width: wScale(310) }}>
-            {title}
+            서비스에 대한 피드백을 작성해주세요
           </ThemedText>
             <TextInput
               ref={textInputRef}
@@ -92,12 +90,12 @@ export function LongTextInputModal({
                 styles.input,
               ]}
               onChangeText={handleTextChange}
-              placeholder={placeHolder}
+              placeholder={"300자 이내"}
               value={text}
               textAlignVertical="top"
               multiline={true}
               numberOfLines={4}
-              maxLength={maxLength}
+              maxLength={300}
             />
           <ModalComfirmButton onPress={onModalComfirm}/>
         </ThemedView> : 
