@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { scheduleState } from "./template-schedule-cache-slice";
 import uuid from 'react-native-uuid';
+import { serverToClient } from "@/util/convert_schedule_id";
 
 interface scheduleStateMap {
     [id: string]: scheduleState;  // 각 상태를 ID로 관리하는 객체
@@ -13,9 +14,8 @@ const scheduleSlice = createSlice({
     initialState,
     reducers: {
         //  스케줄 추가
-        addschedule(state, action: PayloadAction<scheduleState>) {
-            const id = uuid.v4();
-            state[id.toString()] = action.payload;
+        addschedule(state, action: PayloadAction<{ id: string, data: scheduleState }>) {
+            state[serverToClient(action.payload.id)] = action.payload.data;
         },
 
         // 특정 스케줄을 업데이트
@@ -29,20 +29,7 @@ const scheduleSlice = createSlice({
         removeschedule(state, action: PayloadAction<string>) {
             delete state[action.payload];
         },
-
-        sortSchedule(state){
-            const sortedEntries = Object.entries(state).sort(([, a], [, b]) => {
-                return new Date(a.schedule_date).getTime() - new Date(b.schedule_date).getTime();
-            });
-
-            // 새로운 객체로 반환
-            const sortedState: scheduleStateMap = sortedEntries.reduce((acc, [id, schedule]) => {
-                acc[id] = schedule;
-                return acc;
-            }, {} as scheduleStateMap);
-
-            return sortedState; // 정렬된 새로운 상태 반환
-        },
+        
 
         // 지난 스케줄을 정리
         cleanPastSchedule(state) {
@@ -53,6 +40,23 @@ const scheduleSlice = createSlice({
                 }
             });
         },
+
+        sortSchedule(state) {
+            // Object.entries로 state 객체를 배열로 변환하여 schedule_date 기준으로 정렬
+            const sortedEntries = Object.entries(state)
+                .sort(([, a], [, b]) => new Date(a.schedule_date).getTime() - new Date(b.schedule_date).getTime());
+        
+            // 기존 state를 초기화
+            Object.keys(state).forEach((key) => delete state[key]);
+        
+            // 정렬된 순서로 state에 다시 추가
+            sortedEntries.forEach(([id, data]) => {
+                state[id] = data;
+            });
+        
+            
+        },
+        
 
         // 모든 스케줄 삭제
         resetAllSchedule(state, action: PayloadAction<string>) {

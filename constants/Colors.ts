@@ -23,6 +23,7 @@ export const Colors = {
     brightText3 : '#A5A5A5',
     brightText4 : '#B2B2B2',
     buttonText: '#000000',
+    timeTaken: '#3A3A3A',
     
 
     // yellows
@@ -61,6 +62,7 @@ export const Colors = {
     brightText3 : '#A5A5A5',
     brightText4 : '#B2B2B2',
     buttonText: '#000000',
+    timeTaken: '#A5A5A5',
 
     // yellows
     tint: tintColorDark,

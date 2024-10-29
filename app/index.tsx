@@ -10,7 +10,7 @@ import { ConfirmModal } from "@/components/ui/modal/confirm-modal";
 import { setMainDeleteConfrimModalOpen } from "@/modules/redux/slice/modal-slice";
 import useExitConfirmation from "@/hooks/useExitConfirmation";
 import { useEffect } from "react";
-import { cleanPastSchedule } from "@/modules/redux/slice/template-schedule-slice";
+import { cleanPastSchedule, sortSchedule } from "@/modules/redux/slice/template-schedule-slice";
 import { setCanBack } from "@/modules/redux/slice/execute-schedule-data-slice";
 import { useAllowPushNotification } from "@/hooks/push-notification/useAllowPushNotification";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -24,9 +24,19 @@ export default function Index() {
   useAllowPushNotification();
   useMakeDeviceId();
 
+
+
+  const schedule = useSelector((state:RootState)=>state.schedule);
+  const schedule_keys = Object.keys(schedule);
+  const first_key = schedule_keys.length !== 0 ? schedule_keys[0] : -1;
+
   useEffect(()=>{
     dispatch(setCanBack(true));
     dispatch(cleanPastSchedule());
+    dispatch(sortSchedule());
+
+    // console.log(schedule);
+    console.log(first_key);
   }, []);
 
   const modalOpen = useSelector((state: RootState)=>state.modal.main_delete_confirm.modalOpen);

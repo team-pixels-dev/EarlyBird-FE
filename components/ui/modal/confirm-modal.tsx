@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { Alert, StyleSheet, View } from "react-native";
 import Modal from "react-native-modal";
 import { ThemedText } from "@/components/ui/texts/themed-text";
 import { ThemedView } from "@/components/ui/themed-view";
@@ -11,6 +11,9 @@ import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import { removeschedule } from "@/modules/redux/slice/template-schedule-slice";
 import { RootState } from "@/modules/redux/root-reducer";
+import client from "@/modules/axios/client";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { clientToServer } from "@/util/convert_schedule_id";
 
 export type modalProps = {
   title: string;
@@ -30,7 +33,18 @@ export function ConfirmModal({
 
   const dispatch = useDispatch();
 
-  function onModalClose() {
+  async function onModalClose() {
+    client.delete('/api/v1/message/fcm/token', {
+      headers: {
+        "appointmentId": clientToServer(schedule_id),
+        "clientId": await AsyncStorage.getItem('deviceId'),
+      }}).then((res)=>{
+        console.log(res);
+      }).catch((err)=>{
+        console.log(err);
+        Alert.alert("삭제 실패.", "네트워크 연결 확인 후 다시 시도해 주세요.");
+      })
+
     dispatch(setModalOpen(false));
     dispatch(removeschedule(schedule_id));
   }

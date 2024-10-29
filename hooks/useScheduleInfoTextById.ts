@@ -1,5 +1,3 @@
-import { useSelector } from 'react-redux';
-import { RootState } from '@/modules/redux/root-reducer';
 import { getMainScreenDates } from '@/util/date_formatting';
 import { scheduleState } from '@/modules/redux/slice/template-schedule-cache-slice';
 

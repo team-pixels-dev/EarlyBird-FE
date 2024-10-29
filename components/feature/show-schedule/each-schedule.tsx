@@ -10,6 +10,7 @@ import { setMainDeleteConfrimModalOpen, setMainDeleteConfrimScheduleId } from "@
 import { loadScheduleToCache } from "@/modules/redux/slice/template-schedule-cache-slice";
 import { RootState } from "@/modules/redux/root-reducer";
 import { setScheduleId } from "@/modules/redux/slice/execute-schedule-data-slice";
+import { getMainScreenDates } from "@/util/date_formatting";
 
 export type EachScheduleProps =  {
     type: 'soon' | 'other';
@@ -19,7 +20,7 @@ export type EachScheduleProps =  {
 export function EachSchedule({type, schedule_id} : EachScheduleProps){
     const dispatch = useDispatch();
     const schedule = useSelector((state: RootState)=>state.schedule[schedule_id]);
-    const scheduleInfoText = useSchedulInfoText(schedule);
+    const scheduleInfoText = getMainScreenDates(new Date(schedule.schedule_date)) + " - " + schedule.schedule_title;
     
     const color = type === 'soon' ? useThemeColor('brightTint') : useThemeColor('brightGray');
     const textColor = type === 'soon' ? useThemeColor("buttonText") : useThemeColor("text");

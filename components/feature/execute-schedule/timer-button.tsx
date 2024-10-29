@@ -37,7 +37,9 @@ export function TimerButton({style = {}, textColor = "black", disabled = false} 
   const executeScheduleData = useSelector((state:RootState)=>state.executeScheduleData);
   const final_execute_mode = executeScheduleData.final_excute_mode;
   const scheduleDateTime = new Date(useSelector((state: RootState)=>state.scheduleCache.schedule_date));
-  const { preparing_time, moving_time, moveDateTime, startDateTime } = useScheduleTimes();
+  const { moveDateTime, startDateTime } = useScheduleTimes();
+  const schedule_ready = useSelector((state:RootState)=>state.scheduleCache.schedule_ready);
+  const schedule_move = useSelector((state:RootState)=>state.scheduleCache.schedule_move);
 
   const [buttonText, setButtonText] = useState("");
   const [backgroundColor, setBackgroundColor] = useState(brightGray);
@@ -81,8 +83,8 @@ export function TimerButton({style = {}, textColor = "black", disabled = false} 
           break;
         case "ready" :
           const remain_time_for_move = getRemainTime(moveDateTime);
-          const ready_value = (remain_time_for_move / (preparing_time * 60));
-          const next_ready_value = ((remain_time_for_move-1) / (preparing_time * 60));
+          const ready_value = (remain_time_for_move / (schedule_ready * 60));
+          const next_ready_value = ((remain_time_for_move-1) / (schedule_ready * 60));
           progress.value = Math.min(Math.max(ready_value, 0), 1);
           progress.value = withTiming(Math.min(Math.max(next_ready_value, 0), 1), { duration: 1000, easing: Easing.linear });
           setButtonText(secondsToHoursMinutesSeconds(remain_time_for_move > 0 ? remain_time_for_move : 0));
@@ -90,8 +92,8 @@ export function TimerButton({style = {}, textColor = "black", disabled = false} 
         case "wait_done" : 
         case "moving" :
           const remain_time_for_schedule = getRemainTime(scheduleDateTime);
-          const moving_value = (remain_time_for_schedule / (moving_time * 60));
-          const next_moving_value = ((remain_time_for_schedule-1) / (moving_time * 60));
+          const moving_value = (remain_time_for_schedule / (schedule_move * 60));
+          const next_moving_value = ((remain_time_for_schedule-1) / (schedule_move * 60));
           progress.value = Math.min(Math.max(moving_value, 0), 1);
           progress.value = withTiming(Math.min(Math.max(next_moving_value, 0), 1), { duration: 1000, easing: Easing.linear });
           setButtonText(secondsToHoursMinutesSeconds(remain_time_for_schedule > 0 ? remain_time_for_schedule : 0));

@@ -2,37 +2,32 @@ import { addMinutes, dateChangeAmount } from "@/util/calculate_date";
 import { validateNecessroy } from "@/util/validate_text";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface ScheduleTime {
-    date: string;
-    day: "eve" | "today";
-}
-
 export interface scheduleState {
     schedule_type: "date" | "repeat";
     schedule_title: string;
     schedule_date: string;
     schedule_repeat: boolean[];
-    schedule_start_time: ScheduleTime
-    schedule_move_time: ScheduleTime
+    schedule_ready: number,
+    schedule_move: number,
     schedule_necessary: string[];
     schedule_necessary_checked: boolean[];
     schedule_postphone_minutes: number[];
     created_at: string;
 }
 
-let now = new Date().toISOString();
+let now = new Date();
 
 const initialState: scheduleState = {
     schedule_type: "date",
     schedule_title: "",
-    schedule_date: now,
+    schedule_date: new Date(now.getTime() + 3600000).toISOString(),
     schedule_repeat: [false, false, false, false, false, false, false],
-    schedule_start_time: {date : now, day : "today"},
-    schedule_move_time: {date : now, day : "today"},
+    schedule_ready: 5,
+    schedule_move: 5,
     schedule_necessary: [],
     schedule_necessary_checked: [],
     schedule_postphone_minutes: [0, 0, 0],
-    created_at: now
+    created_at: now.toISOString()
 };
 
 const scheduleSlice = createSlice({
@@ -79,23 +74,13 @@ const scheduleSlice = createSlice({
         },
 
         // 스케줄 시작 시간 설정
-        setScheduleStartTimeDate(state, action: PayloadAction<string>) {
-            state.schedule_start_time.date = action.payload;
+        setScheduleReady(state, action: PayloadAction<number>){
+            console.log("here. " + action.payload);
+            state.schedule_ready = action.payload;
         },
 
-        // 스케줄 시작 날 설정
-        setScheduleStartTimeDay(state, action: PayloadAction<"eve"|"today">) {
-            state.schedule_start_time.day = action.payload;
-        },
-
-        // 스케줄 이동 시간 설정
-        setScheduleMoveTimeDate(state, action: PayloadAction<string>) {
-            state.schedule_move_time.date = action.payload;
-        },
-
-        // 스케줄 이동 날 설정
-        setScheduleMoveTimeDay(state, action: PayloadAction<"eve"|"today">) {
-            state.schedule_move_time.day = action.payload;
+        setScheduleMove(state, action: PayloadAction<number>){
+            state.schedule_move = action.payload;
         },
 
         // 스케줄에 필요한 항목 설정
@@ -165,43 +150,7 @@ const scheduleSlice = createSlice({
             const schedule_time_tmp = new Date(state.schedule_date);
             const schedule_time_added = addMinutes(schedule_time_tmp, action.payload[0]);
             const schedule_date_change_amount = dateChangeAmount(schedule_time_tmp, schedule_time_added);
-            const start_time_tmp  = new Date(state.schedule_start_time.date);
-            const start_time_added = addMinutes(start_time_tmp, action.payload[1]);
-            const start_time_change_amount = dateChangeAmount(start_time_tmp, start_time_added);
-            const move_time_tmp = new Date(state.schedule_move_time.date);
-            const move_time_added = addMinutes(move_time_tmp, action.payload[2]);
-            const move_time_change_amount = dateChangeAmount(move_time_tmp, move_time_added);
 
-            state.schedule_date = schedule_time_added.toISOString();
-            state.schedule_start_time.date = start_time_added.toISOString();
-            state.schedule_move_time.date = move_time_added.toISOString();
-            
-            if(schedule_date_change_amount === 1) {
-                if(start_time_change_amount === 0) {
-                    state.schedule_start_time.day = "eve";
-                }
-                if(move_time_change_amount === 0) {
-                    state.schedule_move_time.day = "eve";
-                }
-            } else if (schedule_date_change_amount === 0) {
-                if(start_time_change_amount === 1) {
-                    state.schedule_start_time.day = "today";
-                } else if (start_time_change_amount === -1) {
-                    state.schedule_start_time.day = "eve";
-                }
-                if(move_time_change_amount === 1) {
-                    state.schedule_move_time.day = "today";
-                } else if (move_time_change_amount === -1) {
-                    state.schedule_move_time.day = "eve";
-                }
-            } else if (schedule_date_change_amount === -1){
-                if(start_time_change_amount === 0) {
-                    state.schedule_start_time.day = "today";
-                }
-                if(move_time_change_amount === 0) {
-                    state.schedule_move_time.day = "today";
-                }
-            }
 
             action.payload.forEach((value, index)=>{
                 state.schedule_postphone_minutes[index] += value;
@@ -214,14 +163,10 @@ const scheduleSlice = createSlice({
             now_.setSeconds(0,0);
             state.schedule_type = "date";
             state.schedule_title = '';
-            state.schedule_date = now_.toISOString();
+            state.schedule_date = new Date(now_.getTime()+3600000).toISOString();
             state.schedule_repeat = [false, false, false, false, false, false, false];
-            state.schedule_start_time = {date : now_.toISOString(), day : 
-                now_.getDate() === new Date(state.schedule_date).getDate() ? 
-                 "today" : "eve"};
-            state.schedule_move_time = {date : now_.toISOString(), day : 
-                now_.getDate() === new Date(state.schedule_date).getDate() ? 
-                 "today" : "eve"};
+            state.schedule_ready = 5;
+            state.schedule_move = 5;
             state.schedule_necessary = [];
             state.schedule_necessary_checked = [];
             state.schedule_postphone_minutes = [0, 0, 0];
@@ -242,10 +187,8 @@ export const {
     setScheduleDate,
     setScheduleTime,
     setScheduleRepeat,
-    setScheduleStartTimeDate,
-    setScheduleStartTimeDay,
-    setScheduleMoveTimeDate,
-    setScheduleMoveTimeDay,
+    setScheduleReady,
+    setScheduleMove,
     setScheduleNecessary,
     addScheduleNecessary,
     removeScheduleNecessary,

@@ -89,3 +89,19 @@ export function serverFomat(date : Date) {
     return result;
 }
 
+export function minutesToHoursMinutesValue(minutes_ : number) {
+    if(minutes_ === 0) return [0, 0];
+    
+    const hours = Math.floor(minutes_ / 60);
+    const minutes = minutes_ % 60;
+
+    return [hours, minutes];
+}
+
+export function getHoursMinutesWithAMPM(date : Date) {
+    const hours = date.getHours()
+    const minutes = date.getMinutes();
+    const AMPM = date.getHours() < 12 ? "오전" : "오후";
+
+    return AMPM + " " + (hours > 12 ? hours - 12 : hours) + "시 " + minutes + "분";
+}

@@ -32,11 +32,14 @@ export function RatingModal() {
     client.post('/api/v1/feedbacks/scores', formData)
       .then((res)=>{console.log(res)})
       .catch((err)=>{console.log(err)});
-    dispatch(setFeedbackModalOpen(false));
 
-    dispatch(removeschedule(schedule_id));
-    dispatch(resetScheduleCache());
-    dispatch(resetExecuteScheduleData());
+    await Promise.all([
+      dispatch(removeschedule(schedule_id)),
+      dispatch(resetScheduleCache()),
+      dispatch(resetExecuteScheduleData()),
+      dispatch(setFeedbackModalOpen(false))
+    ]);
+  
     router.navigate("/");
   }
 

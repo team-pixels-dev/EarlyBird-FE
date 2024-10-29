@@ -24,6 +24,9 @@ export function AddScheduleNextPageButton() {
           } else if (result === "invalid_schedule_time"){
             setButtonText('약속 시간이 현재시간보다 늦습니다.');
             setTextColor(errorTextColor);
+          } else if (result !== "valid"){
+            setButtonText('이동 시간 설정을 확인해주세요.');
+            setTextColor(errorTextColor);
           } else {
             setButtonText('다음');
             setTextColor(defaultTextColor);
@@ -34,7 +37,6 @@ export function AddScheduleNextPageButton() {
     function handleNextPress() {
         const result = checkScheduleValid();
           if (result === "valid") {
-            console.log(getFullDates(new Date(scheduleCache.schedule_start_time.date)));
             router.navigate("/(schedule)/add-schedule-2");
           } else {
             Haptics.notificationAsync(

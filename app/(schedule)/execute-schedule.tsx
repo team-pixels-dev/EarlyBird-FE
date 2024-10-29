@@ -37,11 +37,11 @@ export default function ExecuteSchedule() {
         <FullScreen>
             {screen}
                  <View style={styles.buttonsArea}>
-                 {final_execute_mode === "done" || final_execute_mode === "done_rate" ? null :
-                    <PostPhoneButton type="schedule" onPress={()=>setModalOpen(true)} style={{marginBottom:hScale(15)}}/>}          
+                 {/* {final_execute_mode === "done" || final_execute_mode === "done_rate" ? null :
+                    <PostPhoneButton type="schedule" onPress={()=>setModalOpen(true)} style={{marginBottom:hScale(15)}}/>}           */}
                  <TimerButton/>
              </View>
-            <PostPhoneModal modalOpen={modalOpen} setModalOpen={setModalOpen}/>
+            {/* <PostPhoneModal modalOpen={modalOpen} setModalOpen={setModalOpen}/> */}
         </FullScreen>
     )
 }

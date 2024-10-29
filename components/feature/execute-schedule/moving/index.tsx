@@ -47,7 +47,7 @@ export default function Moving() {
                 <ThemedText type="ONEMobilePOP" style={styles.titleText}>어서 빨리 가야겠어요</ThemedText>
             </View>
             <Image source={require("@/assets/images/mascot/mascot_run_noeffect.png")} style={styles.mascote}/>
-            <TwoOptionModal 
+            <TwoOptionModal
                 modalOpen={modalOpen} 
                 setModalOpen={setModalOpen} 
                 title={"1분 이내에 지각여부를 \n체크해주세요!"}

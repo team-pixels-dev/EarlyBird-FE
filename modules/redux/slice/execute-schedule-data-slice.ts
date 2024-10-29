@@ -22,7 +22,7 @@ const initialState: ExecuteScheduleDataState = {
     arrive_button_pressed_time : "",
     can_back: true,
     feedback: "",
-    rating: -1,
+    rating: 10,
 }
 
 const ExecuteScheduleDataSlice = createSlice({
