@@ -28,6 +28,7 @@ export function AddScheduleNextPageButton() {
             setButtonText('다음');
             setTextColor(defaultTextColor);
           }
+        console.log('load')
     }, [checkScheduleValid]);
 
     function handleNextPress() {

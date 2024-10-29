@@ -9,9 +9,15 @@ import { PersistGate } from "redux-persist/integration/react";
 import { Persistor, Store } from "@/modules/redux/store";
 import { useColorScheme } from '@/hooks/useColorScheme';
 import RootStack from './__layout';
+import messaging from '@react-native-firebase/messaging';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
+
+// background에서 push 알림 수신 
+messaging().setBackgroundMessageHandler(async remoteMessage => {
+  console.log('Message handled in the background!', remoteMessage);
+});
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();

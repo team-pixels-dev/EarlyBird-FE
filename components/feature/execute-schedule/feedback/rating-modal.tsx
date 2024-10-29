@@ -6,6 +6,7 @@ import { ThemedView } from "@/components/ui/themed-view";
 import { hScale, SCREEN_HEIGHT, SCREEN_WIDTH, wScale } from "@/util/scaling";
 import { ModalComfirmButton } from "@/components/ui/buttons/modal-conform-button";
 import { useDispatch } from "react-redux";
+import { Ratings } from "./ratings";
 
 export function RatingModal() {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ export function RatingModal() {
         <ThemedText type="ONEMobilePOP" style={styles.title}>
           {"얼리버드를 주변에 얼마나\n추천하고 싶으신가요?"}
         </ThemedText>
+        <Ratings/>
         <ModalComfirmButton onPress={onModalClose}/>
     </ThemedView>
   );

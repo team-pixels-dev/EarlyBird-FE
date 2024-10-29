@@ -23,6 +23,7 @@ export const Colors = {
     brightText3 : '#A5A5A5',
     brightText4 : '#B2B2B2',
     buttonText: '#000000',
+    
 
     // yellows
     tint: tintColorLight,
@@ -31,6 +32,10 @@ export const Colors = {
 
     // calender
     today: '#00adf5',
+
+    // button
+    defaultButtonText: '#000000',
+    selectedButtonText: '#000000',
 
     brightGray: '#F7F7F7',
     gray: '#898989',
@@ -64,6 +69,10 @@ export const Colors = {
 
     // calender
     today: '#FFF500',
+
+    // button
+    defaultButtonText: '#ECEDEE',
+    selectedButtonText: '#000000',
 
     brightGray: '#3F3F3F',
     gray: '#898989',

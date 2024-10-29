@@ -9,6 +9,8 @@ export interface ExecuteScheduleDataState {
     arrive_button_pressed : boolean;
     arrive_button_pressed_time : string;
     can_back: boolean;
+    feedback: string;
+    rating: number;
 }
 
 const initialState: ExecuteScheduleDataState = {
@@ -19,6 +21,8 @@ const initialState: ExecuteScheduleDataState = {
     arrive_button_pressed : false,
     arrive_button_pressed_time : "",
     can_back: true,
+    feedback: "",
+    rating: -1,
 }
 
 const ExecuteScheduleDataSlice = createSlice({
@@ -41,6 +45,14 @@ const ExecuteScheduleDataSlice = createSlice({
             state.final_excute_mode = action.payload;
         },
 
+        setFeedBack(state, action: PayloadAction<string>) {
+            state.feedback = action.payload;
+        },
+
+        setRating(state, action: PayloadAction<number>) {
+            state.rating = action.payload;
+        },
+
         resetExecuteScheduleData(state) {
             return initialState;
         },
@@ -56,6 +68,8 @@ export const {
     setStartButtonPressed,
     setStartButtonPresssedTime,
     setFinalExecuteMode,
+    setFeedBack,
+    setRating,
     resetExecuteScheduleData,
     setCanBack,
 } = ExecuteScheduleDataSlice.actions;
