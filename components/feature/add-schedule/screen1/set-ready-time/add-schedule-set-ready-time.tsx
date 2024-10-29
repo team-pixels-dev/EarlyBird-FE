@@ -5,6 +5,7 @@ import { DatePickerModal } from "./date-picker-modal";
 import { useScheduleTimes } from "@/hooks/useScheduleTimes";
 import { TimeTaken } from "./time-taken";
 import { SetTimeBox } from "./set-time-box";
+import { ThemedText } from "@/components/ui/texts/themed-text";
 
 export type StateType = "ready" | "move";
 
@@ -14,6 +15,7 @@ export function AddScheduleSetReadyTime({style} : ViewProps ) {
 
     return (
         <View style={[styles.base, style]}>
+            <ThemedText type="defaultSemiBold">이동 시간 설정</ThemedText>
             <SetTimeBox type="move" setType={setType} setModalOpen={setModalOpen} />
             <SetTimeBox type="ready" setType={setType} setModalOpen={setModalOpen} />
             <DatePickerModal 
@@ -27,9 +29,9 @@ export function AddScheduleSetReadyTime({style} : ViewProps ) {
 
 const styles = StyleSheet.create({
     base: {
-        height: hScale(162),
+        height: hScale(215),
         justifyContent: 'space-between',
-        alignItems: 'flex-end'
+        alignItems: 'flex-start'
     },
     setTimeView: {
         height: hScale(50),
