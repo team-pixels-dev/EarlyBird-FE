@@ -32,17 +32,20 @@ export function useAllowPushNotification() {
             console.log('Push notification permission denied.');
             await AsyncStorage.setItem('pushPermissionDenied', 'true');
 
-            // iOS의 경우 설정으로 이동하도록 권장
-            if (Platform.OS === 'ios') {
-                Alert.alert(
-                    '알림 권한이 꺼져있어요.',
-                    '알림 기능이 꺼져 있으면\n 얼리버드가 도와줄 수 없어요.\n설정에서 알림을 허용해주세요.',
-                    [
-                        { text: '취소', style: 'cancel' },
-                        { text: '설정으로 이동', onPress: () => Linking.openURL('app-settings:') }
-                    ]
-                );
-            }
+            Alert.alert(
+                '알림 권한이 꺼져있어요.',
+                '알림 기능이 꺼져 있으면\n 얼리버드가 도와줄 수 없어요.\n설정에서 알림을 허용해주세요.',
+                [
+                    { text: '취소', style: 'cancel' },
+                    { text: '설정으로 이동', onPress: () => {
+                        if (Platform.OS === 'android') {
+                            Linking.openSettings(); // 안드로이드 설정 페이지로 이동
+                        } else if (Platform.OS === 'ios') {
+                            Linking.openURL('app-settings:'); // iOS 설정 페이지로 이동
+                        }
+                    }}
+                ]
+            );
         }
     }
 

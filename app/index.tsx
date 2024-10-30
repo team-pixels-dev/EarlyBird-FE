@@ -44,6 +44,7 @@ export default function Index() {
   }, []);
 
   useEffect(()=>{
+    dispatch(setCanBack(true));
     if (!isAppReady) return;
     if (!first_schedule) return;
     // 분이 바뀔때마다 수행
@@ -62,8 +63,6 @@ export default function Index() {
       dispatch(setCanBack(false));
       dispatch(loadScheduleToCache(first_schedule));
       router.navigate('/(schedule)/execute-schedule');
-    } else {
-      dispatch(setCanBack(true));
     }
   }, [currentMinute, isAppReady]);
 

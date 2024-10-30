@@ -95,6 +95,7 @@ export function TimerButton({style} : ViewProps) {
           break;
         case "done_rate" :
         case "done" :
+          setButtonTextColor(defaultButtonText);
           setButtonText("완료하기");
           dispatch(resetModals());
         default : clearInterval(interval);
