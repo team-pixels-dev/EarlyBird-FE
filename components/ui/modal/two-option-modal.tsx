@@ -34,6 +34,7 @@ export function TwoOptionModal({
   setModalOpen,
 }: modalProps) {
   const brightGray = useThemeColor("brightGray");
+  const darkText = useThemeColor("darkText");
 
   const dispatch = useDispatch();
 
@@ -58,7 +59,7 @@ export function TwoOptionModal({
       <ThemedView style={styles.base}>
         <ThemedText style={{width : wScale(220)}} type="defaultSemiBold">{title}</ThemedText>
         <FullSizeButton style={styles.button} onPress={()=>onModalClose(1)}>{option1.text}</FullSizeButton>
-        <FullSizeButton style={[styles.button, {backgroundColor:brightGray}]} onPress={()=>onModalClose(2)}>{option2.text}</FullSizeButton>
+        <FullSizeButton textColor={darkText} style={[styles.button, {backgroundColor:brightGray}]} onPress={()=>onModalClose(2)}>{option2.text}</FullSizeButton>
       </ThemedView>
     </Modal>
   );

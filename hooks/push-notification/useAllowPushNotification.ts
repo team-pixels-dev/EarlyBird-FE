@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Alert, Linking, Platform } from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import client from '@/modules/axios/client';
 
 export function useAllowPushNotification() {
     async function requestUserPermission() {
@@ -71,7 +72,14 @@ export function useAllowPushNotification() {
         }
     }
 
+    async function visitLog(){
+        client.post('/api/v1/log/visit-event', {
+            "clientId" : await AsyncStorage.getItem('deviceId')
+        }).then((res)=>{console.log(res)}).catch((err)=>{console.log(err)});
+    }
+
     useEffect(() => {
         checkPermissionAndRequestIfNeeded();
+        visitLog();
     }, []);
 }

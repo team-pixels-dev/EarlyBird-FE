@@ -67,7 +67,7 @@ export const Colors = {
     // yellows
     tint: tintColorDark,
     brightTint: '#FFF851',
-    memoTint: '#fffcb4',
+    memoTint: '#FFF967',
 
     // calender
     today: '#FFF500',

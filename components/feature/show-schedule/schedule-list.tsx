@@ -15,7 +15,7 @@ export type ScheduleListProps = {
     type : 'soon' | 'other'
 }
 
-export function ScheduleList({type} : ScheduleListProps) {
+export default function ScheduleList({type} : ScheduleListProps) {
     const schedule = useSelector((state:RootState)=>state.schedule);
     const schedule_keys = Object.keys(schedule);
     const keys = type === "soon" ?  schedule_keys.length !== 0 ? [schedule_keys[0]] : [] : schedule_keys.slice(1);

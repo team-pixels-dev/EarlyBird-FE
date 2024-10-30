@@ -21,17 +21,18 @@ export function TimeTaken({type, style} : timeTakenProps){
     const [errorText, setErrorText] = useState("");
     
     useEffect(()=>{
+        const result = checkScheduleValid();
         if(type === "ready") {
             if(schedule_ready <= 0) {
                 setErrorText("시간을 0보다 크게 설정해주세요.")
-            } else if(remain_time_for_ready <= 0)
+            } else if(result == "invalid_start_time_too_fast")
                 setErrorText("준비 시간이 현재시간보다 늦습니다.")
             else
                 setErrorText("");
         } else {
             if(schedule_move <= 0) {
                 setErrorText("시간을 0보다 크게 설정해주세요.")
-            } else if(remain_time_for_move <= 0)
+            } else if(result == "invalid_move_time_too_fast")
                 setErrorText("이동 시간이 현재시간보다 늦습니다.")
             else
                 setErrorText("");

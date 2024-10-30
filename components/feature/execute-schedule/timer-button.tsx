@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, ViewProps } from 'react-native';
-import { Pressable } from 'react-native';
-import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming, interpolateColor } from 'react-native-reanimated';
+import { StyleSheet, useColorScheme, View, ViewProps } from 'react-native';
+import Animated, { Easing, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { CustomAnimatedPressable } from '@/components/ui/buttons/animated-pressable';
 import { RegularText } from '@/components/ui/texts/regular-text';
 import * as Haptics from 'expo-haptics';
@@ -10,24 +9,20 @@ import { hScale, wScale } from '@/util/scaling';
 import { useScheduleTimes } from '@/hooks/useScheduleTimes';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/modules/redux/root-reducer';
-import { getFullDates, secondsToHoursMinutesSeconds } from '@/util/date_formatting';
-import { resetExecuteScheduleData, setFinalExecuteMode } from '@/modules/redux/slice/execute-schedule-data-slice';
+import { secondsToHoursMinutesSeconds } from '@/util/date_formatting';
+import { setFinalExecuteMode } from '@/modules/redux/slice/execute-schedule-data-slice';
 import { useExecuteMode } from '@/hooks/useExecuteMode';
-import { router } from 'expo-router';
-import { removeschedule } from '@/modules/redux/slice/template-schedule-slice';
-import { resetScheduleCache } from '@/modules/redux/slice/template-schedule-cache-slice';
 import { resetModals, setFeedbackModalOpen, setFeedbackModalScheduleId } from '@/modules/redux/slice/modal-slice';
 
-export type fullSizeButtonProps = Partial<{
-  textColor: string;
-  disabled: boolean;
-}> & ViewProps;
 
-export function TimerButton({style = {}, textColor = "black", disabled = false} : fullSizeButtonProps) {
+export function TimerButton({style} : ViewProps) {
   const tint = useThemeColor("tint");
   const brightGray = useThemeColor("brightGray");
   const errorColor = useThemeColor("error");
+  const defaultButtonText = useThemeColor("buttonText");
+  const [buttonTextColor, setButtonTextColor] = useState(defaultButtonText);
   const scale = wScale(347);
+  const theme = useColorScheme() ?? 'light';
 
   const currentMinute = useExecuteMode(); // 분이 변경될 때마다 execute mode를 판단
 
@@ -120,12 +115,14 @@ export function TimerButton({style = {}, textColor = "black", disabled = false} 
     // console.log("minutes chaged")
     switch (final_execute_mode) {
       case "before_start" : 
+        setButtonTextColor("#FFFFFF");
         setBackgroundColor(brightGray);
         progress.value = 0;
         break;
       case "wait_start" : 
         setButtonText("준비 시작");
         setBackgroundColor(tint);
+        setButtonTextColor(defaultButtonText);
         break;
       case "ready" : 
         setBackgroundColor(brightGray);
@@ -134,13 +131,13 @@ export function TimerButton({style = {}, textColor = "black", disabled = false} 
         setBackgroundColor(brightGray);
         break;
       case "wait_done" : break;
-      case "done_rate" :
+      case "done_rate" : 
       case "done" : 
         progress.value = 0;
         setBackgroundColor(tint);
       default : break;
     }
-  }, [final_execute_mode, currentMinute, buttonText]);
+  }, [final_execute_mode]);
 
   // Animated style for the button's background color
   const animatedStyle = useAnimatedStyle(() => {
@@ -168,7 +165,7 @@ export function TimerButton({style = {}, textColor = "black", disabled = false} 
         ]}>
       </Animated.View>
       <View style={{width: '100%', alignItems: "center"}}>
-        <RegularText style={[styles.font, {color: textColor}]}>
+        <RegularText style={[styles.font, {color: buttonTextColor}]}>
           {buttonText}
         </RegularText>
       </View>

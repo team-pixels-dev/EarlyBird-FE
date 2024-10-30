@@ -5,7 +5,6 @@ import * as Haptics from 'expo-haptics';
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/modules/redux/root-reducer";
-import { getFullDates } from "@/util/date_formatting";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { router } from "expo-router";
 
@@ -31,7 +30,7 @@ export function AddScheduleNextPageButton() {
             setButtonText('다음');
             setTextColor(defaultTextColor);
           }
-        console.log('load')
+        console.log(result)
     }, [checkScheduleValid]);
 
     function handleNextPress() {

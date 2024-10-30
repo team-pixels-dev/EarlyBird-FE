@@ -21,7 +21,7 @@ export default function RootStack() {
   return (
     <Stack screenOptions={{
       headerShown:false,
-      gestureEnabled:true,
+      gestureEnabled: can_back
       }}>
       <Stack.Screen name="(schedule)"/>
       <Stack.Screen name="index"/>

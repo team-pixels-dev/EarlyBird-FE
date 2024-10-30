@@ -10,6 +10,7 @@ import { Persistor, Store } from "@/modules/redux/store";
 import { useColorScheme } from '@/hooks/useColorScheme';
 import RootStack from './__layout';
 import messaging from '@react-native-firebase/messaging';
+import client from '@/modules/axios/client';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();

@@ -11,6 +11,7 @@ import Ready from "@/components/feature/execute-schedule/ready";
 import Moving from "@/components/feature/execute-schedule/moving";
 import Done from "@/components/feature/execute-schedule/done";
 import { setCanBack } from "@/modules/redux/slice/execute-schedule-data-slice";
+import { CancelScheduleButton } from "@/components/feature/execute-schedule/cancel-schedule-button";
 
 export default function ExecuteSchedule() {
     const final_execute_mode = useSelector((state:RootState)=>state.executeScheduleData.final_excute_mode);
@@ -35,6 +36,7 @@ export default function ExecuteSchedule() {
     
     return (
         <FullScreen>
+            <CancelScheduleButton style={{position:"absolute", top:hScale(70), right:wScale(20), zIndex:10}}/>
             {screen}
                  <View style={styles.buttonsArea}>
                  {/* {final_execute_mode === "done" || final_execute_mode === "done_rate" ? null :
