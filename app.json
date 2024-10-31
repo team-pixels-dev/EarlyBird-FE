@@ -1,11 +1,11 @@
 {
-  "expo": { 
-    "name": "early-bird",
+  "expo": {
+    "name": "얼리버드",
     "slug": "early-bird",
     "version": "1.0.0",
     "runtimeVersion": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/logo.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
@@ -18,13 +18,16 @@
       "bundleIdentifier": "com.earlybirdteam2024.early-bird",
       "googleServicesFile": "./GoogleService-Info.plist",
       "entitlements": {
-        "aps-environment": "production" 
+        "aps-environment": "production"
       }
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/logo.png",
         "backgroundColor": "#ffffff"
+      },
+      "config": {
+        "userInterfaceStyle": "얼리버드"
       },
       "package": "com.earlybirdteam2024.earlybird",
       "googleServicesFile": "./google-services.json"
@@ -32,7 +35,7 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/logo.png"
     },
     "plugins": [
       "expo-router",
@@ -58,6 +61,9 @@
         "projectId": "eecaa118-753c-406f-ba47-d71ead8eb4d6"
       }
     },
-    "owner": "jayou2323"
+    "owner": "jayou2323",
+    "updates": {
+      "url": "https://u.expo.dev/eecaa118-753c-406f-ba47-d71ead8eb4d6"
+    }
   }
 }
