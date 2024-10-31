@@ -100,6 +100,12 @@ export function TimerButton({style} : ViewProps) {
           dispatch(resetModals());
         default : clearInterval(interval);
       }
+      if(theme === "dark" && (final_execute_mode === "ready" || final_execute_mode === "moving")){
+        if(progress.value <= 0.4)
+          setButtonTextColor("#FFFFFF")
+        else
+          setButtonTextColor(defaultButtonText)
+      }
       console.log(progress.value);
     };
 
@@ -135,6 +141,7 @@ export function TimerButton({style} : ViewProps) {
       case "done_rate" : 
       case "done" : 
         progress.value = 0;
+        setButtonTextColor(defaultButtonText);
         setBackgroundColor(tint);
       default : break;
     }
