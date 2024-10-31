@@ -59,6 +59,8 @@ export function useAllowPushNotification() {
                 console.log("apnToken : " + apnsToken)
                 if (!apnsToken) {
                     console.log("No APNs token available yet.");
+                    Alert.alert('ACM토큰 오류', '현재 알림이 정상작동하지 않습니다.\n 앱을 재설치해주세요.');
+                    return;
                 }
             }
             

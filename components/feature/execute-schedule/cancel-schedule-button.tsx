@@ -35,8 +35,8 @@ export function CancelScheduleButton({style} : ViewProps) {
     }
 
     async function cancelSchedule(){
-        dispatch(resetExecuteScheduleData());
         dispatch(removeschedule(schedule_id));
+        console.log("schedule_id: " + schedule_id);
         client.delete('/api/v1/message/fcm/token', {
             headers: {
               "appointmentId": clientToServer(schedule_id),
@@ -46,6 +46,7 @@ export function CancelScheduleButton({style} : ViewProps) {
             }).catch((err)=>{
               console.log(err);
             }).finally(()=>{
+                dispatch(resetExecuteScheduleData());
                 router.navigate("/");
                 dispatch(resetScheduleCache());
             });

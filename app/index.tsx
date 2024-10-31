@@ -10,7 +10,7 @@ import { setMainDeleteConfrimModalOpen } from "@/modules/redux/slice/modal-slice
 import useExitConfirmation from "@/hooks/useExitConfirmation";
 import { Suspense, useEffect, useState } from "react";
 import { cleanPastSchedule, sortSchedule } from "@/modules/redux/slice/template-schedule-slice";
-import { setCanBack } from "@/modules/redux/slice/execute-schedule-data-slice";
+import { setCanBack, setScheduleId } from "@/modules/redux/slice/execute-schedule-data-slice";
 import { useAllowPushNotification } from "@/hooks/push-notification/useAllowPushNotification";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useMakeDeviceId } from "@/hooks/device-id/useMakeDeviceId";
@@ -34,7 +34,7 @@ export default function Index() {
   const currentMinute = useMinuteChangeEffect(()=>{});
   const schedule = useSelector((state:RootState)=>state.schedule);
   const schedule_keys = Object.keys(schedule);
-  const first_key = schedule_keys.length !== 0 ? schedule_keys[0] : -1;
+  const first_key = schedule_keys.length !== 0 ? schedule_keys[0] : '-1';
 
   const first_schedule = useSelector((state: RootState) => state.schedule[first_key]);
 
@@ -61,6 +61,7 @@ export default function Index() {
     if(remain_time_for_ready <= 4){
       // 준비시작까지 5분 이하로 남았을 때, 약속 실행 모드로 진입
       dispatch(setCanBack(false));
+      dispatch(setScheduleId(first_key));
       dispatch(loadScheduleToCache(first_schedule));
       router.navigate('/(schedule)/execute-schedule');
     }
