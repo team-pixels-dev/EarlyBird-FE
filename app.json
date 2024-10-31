@@ -2,7 +2,7 @@
   "expo": {
     "name": "얼리버드",
     "slug": "early-bird",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "runtimeVersion": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/logo.png",
@@ -18,7 +18,7 @@
       "bundleIdentifier": "com.earlybirdteam2024.early-bird",
       "googleServicesFile": "./GoogleService-Info.plist",
       "entitlements": {
-        "aps-environment": "production"
+        "aps-environment": "development"
       }
     },
     "android": {

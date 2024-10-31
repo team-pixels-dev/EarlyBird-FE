@@ -6,7 +6,6 @@ export function useMakeDeviceId() {
     async function setAsyncStorageItem(){
         const deviceId = await AsyncStorage.getItem('deviceId');
         if(deviceId) {
-            console.log(deviceId);
             return;
         } else {
             const id = uuid.v4();

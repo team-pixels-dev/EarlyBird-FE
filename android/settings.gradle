@@ -44,7 +44,7 @@ if (getRNMinorVersion() >= 75) {
   }
 }
 
-rootProject.name = 'early-bird'
+rootProject.name = '얼리버드'
 
 dependencyResolutionManagement {
   versionCatalogs {

@@ -11,14 +11,13 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 import RootStack from './__layout';
 import messaging from '@react-native-firebase/messaging';
 import client from '@/modules/axios/client';
+import { useMakeDeviceId } from '@/hooks/device-id/useMakeDeviceId';
+import { useAllowPushNotification } from '@/hooks/push-notification/useAllowPushNotification';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 // background에서 push 알림 수신 
-messaging().setBackgroundMessageHandler(async remoteMessage => {
-  console.log('Message handled in the background!', remoteMessage);
-});
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -61,3 +60,4 @@ export default function RootLayout() {
     </Provider>
   );
 }
+

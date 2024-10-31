@@ -1,7 +1,6 @@
 import messaging from '@react-native-firebase/messaging';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Alert, Linking, Platform } from 'react-native';
-import Clipboard from '@react-native-clipboard/clipboard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import client from '@/modules/axios/client';
 
@@ -17,11 +16,15 @@ export function useAllowPushNotification() {
 
             if (enabled) {
                 AsyncStorage.setItem('pushPermissionDenied', 'false');
-                await setFCMToken(); // 권한이 허용되면 FCM 토큰 가져오기
             } else {
                 // 권한 거부 상태를 저장
                 await AsyncStorage.setItem('pushPermissionDenied', 'true');
+                await setFCMToken();
             }
+            const fcmToken = await AsyncStorage.getItem('FCMToken');
+            console.log(fcmToken);
+            if(!fcmToken)
+                await setFCMToken(); // 권한이 허용되면 FCM 토큰 가져오기
         } else if (authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
                    authStatus === messaging.AuthorizationStatus.PROVISIONAL) {
             // 이미 권한이 있으면 FCM 토큰 가져오기
@@ -51,12 +54,24 @@ export function useAllowPushNotification() {
 
     async function setFCMToken() {
         try {
+            if (Platform.OS === 'ios') {
+                const apnsToken = await messaging().getAPNSToken()
+                console.log("apnToken : " + apnsToken)
+                if (!apnsToken) {
+                    console.log("No APNs token available yet.");
+                }
+            }
+            
             const fcmToken = await messaging().getToken();
+            console.log("fcmToken : " + fcmToken)
             if (fcmToken) {
-                AsyncStorage.setItem('FCMToken', fcmToken);        
+                await AsyncStorage.setItem('FCMToken', fcmToken);
+                messaging().setBackgroundMessageHandler(async remoteMessage => {
+                    console.log('Message handled in the background!', remoteMessage);
+                });
             } else {
                 console.log('Failed to get FCM token');
-                Alert.alert('경고', '현재 알림이 정상작동하지 않습니다.\n 앱을 재설치해주세요.');
+                Alert.alert('FCM토큰 오류', '현재 알림이 정상작동하지 않습니다.\n 앱을 재설치해주세요.');
             }
         } catch (error) {
             console.error('Error getting FCM token:', error);
@@ -70,7 +85,6 @@ export function useAllowPushNotification() {
             console.log('Requesting permission again as it was denied before.');
             await requestUserPermission();
         } else {
-            AsyncStorage.setItem('pushPermissionDenied', 'false');
             await requestUserPermission();
         }
     }
@@ -82,6 +96,7 @@ export function useAllowPushNotification() {
     }
 
     useEffect(() => {
+        console.log("try to get token")
         checkPermissionAndRequestIfNeeded();
         visitLog();
     }, []);
