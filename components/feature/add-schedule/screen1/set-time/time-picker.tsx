@@ -6,6 +6,7 @@ import DatePicker from 'react-native-date-picker'
 import { useDispatch, useSelector } from "react-redux";
 import { setScheduleTime } from '@/modules/redux/slice/template-schedule-cache-slice'
 import { RootState } from '@/modules/redux/root-reducer'
+import { getFullDates } from '@/util/date_formatting'
 
 export function AddScheduleDatePicker() {
   const dispatch = useDispatch()
@@ -18,6 +19,7 @@ export function AddScheduleDatePicker() {
     date.setSeconds(0,0);
     dispatch(setScheduleTime(date.toISOString()));
   }
+
   
   return (
     <View style={{

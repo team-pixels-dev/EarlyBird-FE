@@ -105,3 +105,7 @@ export function getHoursMinutesWithAMPM(date : Date) {
 
     return AMPM + " " + (hours > 12 ? hours - 12 : hours) + "시 " + minutes + "분";
 }
+
+export function getRNCalendarFormet(date : Date) {
+    return date.getFullYear()+'-'+(date.getMonth()+1)+'-'+ digits(date.getDate(), 2);
+}

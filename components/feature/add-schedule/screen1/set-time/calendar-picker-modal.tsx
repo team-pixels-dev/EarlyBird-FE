@@ -12,6 +12,7 @@ import {LocaleConfig} from 'react-native-calendars';
 import { useCalenderTheme } from '@/hooks/useCalenderTheme';
 import { calendarLocale } from '@/constants/calendar-locale';
 import { useThemeColor } from '@/hooks/useThemeColor';
+import { getRNCalendarFormet } from '@/util/date_formatting';
 
 LocaleConfig.locales['ko'] = calendarLocale;
 
@@ -58,7 +59,7 @@ export function CalenderPickerModal({modalOpen, setModalOpen} : modalProps) {
                     [selected]: {selected: true, disableTouchEvent: true}
                 }}
                 enableSwipeMonths={true}
-                minDate={now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate()}
+                minDate={getRNCalendarFormet(now)}
             />
             <CustomAnimatedPressable style={[{backgroundColor:useThemeColor("tint")}, styles.okButton]} onPress={closeModal}>
                 <ThemedText type="default" style={{color:"#000000"}}>확인</ThemedText>
