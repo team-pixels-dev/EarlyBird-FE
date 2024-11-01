@@ -122,7 +122,8 @@ export function TimerButton({style} : ViewProps) {
     // console.log("minutes chaged")
     switch (final_execute_mode) {
       case "before_start" : 
-        setButtonTextColor("#FFFFFF");
+        if(theme == "dark")
+          setButtonTextColor("#FFFFFF");
         setBackgroundColor(brightGray);
         progress.value = 0;
         break;

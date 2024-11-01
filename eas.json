@@ -13,10 +13,17 @@
     },
     "development": {
       "developmentClient": true,
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://earlybirdteam.com/"
+      },
       "distribution": "internal"
     },
     "preview": {
       "distribution": "internal",
+      "channel": "preview",
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://earlybirdteam.com/"
+      },
       "android": {
         "buildType": "apk"
       }
