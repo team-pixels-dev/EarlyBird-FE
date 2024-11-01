@@ -8,12 +8,14 @@
     "icon": "./assets/images/logo.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
+    "jsEngine" : "hermes",
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "ios": {
+      "hermes_enabled": true,
       "supportsTablet": true,
       "bundleIdentifier": "com.earlybirdteam2024.early-bird",
       "googleServicesFile": "./GoogleService-Info.plist",
@@ -22,6 +24,7 @@
       }
     },
     "android": {
+      "hermesEnabled": true,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/logo.png",
         "backgroundColor": "#ffffff"

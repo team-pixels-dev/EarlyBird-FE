@@ -1,5 +1,6 @@
 {
-  "expo.jsEngine": "jsc",
+  "expo.jsEngine": "hermes",
+  "hermes_enabled": "true",
   "EX_DEV_CLIENT_NETWORK_INSPECTOR": "true",
   "ios.useFrameworks": "static",
   "apple.extraPods": "[]",
