@@ -2,16 +2,17 @@ import { themedTextstyles } from "@/components/ui/texts/themed-text";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { RootState } from "@/modules/redux/root-reducer";
 import { setScheduleTitle } from "@/modules/redux/slice/template-schedule-cache-slice";
-import { hScale, wScale } from "@/util/scaling";
-import { useEffect, useRef, useState } from "react";
-import { Keyboard, Platform, StyleSheet, TextInput, View, ViewProps } from "react-native";
+import { hScale, SCREEN_WIDTH, wScale } from "@/util/scaling";
+import { router } from "expo-router";
+import { createContext, useEffect, useRef, useState } from "react";
+import { Keyboard, LayoutAnimation, Platform, StyleSheet, TextInput, UIManager, View, ViewProps } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 export type AddScheduleHeaderProps = ViewProps & {
-    keyboardUp : boolean
+    keyboardUp : boolean,
 }
 
-export function AddScheduleHeader({ style, keyboardUp }: AddScheduleHeaderProps) {
+export function AddScheduleHeader({ style, keyboardUp }: AddScheduleHeaderProps){
     const gray = useThemeColor("gray");
     const schedule_title = useSelector((state: RootState) => state.scheduleCache.schedule_title);
     const dispatch = useDispatch();
@@ -20,7 +21,16 @@ export function AddScheduleHeader({ style, keyboardUp }: AddScheduleHeaderProps)
     const textInputRef = useRef<TextInput>(null);
     const [text, setText] = useState(schedule_title);
 
-    const [inputWidth, setInputWidth] = useState(wScale(50));
+    const [lineWidth, setLineWidth] = useState(wScale(100));
+
+    // Android에서 Layout Animation 활성화
+    if (Platform.OS === "android" && UIManager.setLayoutAnimationEnabledExperimental) {
+        UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
+
+    useEffect(() => {
+        setText(schedule_title);
+    }, [schedule_title]);
 
     useEffect(() => {
         if (keyboardUp) {
@@ -40,24 +50,37 @@ export function AddScheduleHeader({ style, keyboardUp }: AddScheduleHeaderProps)
         console.log('saved');
     }
 
+    function handleTextChange(inputText : string) {
+        setText(inputText);
+        console.log("inputText : " + inputText);
+        if(inputText.length === 0) {
+            setLineWidth(wScale(100));
+        }
+    }
+
+    const handleLayout = (event : any) => {
+        const { width } = event.nativeEvent.layout;
+        if(text.length === 0) {
+            setLineWidth(wScale(100));
+        } else {
+            setLineWidth(width + wScale(20));
+        }
+    };
+    
     return (
-        <View style={[style, styles.base, { width: inputWidth }]}>
+        <View style={[style, styles.base]}>
             <TextInput
-                ref={textInputRef} 
-                style={[{ color: textColor }, themedTextstyles.defaultSemiBold]} 
-                onChangeText={setText}
+                ref={textInputRef}
+                style={[{ color: textColor }, themedTextstyles.defaultSemiBold]}
+                value={text}
+                onChangeText={(text)=>handleTextChange(text)}
                 onEndEditing={saveTitle}
                 maxLength={12}
-                onContentSizeChange={(e) => {
-                    // TextInput의 콘텐츠 크기를 기반으로 부모 View 크기 조정
-                    setInputWidth(e.nativeEvent.contentSize.width + wScale(10)); // 약간의 여백 추가
-                }}
-                placeholder="약속 이름"
+                placeholder={text.length === 0 ? "약속 이름" : ""}
                 placeholderTextColor={gray}
-            >
-                {text}
-            </TextInput> 
-            <View style={[styles.line, { backgroundColor: gray }]} />
+                onLayout={handleLayout}
+            />
+            <View style={[styles.line, { backgroundColor: gray, width : lineWidth }]} />
         </View>
     );
 }
@@ -71,13 +94,6 @@ const styles = StyleSheet.create({
     line: {
         marginTop: hScale(6),
         height: 2,
-        ...Platform.select({
-            ios: {
-                width: '100%',
-            },
-            android: {
-                width: wScale(150),
-            }
-        })
     }
 });
+

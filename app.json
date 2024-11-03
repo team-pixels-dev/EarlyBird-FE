@@ -20,7 +20,7 @@
       "bundleIdentifier": "com.earlybirdteam2024.early-bird",
       "googleServicesFile": "./GoogleService-Info.plist",
       "entitlements": {
-        "aps-environment": "development"
+        "aps-environment": "production"
       }
     },
     "android": {

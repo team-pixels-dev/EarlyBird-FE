@@ -109,7 +109,7 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.app"
+    namespace 'com.earlybirdteam2024.earlybird'
     defaultConfig {
         applicationId 'com.earlybirdteam2024.earlybird'
         minSdkVersion rootProject.ext.minSdkVersion

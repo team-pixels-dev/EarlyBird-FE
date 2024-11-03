@@ -91,15 +91,8 @@ export function useAllowPushNotification() {
         }
     }
 
-    async function visitLog(){
-        client.post('/api/v1/log/visit-event', {
-            "clientId" : await AsyncStorage.getItem('deviceId')
-        }).then((res)=>{console.log(res)}).catch((err)=>{console.log(err)});
-    }
-
     useEffect(() => {
         console.log("try to get token")
         checkPermissionAndRequestIfNeeded();
-        visitLog();
     }, []);
 }

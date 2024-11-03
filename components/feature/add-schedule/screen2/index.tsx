@@ -44,7 +44,6 @@ export function AddScheduleScreen2() {
     }
     return (
         <>
-            <AddScheduleHeader keyboardUp={false}></AddScheduleHeader>
             <ScheduleNecessary style={{marginTop:hScale(60)}}/>
             <FullSizeButton 
                 style={{position:"absolute", bottom:hScale(50)}}

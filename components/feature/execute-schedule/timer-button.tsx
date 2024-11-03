@@ -63,6 +63,7 @@ export function TimerButton({style} : ViewProps) {
   useEffect(() => {
     const updateTime = () => {
       console.log(final_execute_mode);
+      const remain_time_for_schedule = getRemainTime(scheduleDateTime);
 
       switch (final_execute_mode) {
         case "before_start" : 
@@ -86,7 +87,6 @@ export function TimerButton({style} : ViewProps) {
           break;
         case "wait_done" : 
         case "moving" :
-          const remain_time_for_schedule = getRemainTime(scheduleDateTime);
           const moving_value = (remain_time_for_schedule / (schedule_move * 60));
           const next_moving_value = ((remain_time_for_schedule-1) / (schedule_move * 60));
           progress.value = Math.min(Math.max(moving_value, 0), 1);

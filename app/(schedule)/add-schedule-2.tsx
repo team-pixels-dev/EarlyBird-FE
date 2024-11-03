@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Keyboard, Pressable, StyleSheet, TouchableWithoutFeedback } from "react-native";
-import { AddScheduleScreen2 } from "../../components/feature/add-schedule/screen2";
+import React from 'react';
+import { Keyboard, Pressable, StyleSheet } from "react-native";
 import { wScale } from '@/util/scaling';
 import { FullScreen } from '@/components/layout/full_screen';
+import { AddScheduleHeader } from '@/components/feature/add-schedule/screen1/header';
+import { AddScheduleScreen2 } from '@/components/feature/add-schedule/screen2';
 
 export type modalProps  = {
   modalOpen: boolean,
@@ -14,6 +15,7 @@ export default function AddScheduleModal({ modalOpen, setModalOpen }: modalProps
   return (
         <Pressable onPress={()=>{Keyboard.dismiss()}}>
           <FullScreen>
+            <AddScheduleHeader keyboardUp={false}/>
             <AddScheduleScreen2/>
           </FullScreen>
         </Pressable>
