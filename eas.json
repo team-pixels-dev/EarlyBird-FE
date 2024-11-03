@@ -33,6 +33,9 @@
       "channel": "production",
       "env": {
         "EXPO_PUBLIC_API_URL": "https://earlybirdteam.com/"
+      },
+      "android": {
+        "buildType": "apk"
       }
     }
   },
