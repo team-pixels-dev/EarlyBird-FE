@@ -24,6 +24,7 @@ export const Colors = {
     brightText4 : '#B2B2B2',
     buttonText: '#000000',
     timeTaken: '#3A3A3A',
+    placeholderTextColor : '#464646',
     
 
     // yellows
@@ -63,6 +64,7 @@ export const Colors = {
     brightText4 : '#B2B2B2',
     buttonText: '#000000',
     timeTaken: '#A5A5A5',
+    placeholderTextColor : '#CDCDCD',
 
     // yellows
     tint: tintColorDark,

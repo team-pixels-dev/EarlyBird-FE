@@ -26,6 +26,7 @@ export function TextInputModal({
   dispatchText,
 }: modalProps) {
   const textColor = useThemeColor("text");
+  const placeholderTextColor = useThemeColor("placeholderTextColor");
   const brightGray = useThemeColor("brightGray");
   const textInputRef = useRef<TextInput>(null);
   const [text, setText] = useState(defaultText);
@@ -105,6 +106,7 @@ export function TextInputModal({
             ]}
             onChangeText={handleTextChange}
             placeholder={placeHolder}
+            placeholderTextColor={placeholderTextColor}
             value={text}
             onBlur={onModalClose}
           />

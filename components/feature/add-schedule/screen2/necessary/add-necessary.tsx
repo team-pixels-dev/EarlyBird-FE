@@ -1,6 +1,4 @@
 import { CustomAnimatedPressable } from "@/components/ui/buttons/animated-pressable";
-import { ThemedText } from "@/components/ui/texts/themed-text";
-import { ThemedView } from "@/components/ui/themed-view";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { RootState } from "@/modules/redux/root-reducer";
 import { hScale, wScale } from "@/util/scaling";

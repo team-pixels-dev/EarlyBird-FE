@@ -12,6 +12,7 @@ type NecessaryBoxProps = ViewProps & {
 export function NecessaryBox({schedule, style} : NecessaryBoxProps) {
     const memoTint = useThemeColor("memoTint");
     const listNecessaty = schedule.schedule_necessary;
+    const buttonText = useThemeColor("brightGray");
     return (
         <View style={[
             style,
@@ -24,9 +25,11 @@ export function NecessaryBox({schedule, style} : NecessaryBoxProps) {
                 alignItems:"center", 
                 rowGap:hScale(18), 
                 paddingVertical:hScale(18)}}>
-                {listNecessaty.map((value, index)=>
+                {listNecessaty.length !== 0 ? listNecessaty.map((value, index)=>
                     <EachNecessaryItem key={index} value={value} index={index}/>
-                )}
+                ) :
+                    <ThemedText style={{color:buttonText}}>{'준비할 사항이 없습니다'}</ThemedText>
+                }
             </ScrollView>
         </View>
     )
@@ -41,6 +44,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 3, height: 3 },
         shadowOpacity: 0.08,
         shadowRadius: 8,
+        elevation: 8,
     }
 
 })

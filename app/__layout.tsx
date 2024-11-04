@@ -17,7 +17,6 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootStack() {
   const can_back = useSelector((state:RootState)=>state.executeScheduleData.can_back);
-  console.log(can_back);
   return (
     <Stack screenOptions={{
       headerShown:false,
