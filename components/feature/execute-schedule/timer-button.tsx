@@ -13,6 +13,7 @@ import { secondsToHoursMinutesSeconds } from '@/util/date_formatting';
 import { setFinalExecuteMode } from '@/modules/redux/slice/execute-schedule-data-slice';
 import { useExecuteMode } from '@/hooks/useExecuteMode';
 import { resetModals, setFeedbackModalOpen, setFeedbackModalScheduleId } from '@/modules/redux/slice/modal-slice';
+import { TwoOptionModal } from '@/components/ui/modal/two-option-modal';
 
 
 export function TimerButton({style} : ViewProps) {
@@ -39,6 +40,13 @@ export function TimerButton({style} : ViewProps) {
   const [buttonText, setButtonText] = useState("");
   const [backgroundColor, setBackgroundColor] = useState(brightGray);
 
+  const [twoOptionModalOpen, setTwoOptionModalOpen] = useState(false);
+
+  const [title, setTitle] = useState("");
+  const [option1, setOption1] = useState({text : "1", task : ()=>{}})
+  const [option2, setOption2] = useState({text : "2", task : ()=>{}})
+  
+
   function switchMode() {
     if(final_execute_mode === "wait_start") {
       dispatch(setFinalExecuteMode("ready"));
@@ -47,6 +55,21 @@ export function TimerButton({style} : ViewProps) {
       // 피드백 및 종료를 위한 모달 open
       dispatch(setFeedbackModalOpen(true));
       dispatch(setFeedbackModalScheduleId(executeScheduleData.schedule_id));
+    } else if (final_execute_mode === "before_start") {
+      // setTitle("지금 준비 시작할까요?")
+      // setOption1({text : "네, 지금 시작해요", task : ()=>{dispatch(setFinalExecuteMode("ready"))}});
+      // setOption2({text : "아니요", task : ()=>{}});
+      // setTwoOptionModalOpen(true);
+    } else if (final_execute_mode === "ready") {
+      // setTitle("지금 이동하시나요?")
+      // setOption1({text : "네, 지금 이동해요", task : ()=>{dispatch(setFinalExecuteMode("moving"))}});
+      // setOption2({text : "아니요", task : ()=>{}});
+      // setTwoOptionModalOpen(true);
+    } else if (final_execute_mode === "moving") {
+      setTitle("일찍 도착하셨나요?")
+      setOption1({text : "네, 도착했어요!", task : ()=>{dispatch(setFinalExecuteMode("done"))}});
+      setOption2({text : "아직 가는 중이에요", task : ()=>{}});
+      setTwoOptionModalOpen(true);
     } else {
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
     }
@@ -178,6 +201,13 @@ export function TimerButton({style} : ViewProps) {
           {buttonText}
         </RegularText>
       </View>
+      <TwoOptionModal 
+        title={title} 
+        modalOpen={twoOptionModalOpen}
+        setModalOpen={setTwoOptionModalOpen}
+        option1={option1}
+        option2={option2}
+        />
     </CustomAnimatedPressable>
   );
 }

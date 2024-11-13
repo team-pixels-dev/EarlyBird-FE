@@ -1,15 +1,12 @@
 import { View } from "react-native";
-import { FullSizeButton } from "@/components/ui/buttons/full-size-button";
 import { StyleSheet } from "react-native";
 import { StartLeftView } from "@/components/layout/start_left_view";
 import { ThemedText } from "@/components/ui/texts/themed-text";
 import { EachSchedule } from "./each-schedule";
 import { hScale, SCREEN_WIDTH, wScale } from "@/util/scaling";
-import useOrderSchedule from "@/hooks/useOrderSchedule";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/modules/redux/root-reducer";
-import { useEffect } from "react";
-import { sortSchedule } from "@/modules/redux/slice/template-schedule-slice";
+import { Edit } from "./edit-schedule";
 
 export type ScheduleListProps = {
     type : 'soon' | 'other'
@@ -28,10 +25,13 @@ export default function ScheduleList({type} : ScheduleListProps) {
             </StartLeftView>
             <View style={{marginTop: hScale(26), marginBottom: hScale(26), gap:hScale(16)}}>
                 {keys.map((value, index)=>
+                <View key={index} style={{alignItems: "flex-end"}}>
+                    <Edit schedule_id={value}/>
                     <EachSchedule 
-                        key={index} 
                         type={type} 
-                        schedule_id={value}/>)}
+                        schedule_id={value}/>
+                </View>
+                )}
             </View>
         </View>
     )

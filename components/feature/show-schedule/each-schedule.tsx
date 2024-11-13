@@ -1,7 +1,7 @@
 import React from "react";
 import { CustomAnimatedPressable } from "@/components/ui/buttons/animated-pressable";
 import { ThemedText } from "@/components/ui/texts/themed-text";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { hScale, wScale } from "@/util/scaling";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { router } from "expo-router";
@@ -18,7 +18,7 @@ export type EachScheduleProps = {
 }
 
 export function EachSchedule({ type, schedule_id }: EachScheduleProps) {
-    const dispatch = useDispatch();
+    
     const schedule = useSelector((state: RootState) => state.schedule[schedule_id]);
     const color = type === 'soon' ? useThemeColor('brightTint') : useThemeColor('brightGray');
     const textColor = type === 'soon' ? useThemeColor("buttonText") : useThemeColor("text");
@@ -28,25 +28,10 @@ export function EachSchedule({ type, schedule_id }: EachScheduleProps) {
 
     const scheduleInfoText = getMainScreenDates(new Date(schedule.schedule_date)) + " - " + schedule.schedule_title;
 
-    const navigateNextPage = () => {
-        // // schedule-cache에 현재 schedule load.
-        // dispatch(loadScheduleToCache(schedule));
-        // dispatch(setScheduleId(schedule_id));
-        // router.navigate('./(schedule)/execute-schedule');
-    }
-
-    function onDelete(schedule_id: string) {
-        dispatch(setMainDeleteConfrimModalOpen(true));
-        dispatch(setMainDeleteConfrimScheduleId(schedule_id));
-    }
-
     return (
-        <CustomAnimatedPressable style={[styles.base, { backgroundColor: color }]} onPress={navigateNextPage}>
+        <View style={[styles.base, { backgroundColor: color }]}>
             <ThemedText style={{ fontSize: hScale(16), color: textColor }} type="defaultSemiBold">{scheduleInfoText}</ThemedText>
-            <CustomAnimatedPressable style={styles.delete} onPress={() => onDelete(schedule_id)}>
-                <ThemedText type="description">삭제</ThemedText>
-            </CustomAnimatedPressable>
-        </CustomAnimatedPressable>
+        </View>
     )
 }
 

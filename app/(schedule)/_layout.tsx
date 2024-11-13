@@ -8,6 +8,8 @@ export default function SetScheduleLayout() {
       <Stack.Screen name="execute-schedule"/>
       <Stack.Screen name="add-schedule-1"/>
       <Stack.Screen name="add-schedule-2"/>
+      <Stack.Screen name="edit-schedule-1"/>
+      <Stack.Screen name="edit-schedule-2"/>
     </Stack>
   );
 }

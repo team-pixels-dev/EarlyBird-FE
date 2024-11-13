@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { scheduleState } from "./template-schedule-cache-slice";
 import uuid from 'react-native-uuid';
-import { serverToClient } from "@/util/convert_schedule_id";
+import { convertScheduleIdServerToClient } from "@/util/convert-schedule-id";
 
 interface scheduleStateMap {
     [id: string]: scheduleState;  // 각 상태를 ID로 관리하는 객체
@@ -15,7 +15,7 @@ const scheduleSlice = createSlice({
     reducers: {
         //  스케줄 추가
         addschedule(state, action: PayloadAction<{ id: string, data: scheduleState }>) {
-            state[serverToClient(action.payload.id)] = action.payload.data;
+            state[convertScheduleIdServerToClient(action.payload.id)] = action.payload.data;
         },
 
         // 특정 스케줄을 업데이트

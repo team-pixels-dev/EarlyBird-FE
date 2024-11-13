@@ -18,11 +18,11 @@ export function IncreaseTimeButton({value} : IncreaseTimeButtonProps) {
     const final_excute_mode = useSelector((state:RootState)=>state.executeScheduleData.final_excute_mode)
     function increaseTime(){
         switch (final_excute_mode) {
-            case "before_start" : dispatch(changeScheduleTime([value, value, value]));
+            case "before_start" : dispatch(changeScheduleTime([0, 0, value]));
                 break;
             case "ready" : dispatch(changeScheduleTime([value, 0, value]));
                 break;
-            case "moving" : dispatch(changeScheduleTime([value, 0, 0]));
+            case "moving" : dispatch(changeScheduleTime([0, value, value]));
             default : break;
         }
         // dispatch(changeScheduleTime(value));

@@ -13,7 +13,7 @@ import { removeschedule } from "@/modules/redux/slice/template-schedule-slice";
 import { RootState } from "@/modules/redux/root-reducer";
 import client from "@/modules/axios/client";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { clientToServer } from "@/util/convert_schedule_id";
+import { convertScheduleIdClientToServer } from "@/util/convert-schedule-id";
 
 export type modalProps = {
   title: string;
@@ -36,7 +36,7 @@ export function ConfirmModal({
   async function onModalClose() {
     client.delete('/api/v1/message/fcm/token', {
       headers: {
-        "appointmentId": clientToServer(schedule_id),
+        "appointmentId": convertScheduleIdClientToServer(schedule_id),
         "clientId": await AsyncStorage.getItem('deviceId'),
       }}).then((res)=>{
         console.log(res);

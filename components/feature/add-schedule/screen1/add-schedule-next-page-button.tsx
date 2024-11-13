@@ -8,7 +8,11 @@ import { RootState } from "@/modules/redux/root-reducer";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { router } from "expo-router";
 
-export function AddScheduleNextPageButton() {
+type AddScheduleNextPageButtonProps = {
+  type : "add" | "edit"
+}
+
+export function AddScheduleNextPageButton({type} : AddScheduleNextPageButtonProps) {
     const defaultTextColor = useThemeColor("buttonText");
     const errorTextColor = useThemeColor("error");
     const { checkScheduleValid } = useScheduleValidation();
@@ -36,7 +40,10 @@ export function AddScheduleNextPageButton() {
     function handleNextPress() {
         const result = checkScheduleValid();
           if (result === "valid") {
-            router.navigate("/(schedule)/add-schedule-2");
+            if(type === "add")
+              router.navigate("/(schedule)/add-schedule-2");
+            else
+            router.navigate("/(schedule)/edit-schedule-2");
           } else {
             Haptics.notificationAsync(
                 Haptics.NotificationFeedbackType.Error

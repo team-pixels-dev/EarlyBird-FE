@@ -1,3 +1,4 @@
+import { CustomAnimatedPressable } from "@/components/ui/buttons/animated-pressable";
 import { themedTextstyles } from "@/components/ui/texts/themed-text";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { RootState } from "@/modules/redux/root-reducer";
@@ -5,7 +6,7 @@ import { setScheduleTitle } from "@/modules/redux/slice/template-schedule-cache-
 import { hScale, SCREEN_WIDTH, wScale } from "@/util/scaling";
 import { router } from "expo-router";
 import { createContext, useEffect, useRef, useState } from "react";
-import { Keyboard, LayoutAnimation, Platform, StyleSheet, TextInput, UIManager, View, ViewProps } from "react-native";
+import { Image, ImageBackground, Keyboard, LayoutAnimation, Platform, StyleSheet, TextInput, UIManager, View, ViewProps } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 export type AddScheduleHeaderProps = ViewProps & {
@@ -66,9 +67,16 @@ export function AddScheduleHeader({ style, keyboardUp }: AddScheduleHeaderProps)
             setLineWidth(width + wScale(20));
         }
     };
+
+    function handleBack() {
+        router.back();
+    }
     
     return (
         <View style={[style, styles.base]}>
+            <CustomAnimatedPressable style={styles.backButton} onPress={handleBack}>
+                <Image style={{width:13, height:23, objectFit:"contain"}}source={require("@/assets/images/icon/back-button.png")}/>
+            </CustomAnimatedPressable>
             <TextInput
                 ref={textInputRef}
                 style={[{ color: textColor }, themedTextstyles.defaultSemiBold]}
@@ -90,6 +98,11 @@ const styles = StyleSheet.create({
         height: hScale(57),
         justifyContent: 'flex-end',
         alignItems: 'center',
+    },
+    backButton: {
+        position: 'static',
+        left: -wScale(170),
+        top: hScale(28)
     },
     line: {
         marginTop: hScale(6),

@@ -8,7 +8,7 @@ import { changeScheduleTime, resetScheduleCache } from "@/modules/redux/slice/te
 import { removeschedule } from "@/modules/redux/slice/template-schedule-slice";
 
 import { addMinutes } from "@/util/calculate_date";
-import { clientToServer } from "@/util/convert_schedule_id";
+import { convertScheduleIdClientToServer } from "@/util/convert-schedule-id";
 import { hScale } from "@/util/scaling";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
@@ -39,7 +39,7 @@ export function CancelScheduleButton({style} : ViewProps) {
         console.log("schedule_id: " + schedule_id);
         client.delete('/api/v1/message/fcm/token', {
             headers: {
-              "appointmentId": clientToServer(schedule_id),
+              "appointmentId": convertScheduleIdClientToServer(schedule_id),
               "clientId": await AsyncStorage.getItem('deviceId'),
             }}).then((res)=>{
               console.log(res);

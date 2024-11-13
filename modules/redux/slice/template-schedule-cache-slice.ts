@@ -26,7 +26,7 @@ const initialState: scheduleState = {
     schedule_move: 5,
     schedule_necessary: [],
     schedule_necessary_checked: [],
-    schedule_postphone_minutes: [0, 0, 0],
+    schedule_postphone_minutes: [0, 0, 0], // ready, move, schedule
     created_at: now.toISOString()
 };
 
@@ -75,7 +75,6 @@ const scheduleSlice = createSlice({
 
         // 스케줄 시작 시간 설정
         setScheduleReady(state, action: PayloadAction<number>){
-            console.log("here. " + action.payload);
             state.schedule_ready = action.payload;
         },
 
@@ -140,18 +139,20 @@ const scheduleSlice = createSlice({
             }
         },
 
-        /** 스케쥴을 전체적으로 n분 미루거나 당김
-         * 날짜가 변경됨에 따라 준비, 이동 시간의 전날 / 당일을 판단하여 반영
+        /** 
+         * 스케쥴을 전체적으로 n분 미루거나 당김
         */
         changeScheduleTime(state, action: PayloadAction<number[]>) {
             action.payload.forEach((value)=>{
                 if(value > 3600 * 24) return;
             });
             const schedule_time_tmp = new Date(state.schedule_date);
-            const schedule_time_added = addMinutes(schedule_time_tmp, action.payload[0]);
+            const schedule_time_added = addMinutes(schedule_time_tmp, action.payload[2]);
             const schedule_date_change_amount = dateChangeAmount(schedule_time_tmp, schedule_time_added);
 
-
+            state.schedule_date = schedule_time_added.toISOString();
+            state.schedule_ready += action.payload[0];
+            state.schedule_move += action.payload[1];
             action.payload.forEach((value, index)=>{
                 state.schedule_postphone_minutes[index] += value;
             });

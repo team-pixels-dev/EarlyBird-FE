@@ -1,16 +1,11 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import Modal from "react-native-modal";
 import { ThemedText } from "@/components/ui/texts/themed-text";
 import { ThemedView } from "@/components/ui/themed-view";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { hScale, wScale } from "@/util/scaling";
-import { CustomAnimatedPressable } from "@/components/ui/buttons/animated-pressable";
-import { ModalComfirmButton } from "@/components/ui/buttons/modal-conform-button";
-import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
-import { useDispatch, useSelector } from "react-redux";
-import { removeschedule } from "@/modules/redux/slice/template-schedule-slice";
-import { RootState } from "@/modules/redux/root-reducer";
+import { useDispatch } from "react-redux";
 import { FullSizeButton } from "../buttons/full-size-button";
 
 export interface modalOption {

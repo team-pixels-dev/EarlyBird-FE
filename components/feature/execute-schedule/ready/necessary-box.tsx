@@ -12,7 +12,7 @@ type NecessaryBoxProps = ViewProps & {
 export function NecessaryBox({schedule, style} : NecessaryBoxProps) {
     const memoTint = useThemeColor("memoTint");
     const listNecessaty = schedule.schedule_necessary;
-    const buttonText = useThemeColor("brightGray");
+    const buttonText = useThemeColor("buttonText");
     return (
         <View style={[
             style,
