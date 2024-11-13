@@ -1,4 +1,5 @@
 import { ThemeProvider } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { DarkTheme, DefaultTheme } from '@/theme';
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
@@ -51,13 +52,15 @@ export default function RootLayout() {
   }
 
   return (
-    <Provider store={Store}>
-      <PersistGate persistor={Persistor}>
-        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          <RootStack/>
-        </ThemeProvider>
-      </PersistGate>
-    </Provider>
+    <NavigationContainer>
+      <Provider store={Store}>
+        <PersistGate persistor={Persistor}>
+          <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+            <RootStack/>
+          </ThemeProvider>
+        </PersistGate>
+      </Provider>
+    </NavigationContainer>
   );
 }
 
