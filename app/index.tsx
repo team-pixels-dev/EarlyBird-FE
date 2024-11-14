@@ -72,7 +72,7 @@ export default function Index() {
   return (
     <FullScreen>
       <StartLeftView style={styles.top1}>
-          <ThemedText type="defaultSemiBold" style={{fontSize: hScale(20)}}>{"약속 리스트"}</ThemedText>
+          <ThemedText type="defaultSemiBold" style={{fontSize: hScale(20)}}>{"나의 약속"}</ThemedText>
       </StartLeftView>
       <Suspense>
         <ScrollView>
