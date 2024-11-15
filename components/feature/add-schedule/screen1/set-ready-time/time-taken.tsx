@@ -3,17 +3,16 @@ import { useScheduleTimes } from "@/hooks/useScheduleTimes";
 import { useScheduleValidation } from "@/hooks/useScheduleValidation";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { RootState } from "@/modules/redux/root-reducer";
-import { getFullDates, getHoursMinutesWithAMPM, minutesToHoursMinutes } from "@/util/date_formatting";
+import { getHoursMinutesWithAMPM } from "@/util/date_formatting";
 import { hScale } from "@/util/scaling";
 import { useEffect, useState } from "react";
-import { ViewProps } from "react-native";
 import { useSelector } from "react-redux";
 
-export type timeTakenProps = ViewProps & {
+export type timeTakenProps =  {
     type : "ready" | "move";
 }
 
-export function TimeTaken({type, style} : timeTakenProps){
+export function TimeTaken({type} : timeTakenProps){
     const { startDateTime, moveDateTime, remain_time_for_ready, remain_time_for_move } = useScheduleTimes();
     const schedule_ready = useSelector((state:RootState)=>state.scheduleCache.schedule_ready);
     const schedule_move = useSelector((state:RootState)=>state.scheduleCache.schedule_move);
@@ -40,11 +39,11 @@ export function TimeTaken({type, style} : timeTakenProps){
     },[checkScheduleValid]);
 
     const time = (type === "ready" ? startDateTime : moveDateTime);
-    const text = (type === "ready" ? "에 준비시작 해야 해요." : "에 이동해야 해요.");
+    const text = (type === "ready" ? "에 준비 시작해야 해요." : "에 이동해야 해요.");
 
     const color = useThemeColor("timeTaken")
     return (
-        <ThemedText style={[style, {color: errorText === "" ? color : 'red', fontSize:hScale(12)}]}
+        <ThemedText style={{width: '100%', color: errorText === "" ? color : 'red', fontSize:hScale(12)}}
         type="description">
             {errorText === "" ? getHoursMinutesWithAMPM(time)+text : errorText}
         </ThemedText>

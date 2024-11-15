@@ -37,7 +37,7 @@ export function useAllowPushNotification() {
 
             Alert.alert(
                 '알림 권한이 꺼져있어요.',
-                '알림 기능이 꺼져 있으면\n 얼리버드가 도와줄 수 없어요.\n설정에서 알림을 허용해주세요.',
+                '알림 기능이 꺼져있으면\n 얼리버드가 도와줄 수 없어요.\n설정에서 알림을 허용해주세요.',
                 [
                     { text: '취소', style: 'cancel' },
                     { text: '설정으로 이동', onPress: () => {

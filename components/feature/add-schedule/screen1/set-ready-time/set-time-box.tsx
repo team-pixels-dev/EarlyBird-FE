@@ -39,7 +39,7 @@ export function SetTimeBox({type, setType, setModalOpen} : SetTimeBoxProps) {
                 <ThemedText type="defaultSemiBold" style={{fontSize:hScale(14)}}>{text}</ThemedText>
                 <ThemedText type="title" style={[styles.dateText, {color:brightText3}]}>{minutesToHoursMinutes(time)}</ThemedText>
             </View>
-            <TimeTaken type={type} style={{width: '100%'}}/>
+            <TimeTaken type={type}/>
         </CustomAnimatedPressable>
     )
 }

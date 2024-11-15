@@ -4,19 +4,21 @@ import { AddScheduleScreen1 }from "../../components/feature/add-schedule/screen1
 import { wScale } from '@/util/scaling';
 import { FullScreen } from '@/components/layout/full_screen';
 import { AddScheduleHeader } from '@/components/feature/add-schedule/screen1/header';
+import { RemaindModal } from '@/components/ui/modal/remaind-modal';
 
-export type modalProps  = {
-  modalOpen: boolean,
-  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export default function AddScheduleModal({ modalOpen, setModalOpen }: modalProps) {
+export default function AddScheduleModal() {
+  const [modalOpen, setModalOpen] = useState(true);
   return (
         <Pressable onPress={()=>{Keyboard.dismiss()}}>
           <FullScreen>
             <AddScheduleHeader keyboardUp={!modalOpen}/>
-            <AddScheduleScreen1/>
+            <AddScheduleScreen1 />
           </FullScreen>
+          <RemaindModal 
+            title={"약속과정을 설정하면서\n준비과정을 리마인드 해봐요!"}
+            text={"과정이 정리되면 지각할 확률이\n점점 줄어들어요!"}
+            modalOpen={modalOpen} 
+            setModalOpen={setModalOpen}/>
         </Pressable>
   );
 }

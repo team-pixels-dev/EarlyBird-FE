@@ -5,12 +5,7 @@ import { FullScreen } from '@/components/layout/full_screen';
 import { AddScheduleHeader } from '@/components/feature/add-schedule/screen1/header';
 import { AddScheduleScreen2 } from '@/components/feature/add-schedule/screen2';
 
-export type modalProps  = {
-  modalOpen: boolean,
-  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export default function AddScheduleModal({ modalOpen, setModalOpen }: modalProps) {
+export default function AddScheduleModal() {
 
   return (
         <Pressable onPress={()=>{Keyboard.dismiss()}}>
