@@ -7,6 +7,9 @@ import { CustomAnimatedPressable } from "@/components/ui/buttons/animated-pressa
 import { useDispatch, useSelector } from "react-redux";
 import { setFinalExecuteMode } from "@/modules/redux/slice/execute-schedule-data-slice";
 import { RootState } from "@/modules/redux/root-reducer";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import client from "@/modules/axios/client";
+import { convertScheduleIdClientToServer } from "@/util/convert-schedule-id";
 
   
 export default function Moving() {
@@ -15,12 +18,23 @@ export default function Moving() {
     const dispatch = useDispatch();
 
     const final_execute_mode = useSelector((state:RootState)=>state.executeScheduleData.final_excute_mode);
+    const schedule_id = useSelector((state:RootState)=>state.executeScheduleData.schedule_id);
 
     const modalOptions: modalOption[] = [
         {
           text: "시간 내에 도착",
-          task: () => {
+          task: async () => {
             console.log("도착!");
+
+            const formData = {
+                "appointmentId": convertScheduleIdClientToServer(schedule_id),
+                "clientId": await AsyncStorage.getItem('deviceId')
+              }
+              client.post('/api/v1/log/arrive-on-time-event', formData)
+              .then((res)=>{console.log(res)})
+              .catch((err)=>{console.log(err)});
+
+              
             dispatch(setFinalExecuteMode("done"));
           }
         },

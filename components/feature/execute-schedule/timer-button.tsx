@@ -14,6 +14,9 @@ import { setFinalExecuteMode } from '@/modules/redux/slice/execute-schedule-data
 import { useExecuteMode } from '@/hooks/useExecuteMode';
 import { resetModals, setFeedbackModalOpen, setFeedbackModalScheduleId } from '@/modules/redux/slice/modal-slice';
 import { TwoOptionModal } from '@/components/ui/modal/two-option-modal';
+import client from '@/modules/axios/client';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { convertScheduleIdClientToServer } from '@/util/convert-schedule-id';
 
 
 export function TimerButton({style} : ViewProps) {
@@ -67,7 +70,19 @@ export function TimerButton({style} : ViewProps) {
       // setTwoOptionModalOpen(true);
     } else if (final_execute_mode === "moving") {
       setTitle("일찍 도착하셨나요?")
-      setOption1({text : "네, 도착했어요!", task : ()=>{dispatch(setFinalExecuteMode("done"))}});
+      setOption1({text : "네, 도착했어요!", task : async ()=>{
+        const formData = {
+          "appointmentId": convertScheduleIdClientToServer(executeScheduleData.schedule_id),
+          "clientId": await AsyncStorage.getItem('deviceId')
+        }
+
+        console.log(formData);
+        client.post('/api/v1/log/arrive-on-time-event', formData)
+        .then((res)=>{console.log(res)})
+        .catch((err)=>{console.log(err)});
+
+        // dispatch(setFinalExecuteMode("done"));
+      }});
       setOption2({text : "아직 가는 중이에요", task : ()=>{}});
       setTwoOptionModalOpen(true);
     } else {
