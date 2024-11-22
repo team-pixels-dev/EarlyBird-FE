@@ -40,7 +40,7 @@ export function EditScheduleScreen2() {
                 dispatch(addschedule({id: appointmentId, data: schedule_cache}));
                 dispatch(sortSchedule());
                 Alert.alert("약속 수정","약속이 수정되었습니다.");
-                router.navigate("/");
+                router.replace("/");
             })
             .catch((err)=>{
                 console.log(err)

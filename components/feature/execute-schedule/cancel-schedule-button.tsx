@@ -47,7 +47,7 @@ export function CancelScheduleButton({style} : ViewProps) {
               console.log(err);
             }).finally(()=>{
                 dispatch(resetExecuteScheduleData());
-                router.navigate("/");
+                router.replace("/");
                 dispatch(resetScheduleCache());
             });
     }

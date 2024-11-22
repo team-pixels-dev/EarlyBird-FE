@@ -63,7 +63,7 @@ export default function Index() {
       dispatch(setCanBack(false));
       dispatch(setScheduleId(first_key));
       dispatch(loadScheduleToCache(first_schedule));
-      router.navigate('/(schedule)/execute-schedule');
+      router.replace('/(schedule)/execute-schedule');
     }
   }, [currentMinute, isAppReady]);
 

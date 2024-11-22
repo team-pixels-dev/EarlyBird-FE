@@ -2,14 +2,17 @@ import messaging from '@react-native-firebase/messaging';
 import { useEffect } from 'react';
 import { Alert, Linking, Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import client from '@/modules/axios/client';
 
 export function useAllowPushNotification() {
     async function requestUserPermission() {
         const authStatus = await messaging().hasPermission();
 
         if (authStatus === messaging.AuthorizationStatus.NOT_DETERMINED) {
-            const newAuthStatus = await messaging().requestPermission();
+            const newAuthStatus = await messaging().requestPermission({
+                alert: true,
+                badge: true, 
+                sound: true,
+            });
             const enabled =
               newAuthStatus === messaging.AuthorizationStatus.AUTHORIZED ||
               newAuthStatus === messaging.AuthorizationStatus.PROVISIONAL;

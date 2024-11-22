@@ -35,7 +35,7 @@ export function AddScheduleScreen2() {
                 dispatch(addschedule({id: appointmentId, data: schedule_cache}));
                 dispatch(sortSchedule());
                 Alert.alert("약속 생성","약속이 생성되었습니다.");
-                router.navigate("/");
+                router.replace("/");
             })
             .catch((err)=>{
                 console.log(err)

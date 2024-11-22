@@ -40,7 +40,7 @@ export function RatingModal() {
       dispatch(setFeedbackModalOpen(false))
     ]);
   
-    router.navigate("/");
+    router.replace("/");
   }
 
   return (

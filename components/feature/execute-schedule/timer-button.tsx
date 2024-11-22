@@ -17,6 +17,8 @@ import { TwoOptionModal } from '@/components/ui/modal/two-option-modal';
 import client from '@/modules/axios/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { convertScheduleIdClientToServer } from '@/util/convert-schedule-id';
+import { FiveSecondsModal } from './ready/five-seconds-modal';
+import { ComplimentModal } from './ready/compliment-modal';
 
 
 export function TimerButton({style} : ViewProps) {
@@ -46,13 +48,16 @@ export function TimerButton({style} : ViewProps) {
   const [twoOptionModalOpen, setTwoOptionModalOpen] = useState(false);
 
   const [title, setTitle] = useState("");
-  const [option1, setOption1] = useState({text : "1", task : ()=>{}})
-  const [option2, setOption2] = useState({text : "2", task : ()=>{}})
-  
+  const [option1, setOption1] = useState({text : "1", task : ()=>{}});
+  const [option2, setOption2] = useState({text : "2", task : ()=>{}});
 
+  const [fiveSecondsModalOpen, setFiveSecondsModalOpen] = useState(false);
+  const [complimentModalOpen, setComplimentModalOpen] = useState(false);
+  
   function switchMode() {
     if(final_execute_mode === "wait_start") {
       dispatch(setFinalExecuteMode("ready"));
+      setComplimentModalOpen(true);
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     } else if (final_execute_mode === "done" || final_execute_mode === "done_rate"){
       // 피드백 및 종료를 위한 모달 open
@@ -81,7 +86,7 @@ export function TimerButton({style} : ViewProps) {
         .then((res)=>{console.log(res)})
         .catch((err)=>{console.log(err)});
 
-        // dispatch(setFinalExecuteMode("done"));
+        dispatch(setFinalExecuteMode("done"));
       }});
       setOption2({text : "아직 가는 중이에요", task : ()=>{}});
       setTwoOptionModalOpen(true);
@@ -106,11 +111,14 @@ export function TimerButton({style} : ViewProps) {
       switch (final_execute_mode) {
         case "before_start" : 
           const remain_time_for_ready = getRemainTime(startDateTime);
-          if(remain_time_for_ready > 0)
+          if(remain_time_for_ready > 0){
             setButtonText("준비까지 " + secondsToHoursMinutesSeconds(remain_time_for_ready));
-          else {
-              setButtonText("준비 시작");
+            if (remain_time_for_ready === 5) {
+              setFiveSecondsModalOpen(true);
             }
+          } else {
+              setButtonText("준비 시작");
+          }
           break;
         case "wait_start" : 
           clearInterval(interval);
@@ -144,7 +152,6 @@ export function TimerButton({style} : ViewProps) {
         else
           setButtonTextColor(defaultButtonText)
       }
-      console.log(progress.value);
     };
 
     // 초기 남은 시간 설정
@@ -223,6 +230,12 @@ export function TimerButton({style} : ViewProps) {
         option1={option1}
         option2={option2}
         />
+      <FiveSecondsModal 
+        modalOpen={fiveSecondsModalOpen} 
+        setModalOpen={setFiveSecondsModalOpen}/>
+      <ComplimentModal
+        modalOpen={complimentModalOpen}
+        setModalOpen={setComplimentModalOpen}/>
     </CustomAnimatedPressable>
   );
 }

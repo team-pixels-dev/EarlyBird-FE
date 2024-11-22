@@ -43,7 +43,7 @@ export function AddScheduleNextPageButton({type} : AddScheduleNextPageButtonProp
             if(type === "add")
               router.navigate("/(schedule)/add-schedule-2");
             else
-            router.navigate("/(schedule)/edit-schedule-2");
+              router.navigate("/(schedule)/edit-schedule-2");
           } else {
             Haptics.notificationAsync(
                 Haptics.NotificationFeedbackType.Error
